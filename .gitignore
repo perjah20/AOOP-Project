@@ -1,0 +1,7 @@
+# ignore pom.xml
+pom.xml
+
+# ignore ALL files in ANY directory named .idea
+.idea/
+
+/target/
