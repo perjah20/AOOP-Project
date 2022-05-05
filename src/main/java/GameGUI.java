@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public abstract class GameGUI extends JFrame {
     public abstract JComponent createCenterComponent();
@@ -16,8 +16,8 @@ public abstract class GameGUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
-        centerComponent = createCenterComponent();
-        inputMap = centerComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        JComponent centerComponent = createCenterComponent();
+        addArrowkeyListeners(centerComponent);
         this.add(centerComponent,BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
@@ -48,35 +48,54 @@ public abstract class GameGUI extends JFrame {
         buttons[1] = new JButton("West");   buttons[1].addActionListener(e -> westButtonPressed());
         buttons[2] = new JButton("East");   buttons[2].addActionListener(e -> eastButtonPressed());
         buttons[3] = new JButton("South");  buttons[3].addActionListener(e -> southButtonPressed());
-
         for (int i = 0; i < 4; i++) {
             buttonContainer.add(buttons[i], positions[i]);
-            addArrowkeyListeners(buttons[i]);
         }
         return buttonContainer;
     }
 
     private void addArrowkeyListeners(JComponent component) {
-        component.addKeyListener(new KeyListener() {
-           @Override
-           public void keyPressed(KeyEvent e) {
-               switch (e.getKeyCode()){
-                   case KeyEvent.VK_UP -> northButtonPressed();
-                   case KeyEvent.VK_DOWN -> southButtonPressed();
-                   case KeyEvent.VK_LEFT -> westButtonPressed();
-                   case KeyEvent.VK_RIGHT -> eastButtonPressed();
-                   default -> System.out.println("Key has been pressed but something went wrong");
-               }
-           }
-           @Override
-           public void keyReleased(KeyEvent e) {
-           }
-           @Override
-           public void keyTyped(KeyEvent e) {}
-       });
+        InputMap inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        int[] keys = {KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT};
+        String[] actionMapKeys = {
+                "invokeNorthButtonPressed",
+                "invokeSouthButtonPressed",
+                "invokeWestButtonPressed",
+                "invokeEastButtonPressed"
+        };
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0,true),"invokeNorthButtonPressed");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0,true),"invokeSouthButtonPressed");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0,true),"invokeWestButtonPressed");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0,true),"invokeEastButtonPressed");
+
+        ActionMap actionMap = component.getActionMap();
+
+        actionMap.put("invokeNorthButtonPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                northButtonPressed();
+            }
+        });
+        actionMap.put("invokeSouthButtonPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                southButtonPressed();
+            }
+        });
+        actionMap.put("invokeWestButtonPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                westButtonPressed();
+            }
+        });
+        actionMap.put("invokeEastButtonPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eastButtonPressed();
+            }
+        });
     }
 
     private JTextArea textArea;
-    private JComponent centerComponent;
-    private InputMap inputMap;
 }
