@@ -48,9 +48,65 @@ public abstract class GameGUI extends JFrame {
         buttons[2] = new JButton("East");   buttons[2].addActionListener(e -> eastButtonPressed());
         buttons[3] = new JButton("South");  buttons[3].addActionListener(e -> southButtonPressed());
 
+        addArrowkeyListerns(buttons);
+
         for (int i = 0; i < 4; i++)
             buttonContainer.add(buttons[i],positions[i]);
         return buttonContainer;
+    }
+
+    private void addArrowkeyListerns(JButton[] buttons) {
+        buttons[0].addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_UP)
+                    northButtonPressed();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+            @Override
+            public void keyTyped(KeyEvent e) {}
+        });
+
+        buttons[1].addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_LEFT)
+                    westButtonPressed();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+            @Override
+            public void keyTyped(KeyEvent e) {}
+        });
+
+        buttons[2].addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+                    eastButtonPressed();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+            @Override
+            public void keyTyped(KeyEvent e) {}
+        });
+
+        buttons[3].addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_DOWN)
+                    southButtonPressed();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+            @Override
+            public void keyTyped(KeyEvent e) {}
+        });
     }
 
     private JTextArea textArea;
