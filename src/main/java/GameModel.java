@@ -37,10 +37,13 @@ public class GameModel {
 
     public void setTileState(int value, int position) { gameGrid[getRow(position)][getColumn(position)] = value;}
 
+    public int[][] getGameState() {
+        return gameGrid;
+    }
+
     private int getRow(int position) {
         return position/rowLength;
     }
-
     private int getColumn(int position) {
         return position%columnLength;
     }
