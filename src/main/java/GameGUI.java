@@ -56,6 +56,7 @@ public abstract class GameGUI extends JFrame {
 
     private void addArrowkeyListeners(JComponent component) {
         InputMap inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = component.getActionMap();
         int[] keys = {KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT};
         String[] actionMapKeys = {
                 "invokeNorthButtonPressed",
@@ -63,38 +64,28 @@ public abstract class GameGUI extends JFrame {
                 "invokeWestButtonPressed",
                 "invokeEastButtonPressed"
         };
-
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0,true),"invokeNorthButtonPressed");
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0,true),"invokeSouthButtonPressed");
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0,true),"invokeWestButtonPressed");
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0,true),"invokeEastButtonPressed");
-
-        ActionMap actionMap = component.getActionMap();
-
-        actionMap.put("invokeNorthButtonPressed", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                northButtonPressed();
-            }
-        });
-        actionMap.put("invokeSouthButtonPressed", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                southButtonPressed();
-            }
-        });
-        actionMap.put("invokeWestButtonPressed", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                westButtonPressed();
-            }
-        });
-        actionMap.put("invokeEastButtonPressed", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                eastButtonPressed();
-            }
-        });
+        Action[] actions = {
+                new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { northButtonPressed(); }
+                },
+                new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { southButtonPressed(); }
+                },
+                new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { westButtonPressed(); }
+                },
+                new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { eastButtonPressed(); }
+                }
+        };
+        for (int i = 0; i < 4; i++) {
+            inputMap.put(KeyStroke.getKeyStroke(keys[i],0,true),actionMapKeys[i]);
+            actionMap.put(actionMapKeys[i],actions[i]);
+        }
     }
 
     private JTextArea textArea;
