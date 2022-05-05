@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class GameModel {
 
     /**
@@ -11,6 +13,7 @@ public class GameModel {
         gameGrid = new int[rows][columns];
         rowLength = rows;
         columnLength = columns;
+        gameObservers = new ArrayList<>();
     }
 
     /**
@@ -41,6 +44,10 @@ public class GameModel {
         return gameGrid;
     }
 
+    public void addGameObserver(GameObserver gameObserver) {
+        gameObservers.add(gameObserver);
+    }
+
     private int getRow(int position) {
         return position/rowLength;
     }
@@ -50,4 +57,5 @@ public class GameModel {
 
     private final int[][] gameGrid;
     private final int rowLength,columnLength;
+    ArrayList<GameObserver> gameObservers;
 }
