@@ -1,12 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.function.Function;
 
-public abstract class GameGUI extends JFrame {
+public abstract class GameGUI extends JFrame implements KeyListener {
     public abstract JComponent createCenterComponent();
 
     public abstract void northButtonPressed();
@@ -34,6 +32,7 @@ public abstract class GameGUI extends JFrame {
         textAndButtonContainer.add(createButtonContainer(),BorderLayout.WEST);
         textArea = new JTextArea("Sample Text");
         textArea.setLineWrap(true);
+        textArea.setEditable(false);
         textAndButtonContainer.add(textArea,BorderLayout.CENTER);
         return textAndButtonContainer;
     }
@@ -48,65 +47,31 @@ public abstract class GameGUI extends JFrame {
         buttons[2] = new JButton("East");   buttons[2].addActionListener(e -> eastButtonPressed());
         buttons[3] = new JButton("South");  buttons[3].addActionListener(e -> southButtonPressed());
 
-        addArrowkeyListerns(buttons);
-
-        for (int i = 0; i < 4; i++)
-            buttonContainer.add(buttons[i],positions[i]);
+        for (int i = 0; i < 4; i++) {
+            buttonContainer.add(buttons[i], positions[i]);
+            addArrowkeyListeners(buttons[i]);
+        }
         return buttonContainer;
     }
 
-    private void addArrowkeyListerns(JButton[] buttons) {
-        buttons[0].addKeyListener(new KeyListener() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_UP)
-                    northButtonPressed();
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-            @Override
-            public void keyTyped(KeyEvent e) {}
-        });
-
-        buttons[1].addKeyListener(new KeyListener() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_LEFT)
-                    westButtonPressed();
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-            @Override
-            public void keyTyped(KeyEvent e) {}
-        });
-
-        buttons[2].addKeyListener(new KeyListener() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_RIGHT)
-                    eastButtonPressed();
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-            @Override
-            public void keyTyped(KeyEvent e) {}
-        });
-
-        buttons[3].addKeyListener(new KeyListener() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_DOWN)
-                    southButtonPressed();
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-            @Override
-            public void keyTyped(KeyEvent e) {}
-        });
+    private void addArrowkeyListeners(JComponent component) {
+        component.addKeyListener(new KeyListener() {
+           @Override
+           public void keyPressed(KeyEvent e) {
+               switch (e.getKeyCode()){
+                   case KeyEvent.VK_UP -> northButtonPressed();
+                   case KeyEvent.VK_DOWN -> southButtonPressed();
+                   case KeyEvent.VK_LEFT -> westButtonPressed();
+                   case KeyEvent.VK_RIGHT -> eastButtonPressed();
+                   default -> System.out.println("Key has been pressed but something went wrong");
+               }
+           }
+           @Override
+           public void keyReleased(KeyEvent e) {
+           }
+           @Override
+           public void keyTyped(KeyEvent e) {}
+       });
     }
 
     private JTextArea textArea;
