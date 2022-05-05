@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public abstract class GameGUI extends JFrame implements KeyListener {
+public abstract class GameGUI extends JFrame {
     public abstract JComponent createCenterComponent();
 
     public abstract void northButtonPressed();
@@ -16,7 +16,9 @@ public abstract class GameGUI extends JFrame implements KeyListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
-        this.add(createCenterComponent(),BorderLayout.CENTER);
+        centerComponent = createCenterComponent();
+        inputMap = centerComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        this.add(centerComponent,BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
     }
@@ -75,4 +77,6 @@ public abstract class GameGUI extends JFrame implements KeyListener {
     }
 
     private JTextArea textArea;
+    private JComponent centerComponent;
+    private InputMap inputMap;
 }
