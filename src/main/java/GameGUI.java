@@ -12,6 +12,9 @@ public abstract class GameGUI extends JFrame {
     public abstract void southButtonPressed();
     public abstract void westButtonPressed();
 
+    /**
+     * Creates a base for *ett spel att ha*
+     */
     public GameGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
@@ -23,11 +26,19 @@ public abstract class GameGUI extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Selects all text in the JTextArea window and replaces it supplied text.
+     * @param text - Text to replace current text in JTextArea
+     */
     public void showText(String text) {
         textArea.selectAll();
         textArea.replaceSelection(text);
     }
 
+    /**
+     * Creates a JPanel containing a JTextArea and a button container.
+     * @return JPanel containing a JTextArea and a button container.
+     */
     private JPanel createTextAndButtonContainer() {
         JPanel textAndButtonContainer = new JPanel();
         textAndButtonContainer.setLayout(new BorderLayout());
@@ -39,6 +50,10 @@ public abstract class GameGUI extends JFrame {
         return textAndButtonContainer;
     }
 
+    /**
+     * Creates a JPanel containing 4 buttons with methods connected to them.
+     * @return A JPanel containing 4 buttons.
+     */
     private JPanel createButtonContainer() {
         JPanel buttonContainer = new JPanel();
         buttonContainer.setLayout(new BorderLayout());
@@ -54,6 +69,10 @@ public abstract class GameGUI extends JFrame {
         return buttonContainer;
     }
 
+    /**
+     * Adds Java KeyBindings to a component which will be executed if window is focused.
+     * @param component - To add KeyBindings to.
+     */
     private void addArrowkeyListeners(JComponent component) {
         InputMap inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = component.getActionMap();
