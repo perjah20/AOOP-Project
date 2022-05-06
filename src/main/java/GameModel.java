@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 
-public class GameModel {
+public abstract class GameModel extends GameGUI {
+
+    protected abstract void gameOver();
+    protected abstract void gameWon();
 
     /**
      * Constructs a GameModel object.
@@ -11,10 +14,12 @@ public class GameModel {
         if (rows < 1 || columns < 1)
             throw new IllegalArgumentException("Number of rows and columns has to be positive int's.");
         gameGrid = new int[rows][columns];
-        rowLength = rows;
-        columnLength = columns;
-        gameObservers = new ArrayList<>();
     }
+
+    public GameModel(int[][] aGameGrid) {
+        this.gameGrid = aGameGrid;
+    }
+
 
     /**
      * Gets an element at a particular row and column position
@@ -52,14 +57,32 @@ public class GameModel {
         gameObservers.add(gameObserver);
     }
 
-    private int getRow(int position) {
-        return position/rowLength;
+    /**
+     * Informs all gameObservers that the gameState has been changed.
+     */
+    private void updateObservers() {
+        for (GameObserver gameObserver : gameObservers)
+            gameObserver.updateGameObserver(this.gameGrid);
     }
-    private int getColumn(int position) {
-        return position%columnLength;
+
+    private int getRow(int position) { return position/getRows(); }
+    private int getColumn(int position) { return position%getColumns(); }
+
+    /**
+     * Gets the number of rows in a matrix
+     * @return The number of rows in the matrix
+     */
+    private int getRows() {
+        return gameGrid.length;
+    }
+    /**
+     * Gets the number of columns in a matrix
+     * @return The number of columns in the matrix
+     */
+    private int getColumns() {
+        return gameGrid[0].length;
     }
 
     private final int[][] gameGrid;
-    private final int rowLength,columnLength;
-    ArrayList<GameObserver> gameObservers;
+    ArrayList<GameObserver> gameObservers = new ArrayList<>();
 }
