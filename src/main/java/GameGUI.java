@@ -83,7 +83,6 @@ public abstract class GameGUI extends JFrame {
                 "invokeWestButtonPressed",
                 "invokeEastButtonPressed"
         };
-        //TODO Add so that the buttons in the GUI have a visual "reaction" to keypresses.
         Action[] actions = {
                 new AbstractAction() {
                     @Override
@@ -107,6 +106,7 @@ public abstract class GameGUI extends JFrame {
             actionMap.put(actionMapKeys[i],actions[i]);
         }
     }
+
 
     private JTextArea textArea;
     private JButton[] buttons;
