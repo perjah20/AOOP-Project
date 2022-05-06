@@ -44,6 +44,10 @@ public class GameModel {
         return gameGrid;
     }
 
+    /**
+     * Adds a observer to observe the GameModel
+     * @param gameObserver - Observer to observe the GameModel.
+     */
     public void addGameObserver(GameObserver gameObserver) {
         gameObservers.add(gameObserver);
     }
