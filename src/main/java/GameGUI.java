@@ -58,7 +58,7 @@ public abstract class GameGUI extends JFrame {
         JPanel buttonContainer = new JPanel();
         buttonContainer.setLayout(new BorderLayout());
         String[] positions = {BorderLayout.NORTH, BorderLayout.WEST, BorderLayout.EAST, BorderLayout.SOUTH};
-        JButton[] buttons = new JButton[4];
+        buttons = new JButton[4];
         buttons[0] = new JButton("North");  buttons[0].addActionListener(e -> northButtonPressed());
         buttons[1] = new JButton("West");   buttons[1].addActionListener(e -> westButtonPressed());
         buttons[2] = new JButton("East");   buttons[2].addActionListener(e -> eastButtonPressed());
@@ -83,22 +83,23 @@ public abstract class GameGUI extends JFrame {
                 "invokeWestButtonPressed",
                 "invokeEastButtonPressed"
         };
+        //TODO Add so that the buttons in the GUI have a visual "reaction" to keypresses.
         Action[] actions = {
                 new AbstractAction() {
                     @Override
-                    public void actionPerformed(ActionEvent e) { northButtonPressed(); }
+                    public void actionPerformed(ActionEvent e) { buttons[0].doClick();}
                 },
                 new AbstractAction() {
                     @Override
-                    public void actionPerformed(ActionEvent e) { southButtonPressed(); }
+                    public void actionPerformed(ActionEvent e) { buttons[3].doClick(); }
                 },
                 new AbstractAction() {
                     @Override
-                    public void actionPerformed(ActionEvent e) { westButtonPressed(); }
+                    public void actionPerformed(ActionEvent e) { buttons[1].doClick(); }
                 },
                 new AbstractAction() {
                     @Override
-                    public void actionPerformed(ActionEvent e) { eastButtonPressed(); }
+                    public void actionPerformed(ActionEvent e) { buttons[2].doClick(); }
                 }
         };
         for (int i = 0; i < 4; i++) {
@@ -108,4 +109,5 @@ public abstract class GameGUI extends JFrame {
     }
 
     private JTextArea textArea;
+    private JButton[] buttons;
 }
