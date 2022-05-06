@@ -109,7 +109,11 @@ public abstract class GameGUI extends JFrame {
     }
 
     private JMenuBar createMenu() {
-        //TODO Expand this menubar and add some interactions like "Save Game", "Load Game", "Reset Game".
+        //TODO Expand this menubar and add some interactions like
+        // "Save Game",
+        // "Load Game",
+        // "Reset Game".
+        // Consider using buttons instead of menu's
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("A menu");
         menuBar.add(menu);
