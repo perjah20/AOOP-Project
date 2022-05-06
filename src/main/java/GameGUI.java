@@ -19,6 +19,7 @@ public abstract class GameGUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
+        this.setJMenuBar(createMenu());
         JComponent centerComponent = createCenterComponent();
         addArrowkeyListeners(centerComponent);
         this.add(centerComponent,BorderLayout.CENTER);
@@ -107,6 +108,14 @@ public abstract class GameGUI extends JFrame {
         }
     }
 
+    private JMenuBar createMenu() {
+        //TODO Expand this menubar and add some interactions like "Save Game", "Load Game", "Reset Game".
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("A menu");
+        menuBar.add(menu);
+
+        return menuBar;
+    }
 
     private JTextArea textArea;
     private JButton[] buttons;
