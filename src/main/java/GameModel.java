@@ -16,10 +16,17 @@ public abstract class GameModel extends GameGUI {
         gameGrid = new int[rows][columns];
     }
 
-    public GameModel(int[][] aGameGrid) {
-        this.gameGrid = aGameGrid;
+    /**
+     * Updates the gamegrid to a new game grid
+     * @param newGameGrid - A new gamegrid
+     * @precondition - newGameGrid has to be of same size as current gameGrid.
+     */
+    protected void updateGameGrid(int[][] newGameGrid) {
+        // TODO Allow user to update the whole gameGrid:
+        //  - Check if newGameGrid is the same size as current gamegrid
+        //  - Use some smart algorithm to copy everything from newGameGrid to current this.gamegrid.
+        //  Perhaps use System.arraycopy or just double forloop.
     }
-
 
     /**
      * Gets an element at a particular row and column position
