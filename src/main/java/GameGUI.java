@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public abstract class GameGUI extends JFrame {
+public abstract class GameGUI extends JFrame implements GameObserver {
     public abstract JComponent createCenterComponent();
 
     public abstract void northButtonPressed();
