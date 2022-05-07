@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class GameModel extends GameGUI {
+public abstract class GameModel {
 
     protected abstract void gameOver();
     protected abstract void gameWon();
