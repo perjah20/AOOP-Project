@@ -38,7 +38,7 @@ public abstract class GameModel {
         return gameGrid[i][j];
     }
 
-    public int getTileState(int position) { return gameGrid[getRow(position)][getColumn(position)];}
+    public int getTileState(int position) { return gameGrid[getRow(position)][getColumn(position)]; }
 
     /**
      * Sets an element at a particular row and column position
@@ -50,7 +50,7 @@ public abstract class GameModel {
         gameGrid[i][j] = value;
     }
 
-    public void setTileState(int value, int position) { gameGrid[getRow(position)][getColumn(position)] = value;}
+    public void setTileState(int value, int position) { gameGrid[getRow(position)][getColumn(position)] = value; }
 
     public int[][] getGameState() {
         return gameGrid;
