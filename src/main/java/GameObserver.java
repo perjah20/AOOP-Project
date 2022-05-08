@@ -1,3 +1,3 @@
 public interface GameObserver {
-    void updateGameObserver(int[][] gameState);
+    void updateThisGameObserver(int[][] gameState);
 }
