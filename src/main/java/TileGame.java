@@ -1,9 +1,9 @@
 public abstract class TileGame {
     private TileGameModel tileGameModel;
-    private GameGUI gameGUI;
+    private TileGameGUI tileGameGUI;
 
-    protected abstract TileGameModel addGameModel();
-    protected abstract GameGUI addGameGUI();
+    protected abstract TileGameModel addTileGameModel(int rows, int columns);
+    protected abstract TileGameGUI addTileGameGUI(int rows, int columns);
 
     /**
      * Creates a new tile based game with specified dimensions
@@ -11,7 +11,8 @@ public abstract class TileGame {
      * @param columns- Amount of tiles in horizontally (x-axis).
      */
     public TileGame(int rows, int columns){
-        tileGameModel = addGameModel();
-        gameGUI = addGameGUI();
+        tileGameModel = addTileGameModel(rows, columns);
+        tileGameGUI = addTileGameGUI(rows, columns);
+        tileGameModel.addGameObserver(tileGameGUI);
     }
 }
