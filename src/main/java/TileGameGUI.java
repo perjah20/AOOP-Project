@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public abstract class GameGUI extends JFrame implements GameObserver {
+public abstract class TileGameGUI extends JFrame implements GameObserver {
     public abstract JComponent createCenterComponent();
 
     public abstract void northButtonPressed();
@@ -15,7 +15,7 @@ public abstract class GameGUI extends JFrame implements GameObserver {
     /**
      * Creates a base for *ett spel att ha*
      */
-    public GameGUI() {
+    public TileGameGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
