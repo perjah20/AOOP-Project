@@ -18,8 +18,8 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
         this.setJMenuBar(createMenu());
-        JComponent centerComponent = new JPanel(new GridLayout(rows,columns));
-        this.add(centerComponent,BorderLayout.CENTER);
+        gameGrid = new JPanel(new GridLayout(rows,columns));
+        this.add(gameGrid,BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
     }
@@ -108,9 +108,9 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
 
     private JMenuBar createMenu() {
         //TODO Expand this menubar and add some interactions like
-        // "Save Game",
-        // "Load Game",
-        // "Reset Game".
+        // "Save Game" - Should save GameModel object using serialization. Maybe have a function in GameModel that gets called.
+        // "Load Game" - Should get a GameModel Object using serialization, Maybe have a function in GameModel that gets called.
+        // "Reset Game". - Optional. Could be fun.
         // Consider using buttons instead of menu's
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("A menu");
@@ -119,6 +119,18 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         return menuBar;
     }
 
+    //TODO Add functions to manipulate the gameGrid
+    //  "Update a specific tile on the gameGrid"
+    //  "Get status of specific tile on the gameGrid"
+
+    //TODO Add a iterator for the gameGrid.
+
+    //TODO Add a abstract start functions that populates the gameGrid. Perhaps return an array containing values.
+
+    // TODO Add a function that converts GameModel gamegrid values to sokoban tiles.
+
+
     private JTextArea textArea;
     private JButton[] buttons;
+    private JComponent gameGrid;
 }
