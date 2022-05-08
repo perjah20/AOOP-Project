@@ -69,7 +69,7 @@ public abstract class TileGameModel {
      */
     private void updateObservers() {
         for (GameObserver gameObserver : gameObservers)
-            gameObserver.updateGameObserver(this.gameGrid);
+            gameObserver.updateThisGameObserver(this.gameGrid);
     }
 
     private int getRow(int position) { return position/getRows(); }

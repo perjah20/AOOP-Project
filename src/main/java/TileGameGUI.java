@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public abstract class TileGameGUI extends JFrame implements GameObserver {
-    public abstract JComponent createCenterComponent();
-
     public abstract void northButtonPressed();
     public abstract void eastButtonPressed();
     public abstract void southButtonPressed();
@@ -15,13 +13,12 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
     /**
      * Creates a base for *ett spel att ha*
      */
-    public TileGameGUI() {
+    public TileGameGUI(int rows, int columns) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
         this.setJMenuBar(createMenu());
-        JComponent centerComponent = createCenterComponent();
-        addArrowkeyListeners(centerComponent);
+        JComponent centerComponent = new JPanel(new GridLayout(rows,columns));
         this.add(centerComponent,BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
@@ -47,6 +44,7 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         textArea = new JTextArea("Sample Text");
         textArea.setLineWrap(true);
         textArea.setEditable(false);
+        addArrowkeyListeners(textArea);
         textAndButtonContainer.add(textArea,BorderLayout.CENTER);
         return textAndButtonContainer;
     }
