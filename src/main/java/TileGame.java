@@ -1,17 +1,17 @@
-import javax.swing.*;
-
 public abstract class TileGame {
-    private GameModel gameModel;
+    private TileGameModel tileGameModel;
     private GameGUI gameGUI;
 
-    protected abstract GameModel addGameModel();
+    protected abstract TileGameModel addGameModel();
     protected abstract GameGUI addGameGUI();
 
     /**
-     * Constructs a new Game object from methods implemented by user.
+     * Creates a new tile based game with specified dimensions
+     * @param rows - Amount of tiles in vertically (y-axis).
+     * @param columns- Amount of tiles in horizontally (x-axis).
      */
-    public TileGame(){
-        gameModel = addGameModel();
+    public TileGame(int rows, int columns){
+        tileGameModel = addGameModel();
         gameGUI = addGameGUI();
     }
 }
