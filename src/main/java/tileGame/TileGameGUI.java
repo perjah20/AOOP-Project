@@ -1,3 +1,5 @@
+package tileGame;
+
 import javax.swing.*;
 import java.awt.*;
 

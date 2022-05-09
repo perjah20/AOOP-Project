@@ -1,6 +1,8 @@
+package tileGame;
+
 public abstract class TileGame {
-    private TileGameModel tileGameModel;
-    private TileGameGUI tileGameGUI;
+    protected TileGameModel tileGameModel;
+    protected TileGameGUI tileGameGUI;
 
     protected abstract TileGameModel addTileGameModel(int rows, int columns) ;
     protected abstract TileGameGUI addTileGameGUI(int rows, int columns);
