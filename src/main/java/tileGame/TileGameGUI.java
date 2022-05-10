@@ -128,17 +128,18 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
      */
     private JPanel createGrid(int rows, int columns) {
         JPanel gameGrid = new JPanel(new GridLayout(rows, columns));
-        int amountOfTiles = rows*columns;
-        tiles = new JLabel[amountOfTiles];
-        for (int i = 0; i < amountOfTiles; i++) {
-            JLabel tile = new JLabel();
-            tiles[i] = tile;
-            gameGrid.add(tile);
+        tiles = new JLabel[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                JLabel tile = new JLabel();
+                tiles[i][j] = tile;
+                gameGrid.add(tile);
+            }
         }
         return gameGrid;
     }
 
-    protected JLabel[] getTiles() {
+    protected JLabel[][] getTiles() {
         return tiles;
     }
 
@@ -155,5 +156,5 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
 
     private JTextArea textArea; /** Used to display text of choice. **/
     private JButton[] buttons;  /** Just used so I could add key bindings **/
-    private JLabel[] tiles;     /** Used to access and manipulate the tiles **/
+    private JLabel[][] tiles;     /** Used to access and manipulate the tiles **/
 }
