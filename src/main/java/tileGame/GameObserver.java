@@ -1,5 +1,5 @@
 package tileGame;
 
 public interface GameObserver {
-    void updateThisGameObserver(int[][] gameState);
+    void updateGameObserver(int[][] gameState);
 }
