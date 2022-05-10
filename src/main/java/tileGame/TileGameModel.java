@@ -1,15 +1,19 @@
 package tileGame;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 
-public abstract class TileGameModel {
+public abstract class TileGameModel implements ChangeListener {
 
     protected abstract void gameOver();
+
     protected abstract void gameWon();
 
     /**
      * Constructs a GameModel object.
-     * @param rows Amount of tiles in vertically (y-axis).
+     *
+     * @param rows    Amount of tiles in vertically (y-axis).
      * @param columns Amount of tiles in horizontally (x-axis).
      */
     public TileGameModel(int rows, int columns) {
@@ -20,6 +24,7 @@ public abstract class TileGameModel {
 
     /**
      * Updates the gamegrid to a new game grid
+     *
      * @param newGameGrid - A new gamegrid
      * @precondition - newGameGrid has to be of same size as current gameGrid.
      */
@@ -32,6 +37,7 @@ public abstract class TileGameModel {
 
     /**
      * Gets an element at a particular row and column position
+     *
      * @param i - Specified Row
      * @param j - Specified Column
      * @return Element at specified position
@@ -40,19 +46,24 @@ public abstract class TileGameModel {
         return gameGrid[i][j];
     }
 
-    public int getTileState(int position) { return gameGrid[getRow(position)][getColumn(position)]; }
+    public int getTileState(int position) {
+        return gameGrid[getRow(position)][getColumn(position)];
+    }
 
     /**
      * Sets an element at a particular row and column position
+     *
      * @param value - New value you want to set at particular position
-     * @param i - Specified Row
-     * @param j - Specified Column
+     * @param i     - Specified Row
+     * @param j     - Specified Column
      */
     public void setTileState(int value, int i, int j) {
         gameGrid[i][j] = value;
     }
 
-    public void setTileState(int value, int position) { gameGrid[getRow(position)][getColumn(position)] = value; }
+    public void setTileState(int value, int position) {
+        gameGrid[getRow(position)][getColumn(position)] = value;
+    }
 
     public int[][] getGameState() {
         return gameGrid;
@@ -60,32 +71,39 @@ public abstract class TileGameModel {
 
     /**
      * Adds a observer to observe the GameModel
+     *
      * @param gameObserver - Observer to observe the GameModel.
      */
     public void addGameObserver(GameObserver gameObserver) {
         gameObservers.add(gameObserver);
     }
 
-    /**
-     * Informs all gameObservers that the gameState has been changed.
-     */
-    private void updateObservers() {
+    @Override
+    public void stateChanged(ChangeEvent e) {
         for (GameObserver gameObserver : gameObservers)
-            gameObserver.updateThisGameObserver(this.gameGrid);
+            gameObserver.updateGameObserver(this.gameGrid);
     }
 
-    private int getRow(int position) { return position/getRows(); }
-    private int getColumn(int position) { return position%getColumns(); }
+    private int getRow(int position) {
+        return position / getRows();
+    }
+
+    private int getColumn(int position) {
+        return position % getColumns();
+    }
 
     /**
      * Gets the number of rows in a matrix
+     *
      * @return The number of rows in the matrix
      */
     private int getRows() {
         return gameGrid.length;
     }
+
     /**
      * Gets the number of columns in a matrix
+     *
      * @return The number of columns in the matrix
      */
     private int getColumns() {
