@@ -7,10 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public abstract class TileGameGUI extends JFrame implements GameObserver {
-    public abstract void northButtonPressed();
-    public abstract void eastButtonPressed();
-    public abstract void southButtonPressed();
-    public abstract void westButtonPressed();
+    protected abstract void northButtonPressed();
+    protected abstract void eastButtonPressed();
+    protected abstract void southButtonPressed();
+    protected abstract void westButtonPressed();
 
     /**
      * Creates a base for *ett spel att ha*
@@ -20,8 +20,7 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
         this.setJMenuBar(createMenu());
-        gameGrid = new JPanel(new GridLayout(rows,columns));
-        this.add(gameGrid,BorderLayout.CENTER);
+        this.add(createGrid(rows,columns),BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
     }
@@ -121,6 +120,24 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         return menuBar;
     }
 
+    /**
+     * Creates a game grid and populates it with JLabels for user to modify with text or icons.
+     * @param rows Amount of tiles in vertically (y-axis).
+     * @param columns Amount of tiles in horizontally (x-axis).
+     * @return A JPanel containing rows * columns JLabels.
+     */
+    private JPanel createGrid(int rows, int columns) {
+        JPanel gameGrid = new JPanel(new GridLayout(rows, columns));
+        int amountOfTiles = rows*columns;
+        tiles = new JLabel[amountOfTiles];
+        for (int i = 0; i < amountOfTiles; i++) {
+            JLabel tile = new JLabel();
+            tiles[i] = tile;
+            gameGrid.add(tile);
+        }
+        return gameGrid;
+    }
+
     //TODO Add functions to manipulate the gameGrid
     //  "Update a specific tile on the gameGrid"
     //  "Get status of specific tile on the gameGrid"
@@ -132,7 +149,8 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
     // TODO Add a function that converts GameModel gamegrid values to sokoban tiles.
 
 
-    private JTextArea textArea;
-    private JButton[] buttons;
-    private JComponent gameGrid;
+    private JTextArea textArea; /** Used to display text of choice**/
+    private JButton[] buttons;  /** Just used so I could add key bindings **/
+    //private JComponent gameGrid;/**
+    private JLabel[] tiles;     /** Used to access and manipulate the tiles **/
 }
