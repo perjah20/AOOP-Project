@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 import tileGame.TileGameGUI;
 
 import javax.sound.sampled.*;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -18,10 +19,10 @@ public class GameGUITest {
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
-        new TileGameGUI(4,4) {
+        new TileGameGUI(1,1) {
 
             @Override
-            public void updateThisGameObserver(int[][] gameState) {
+            public void updateGameObserver(int[][] gameState) {
 
             }
 
