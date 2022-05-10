@@ -138,6 +138,10 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         return gameGrid;
     }
 
+    protected JLabel[] getTiles() {
+        return tiles;
+    }
+
     //TODO Add functions to manipulate the gameGrid
     //  "Update a specific tile on the gameGrid"
     //  "Get status of specific tile on the gameGrid"
