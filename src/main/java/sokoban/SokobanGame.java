@@ -48,13 +48,11 @@ public class SokobanGame extends TileGame {
 
 
     /**
-     * Creates a new tile based game with specified dimensions
+     * Instantiates a Sokoban game session.
      *
-     * @param rows    - Amount of tiles in vertically (y-axis).
-     * @param columns - Amount of tiles in horizontally (x-axis).
      */
-    public SokobanGame(int rows, int columns) {
-        super(rows, columns);
+    public SokobanGame() {
+        super(9,8 );
         tileGameModel.updateGameGrid(new int[][] {
             {0,0,6,6,6,6,6,0},
             {6,6,6,1,1,1,6,0},
