@@ -27,8 +27,13 @@ public abstract class TileGameModel {
         if (newGameGrid.length != this.getRows() || newGameGrid[0].length != this.getColumns())
             throw new IllegalArgumentException("Wrong dimensions");
 
-        for (int i = 0; i < getRows(); i++)
-            System.arraycopy(newGameGrid,0,gameGrid,0,getColumns());
+        /*for (int i = 0; i < getRows(); i++)
+            System.arraycopy(newGameGrid,0,gameGrid,0,getColumns());*/
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getColumns(); j++) {
+                gameGrid[i][j] = newGameGrid[i][j];
+            }
+        }
 
         updateObservers();
     }
