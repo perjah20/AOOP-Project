@@ -17,4 +17,12 @@ public abstract class TileGame {
         tileGameGUI = addTileGameGUI(rows, columns);
         tileGameModel.addGameObserver(tileGameGUI);
     }
+
+    protected TileGameModel getTileGameModel() {
+        return tileGameModel;
+    }
+
+    protected TileGameGUI getTileGameGUI() {
+        return tileGameGUI;
+    }
 }
