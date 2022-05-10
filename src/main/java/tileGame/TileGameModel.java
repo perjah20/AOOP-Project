@@ -24,6 +24,14 @@ public abstract class TileGameModel {
      * @precondition - newGameGrid has to be of same size as current gameGrid.
      */
     protected void updateGameGrid(int[][] newGameGrid) {
+        if (newGameGrid.length != this.getRows() || newGameGrid[0].length != this.getColumns())
+            throw new IllegalArgumentException("Wrong dimensions");
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                this.gameGrid[i][j] = newGameGrid[i][j];
+            }
+        }
+        updateObservers();
         // TODO Allow user to update the whole gameGrid:
         //  - Check if newGameGrid is the same size as current gamegrid
         //  - Use some smart algorithm to copy everything from newGameGrid to current this.gamegrid.
