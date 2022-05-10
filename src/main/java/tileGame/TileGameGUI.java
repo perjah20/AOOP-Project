@@ -132,6 +132,8 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 JLabel tile = new JLabel();
+                tile.setHorizontalAlignment(JLabel.CENTER);
+                tile.setOpaque(true);
                 tiles[i][j] = tile;
                 gameGrid.add(tile);
             }
@@ -139,8 +141,8 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         return gameGrid;
     }
 
-    protected JLabel[][] getTiles() {
-        return tiles;
+    protected JLabel getTile(int row, int column) {
+        return tiles[row][column];
     }
 
     //TODO Add functions to manipulate the gameGrid
@@ -156,5 +158,5 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
 
     private JTextArea textArea; /** Used to display text of choice. **/
     private JButton[] buttons;  /** Just used so I could add key bindings **/
-    private JLabel[][] tiles;     /** Used to access and manipulate the tiles **/
+    private JLabel[][] tiles;   /** Used to access and manipulate the tiles **/
 }
