@@ -48,7 +48,9 @@ public abstract class TileGameModel {
         return gameGrid[i][j];
     }
 
-    public int getTileState(int position) { return gameGrid[getRow(position)][getColumn(position)]; }
+    public int getTileState(int position) {
+        return gameGrid[getRow(position)][getColumn(position)];
+    }
 
     /**
      * Sets an element at a particular row and column position
@@ -105,6 +107,6 @@ public abstract class TileGameModel {
         return gameGrid[0].length;
     }
 
-    private final int[][] gameGrid;
+    private final int[][] gameGrid; /** Our Game Grid for keeping track of game state. **/
     ArrayList<GameObserver> gameObservers = new ArrayList<>();
 }

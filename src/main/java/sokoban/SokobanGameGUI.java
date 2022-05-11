@@ -24,17 +24,16 @@ abstract class SokobanGameGUI extends TileGameGUI {
             }
         }
         this.pack();
-
     }
 
     private void setTile(JLabel tile, int value) {
         switch(value) {
-            case WALL ->    tile.setIcon(getImageIcon("wall.png"));
-            case PLAYER ->  tile.setIcon(getImageIcon("player.png"));
-            case MARKED_CRATE -> tile.setIcon(getImageIcon("cratemarked.png"));
-            case CRATE ->   tile.setIcon(getImageIcon("crate.png"));
-            case MARKED_BLANK -> tile.setIcon(getImageIcon("blankmarked.png"));
-            case BLANK ->   tile.setIcon(getImageIcon("blank.png"));
+            case SokobanInfo.COBBLESTONE -> tile.setIcon(getImageIcon("wall.png"));
+            case SokobanInfo.PLAYER ->  tile.setIcon(getImageIcon("player.png"));
+            case SokobanInfo.FILLEDBOX -> tile.setIcon(getImageIcon("cratemarked.png"));
+            case SokobanInfo.BOX ->   tile.setIcon(getImageIcon("crate.png"));
+            case SokobanInfo.DOT -> tile.setIcon(getImageIcon("blankmarked.png"));
+            case SokobanInfo.SAND ->   tile.setIcon(getImageIcon("blank.png"));
             default -> tile.setBackground(new Color(222,214,173));
         }
     }
@@ -43,13 +42,5 @@ abstract class SokobanGameGUI extends TileGameGUI {
         return new ImageIcon(new ImageIcon(pathToImages + image).getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH
         ));
     }
-
-    private final int
-            WALL         = 6,
-            PLAYER       = 5,
-            MARKED_CRATE = 4,
-            CRATE        = 3,
-            MARKED_BLANK = 2,
-            BLANK        = 1;
     private final String pathToImages = "src/main/java/sokoban/icons/";
 }
