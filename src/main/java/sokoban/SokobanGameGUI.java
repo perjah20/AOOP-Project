@@ -29,7 +29,7 @@ abstract class SokobanGameGUI extends TileGameGUI {
     private void setTile(JLabel tile, int value) {
         switch(value) {
             case SokobanInfo.COBBLESTONE -> tile.setIcon(getImageIcon("wall.png"));
-            case SokobanInfo.CHARACTER ->  tile.setIcon(getImageIcon("player.png"));
+            case SokobanInfo.PLAYER ->  tile.setIcon(getImageIcon("player.png"));
             case SokobanInfo.FILLEDBOX -> tile.setIcon(getImageIcon("cratemarked.png"));
             case SokobanInfo.BOX ->   tile.setIcon(getImageIcon("crate.png"));
             case SokobanInfo.DOT -> tile.setIcon(getImageIcon("blankmarked.png"));
