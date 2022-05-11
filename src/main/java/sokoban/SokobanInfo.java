@@ -35,5 +35,4 @@ public class SokobanInfo {
             default: return level1;
         }
     }
-
 }
