@@ -34,7 +34,6 @@ public abstract class TileGameModel {
                 gameGrid[i][j] = newGameGrid[i][j];
             }
         }
-
         updateObservers();
     }
 

@@ -1,21 +1,13 @@
+import sokoban.SokobanGameModel;
+import sokoban.SokobanInfo;
+import tileGame.GameObserver;
 import tileGame.TileGameModel;
 
 public class GameModelTest {
-
-    public void testModel() {
-
-    }
-
     public static void main(String[] args) {
 
 
-        new TileGameModel(6,6) {
-
-            @Override
-            public int getTileState(int i, int j) {
-                return super.getTileState(i, j);
-            }
-
+        SokobanGameModel sokobanGameModel = new SokobanGameModel(9, 8) {
             @Override
             protected void gameOver() {
                 // if (box.getTileAdjecent > 22)
@@ -33,20 +25,15 @@ public class GameModelTest {
 
             }
         };
+        sokobanGameModel.addGameObserver(gameState -> {
+            for (int[] row :gameState) {
+                String string = "[";
+                for (int column :row) {
+                    string += column+",";
+                }
+                System.out.println(string+"]");
+            }
+        });
+        sokobanGameModel.updateGameGrid(SokobanInfo.level1);
     }
-
-    int SAND = 1, CHARACTER = 2, BOX = 3, DOT = 4, FILLEDBOX = 7, COBBLESTONE = 20;
-
-
 }
-
-/**
- *      Sand = 1                        10   10   10   10   10   10
- *      Character = 2                   10    1    1    1    1   10
- *      Cobblestone = 3                 10    1    2    4    1   10
- *      Box = 4                         10    1    1    3    1   10
- *      Dot = 5                         10    1    1    1    1   10
- *      Filled box = 9 (Box + Dot)      10   10   10   10   10   10
- *
- *
- */

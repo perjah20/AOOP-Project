@@ -5,6 +5,7 @@ import tileGame.TileGameGUI;
 import tileGame.TileGameModel;
 
 public class SokobanGame extends TileGame {
+    private SokobanGameModel sokobanGameModel;
 
     @Override
     protected TileGameModel addTileGameModel(int rows, int columns) {
@@ -26,22 +27,22 @@ public class SokobanGame extends TileGame {
         return new SokobanGameGUI(rows, columns) {
             @Override
             protected void northButtonPressed() {
-
+                sokobanGameModel.moveCharacter(SokobanGameModel.directions.NORTH);
             }
 
             @Override
             protected void eastButtonPressed() {
-
+                sokobanGameModel.moveCharacter(SokobanGameModel.directions.EAST);
             }
 
             @Override
             protected void southButtonPressed() {
-
+                sokobanGameModel.moveCharacter(SokobanGameModel.directions.SOUTH);
             }
 
             @Override
             protected void westButtonPressed() {
-
+                sokobanGameModel.moveCharacter(SokobanGameModel.directions.WEST);
             }
         };
     }
@@ -53,6 +54,7 @@ public class SokobanGame extends TileGame {
      */
     public SokobanGame() {
         super(9,8 );
-        tileGameModel.updateGameGrid(new SokobanInfo().getLevel(0));
+        getTileGameModel().updateGameGrid(new SokobanInfo().getLevel(0));
+        sokobanGameModel = (SokobanGameModel) getTileGameModel();
     }
 }

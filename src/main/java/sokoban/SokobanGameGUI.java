@@ -42,5 +42,7 @@ abstract class SokobanGameGUI extends TileGameGUI {
         return new ImageIcon(new ImageIcon(pathToImages + image).getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH
         ));
     }
+
+
     private final String pathToImages = "src/main/java/sokoban/icons/";
 }
