@@ -2,6 +2,8 @@ package sokoban;
 
 import tileGame.TileGameModel;
 
+import java.util.Stack;
+
 public class SokobanGameModel extends TileGameModel {
     /**
      * Constructs a GameModel object.
@@ -11,6 +13,7 @@ public class SokobanGameModel extends TileGameModel {
      */
     public SokobanGameModel(int rows, int columns) {
         super(rows, columns);
+        tileStack.push(SAND);
     }
 
     private void setCharacterPosition() {
@@ -27,16 +30,114 @@ public class SokobanGameModel extends TileGameModel {
         }
     }
 
-    public void moveCharacter( int direction){
+    public void moveCharacter(int direction){
         // lokalisera karaktären
         // Kolla vilken riktning vi ska gå
         // Kolla vilken tile som finns på nästa position
 
         setCharacterPosition();
-        int[][] gameGrid = getGameState();
         switch (direction){
             case NORTH:
                 if (isValidMove(-1,0));
+                nextLocation = getTileState(playerLocationY -1, playerLocationX);
+                currentLocation = getTileState(playerLocationY,playerLocationX);
+                //int previousLocation = currentLocation;
+                currentLocation = tileStack.pop();
+                if (nextLocation == 10) {
+                    tileStack.push(SAND);
+                    moveCrate(NORTH);
+                }
+                if (nextLocation == 15) {
+                    tileStack.push(DOT);
+                    moveCrate(NORTH);
+                }
+                nextLocation = CHARACTER;
+                setTileState(currentLocation,playerLocationY,playerLocationX);
+                setTileState(nextLocation,playerLocationY -1, playerLocationX);
+                break;
+
+            case WEST:
+                if (isValidMove(0,-1));
+                nextLocation = getTileState(playerLocationY, playerLocationX -1);
+                currentLocation = getTileState(playerLocationY,playerLocationX);
+                //int previousLocation = currentLocation;
+                currentLocation = tileStack.pop();
+                if (nextLocation == 10) {
+                    tileStack.push(SAND);
+                    moveCrate(NORTH);
+                }
+                if (nextLocation == 15) {
+                    tileStack.push(DOT);
+                    moveCrate(NORTH);
+                }
+                nextLocation = CHARACTER;
+                setTileState(currentLocation,playerLocationY,playerLocationX);
+                setTileState(nextLocation,playerLocationY, playerLocationX -1);
+                break;
+
+            case EAST:
+                if (isValidMove(0,1));
+                nextLocation = getTileState(playerLocationY, playerLocationX +1);
+                currentLocation = getTileState(playerLocationY,playerLocationX);
+                //int previousLocation = currentLocation;
+                currentLocation = tileStack.pop();
+                if (nextLocation == 10) {
+                    tileStack.push(SAND);
+                    moveCrate(NORTH);
+                }
+                if (nextLocation == 15) {
+                    tileStack.push(DOT);
+                    moveCrate(NORTH);
+                }
+                nextLocation = CHARACTER;
+                setTileState(currentLocation,playerLocationY,playerLocationX);
+                setTileState(nextLocation,playerLocationY, playerLocationX +1);
+                break;
+
+            case SOUTH:
+                if (isValidMove(1,0))
+                    nextLocation = getTileState(playerLocationY +1, playerLocationX);
+                currentLocation = getTileState(playerLocationY,playerLocationX);
+                //int previousLocation = currentLocation;
+                currentLocation = tileStack.pop();
+                if (nextLocation == 10) {
+                    tileStack.push(SAND);
+                    moveCrate(NORTH);
+                }
+                if (nextLocation == 15) {
+                    tileStack.push(DOT);
+                    moveCrate(NORTH);
+                }
+                nextLocation = CHARACTER;
+                setTileState(currentLocation,playerLocationY,playerLocationX);
+                setTileState(nextLocation,playerLocationY +1, playerLocationX);
+                break;
+        }
+        updateObservers();
+    }
+
+    private boolean isValidMove(int Y, int X) {
+        int[][] gameGrid = getGameState();
+        if (gameGrid[playerLocationY + Y][playerLocationX + X] < COBBLESTONE)
+            return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < BOX);
+        return false;
+    }
+
+    public void moveCrate(int direction) {
+        //int[][] gameGrid = getGameState();
+        switch (direction){
+            case NORTH:
+                if (isValidMove(-1,0));
+                nextLocation = getTileState(playerLocationY -1, playerLocationX);
+                currentLocation = getTileState(playerLocationY,playerLocationX);
+                int previousLocation = currentLocation;
+                currentLocation = tileStack.pop();
+                if (nextLocation == 10) {
+                    tileStack.push(SAND);
+                    moveCrate(NORTH);
+                }
+                if (nextLocation == 15) tileStack.push(DOT);
+                // repa
                 break;
             case WEST:
                 if (isValidMove(0,-1));
@@ -46,26 +147,8 @@ public class SokobanGameModel extends TileGameModel {
                 break;
             case SOUTH:
                 if (isValidMove(1,0))
-                break;
+                    break;
         }
-    }
-
-    private boolean isValidMove(int Y, int X) {
-        int[][] gameGrid = getGameState();
-        if (gameGrid[playerLocationY + Y][playerLocationX + X] < COBBLESTONE)
-            return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < FILLEDBOX);
-        return false;
-    }
-
-    public void moveBox(int nextTileNumber, int direction){
-        if (nextTileNumber == 20){
-            // setText = "Unnable to move box";
-        }
-        if (nextTileNumber == 3){
-
-            moveBox();
-        }
-
     }
 
     @Override
@@ -78,8 +161,11 @@ public class SokobanGameModel extends TileGameModel {
 
     }
 
+    private Stack<Integer> tileStack;
     int playerLocationY;
     int playerLocationX;
+    int currentLocation;
+    int nextLocation;
 
     int SAND = 1, CHARACTER = 2, DOT = 5, BOX = 10, FILLEDBOX = 15, COBBLESTONE = 20;
     final int NORTH = 1, WEST = 2, EAST = 3, SOUTH = 4;
