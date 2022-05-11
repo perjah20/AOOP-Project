@@ -54,7 +54,7 @@ public class SokobanGame extends TileGame {
     public SokobanGame() {
         super(9,8 );
         System.out.print("");
-        tileGameModel.updateGameGrid(new SokobanLevels().getLevel(0));
+        tileGameModel.updateGameGrid(new SokobanInfo().getLevel(0));
     }
 }
 

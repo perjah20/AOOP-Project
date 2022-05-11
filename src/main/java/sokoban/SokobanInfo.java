@@ -1,6 +1,6 @@
 package sokoban;
 
-public class SokobanLevels {
+public class SokobanInfo {
     public final int[][]
             level1 = new int[][] {
                     {0,0,6,6,6,6,6,0},
