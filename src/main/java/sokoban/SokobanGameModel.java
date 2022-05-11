@@ -1,10 +1,14 @@
 package sokoban;
 
+import tileGame.GameObserver;
 import tileGame.TileGameModel;
 
 import java.util.Stack;
 
-public class SokobanGameModel extends TileGameModel {
+import static sokoban.SokobanInfo.BOX;
+import static sokoban.SokobanInfo.COBBLESTONE;
+
+public class SokobanGameModel extends TileGameModel implements GameObserver {
     /**
      * Constructs a GameModel object.
      *
@@ -13,10 +17,7 @@ public class SokobanGameModel extends TileGameModel {
      */
     public SokobanGameModel(int rows, int columns) {
         super(rows, columns);
-        tileStack = new Stack<>();
-        tileStack.push(SokobanInfo.SAND);
         oldTile = SokobanInfo.SAND;
-        setCharacterPosition();
     }
 
     private void setCharacterPosition() {
@@ -44,33 +45,45 @@ public class SokobanGameModel extends TileGameModel {
 
     private void move(int Y, int X) {
         setTileState(oldTile,playerLocationY,playerLocationX); // Restore current tile.
-        if(isValidMove(Y,X)) {
-            int nextRow = playerLocationY + Y, nextNextRow = playerLocationY + Y * 2;
-            int nextColumn = playerLocationX + X, nextNextColumn = playerLocationX + X * 2;
+        int nextRow = playerLocationY + Y, nextNextRow = playerLocationY + Y * 2;
+        int nextColumn = playerLocationX + X, nextNextColumn = playerLocationX + X * 2;
+        if (getTileState(nextRow,nextColumn) < COBBLESTONE) {
             switch (getTileState(nextRow, nextColumn)) {
-                case SokobanInfo.BOX:
-                    if (getTileState(nextNextRow, nextNextColumn) == SokobanInfo.DOT)
-                        setTileState(SokobanInfo.FILLEDBOX, nextNextRow, nextNextColumn);
-                    else
-                        setTileState(SokobanInfo.BOX, nextNextRow, nextNextColumn);
-                    setTileState(SokobanInfo.SAND, nextRow, nextColumn);
+                case BOX:
+                    if (getTileState(nextNextRow,nextNextColumn) < BOX) {
+                        if (getTileState(nextNextRow, nextNextColumn) == SokobanInfo.DOT)
+                            setTileState(SokobanInfo.FILLEDBOX, nextNextRow, nextNextColumn);
+                        else
+                            setTileState(BOX, nextNextRow, nextNextColumn);
+                        setTileState(SokobanInfo.SAND, nextRow, nextColumn);
+                        oldTile = getTileState(nextRow, nextColumn);
+                        setTileState(SokobanInfo.PLAYER, nextRow, nextColumn);
+                    }
                     break;
                 case SokobanInfo.FILLEDBOX:
-                    if (getTileState(nextNextRow, nextNextColumn) == SokobanInfo.DOT)
-                        setTileState(SokobanInfo.FILLEDBOX, nextNextRow, nextNextColumn);
-                    else
-                        setTileState(SokobanInfo.BOX, nextNextRow, nextNextColumn);
-                    setTileState(SokobanInfo.DOT, nextRow, nextColumn);
+                    if (getTileState(nextNextRow,nextNextColumn) < BOX) {
+                        if (getTileState(nextNextRow, nextNextColumn) == SokobanInfo.DOT)
+                            setTileState(SokobanInfo.FILLEDBOX, nextNextRow, nextNextColumn);
+                        else
+                            setTileState(BOX, nextNextRow, nextNextColumn);
+                        setTileState(SokobanInfo.DOT, nextRow, nextColumn);
+                        oldTile = getTileState(nextRow, nextColumn);
+                        setTileState(SokobanInfo.PLAYER, nextRow, nextColumn);
+                    }
                     break;
+                default:
+                    oldTile = getTileState(nextRow, nextColumn);
+                    setTileState(SokobanInfo.PLAYER, nextRow, nextColumn);
+                    break;
+
             }
-            oldTile = getTileState(nextRow, nextColumn);
-            setTileState(SokobanInfo.PLAYER, nextRow,nextColumn);
+            setCharacterPosition();
             updateObservers();
         }
     }
 
     private boolean isValidMove(int Y, int X) {
-        if (getTileState(playerLocationY + Y,playerLocationX + X) < COBBLESTONE)
+        if (getTileState(playerLocationY + Y,playerLocationX + X) <= BOX)
             return (getTileState(playerLocationY + Y * 2,playerLocationX + X * 2) < BOX);
         return false;
     }
@@ -86,11 +99,15 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     private int oldTile;
-    private Stack<Integer> tileStack;
     private int playerLocationY;
     private int playerLocationX;
 
-    int SAND = 1, CHARACTER = 2, DOT = 5, BOX = 10, FILLEDBOX = 15, COBBLESTONE = 20;
     final int UP = -1, LEFT = -1, RIGHT = 1, DOWN = 1;
+
+    @Override
+    public void updateGameObserver(int[][] gameState) {
+        setCharacterPosition();
+    }
+
     enum directions {NORTH, WEST ,EAST, SOUTH}
 }

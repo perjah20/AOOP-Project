@@ -21,7 +21,6 @@ public abstract class TileGame {
     protected TileGameModel getTileGameModel() {
         return tileGameModel;
     }
-
     protected TileGameGUI getTileGameGUI() {
         return tileGameGUI;
     }
