@@ -60,8 +60,13 @@ public abstract class TileGameModel {
         gameGrid[i][j] = value;
     }
 
-    public void setTileState(int value, int position) { gameGrid[getRow(position)][getColumn(position)] = value; }
+    public void setTileState(int value, int position) {
+        gameGrid[getRow(position)][getColumn(position)] = value; }
 
+    /**
+     * Gets the grid for the game
+     * @return gameGrid.
+     */
     public int[][] getGameState() {
         return gameGrid;
     }
@@ -89,14 +94,14 @@ public abstract class TileGameModel {
      * Gets the number of rows in a matrix
      * @return The number of rows in the matrix
      */
-    private int getRows() {
+    protected int getRows() {
         return gameGrid.length;
     }
     /**
      * Gets the number of columns in a matrix
      * @return The number of columns in the matrix
      */
-    private int getColumns() {
+    protected int getColumns() {
         return gameGrid[0].length;
     }
 
