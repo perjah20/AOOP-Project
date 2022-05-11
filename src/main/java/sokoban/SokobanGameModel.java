@@ -36,30 +36,25 @@ public class SokobanGameModel extends TileGameModel {
         int[][] gameGrid = getGameState();
         switch (direction){
             case NORTH:
-                 if (gameGrid[playerLocationY - 1][playerLocationX] < COBBLESTONE){
-                     if (gameGrid[playerLocationY - 2][playerLocationX] < FILLEDBOX){
-
-                     }
-                 }break;
+                if (isValidMove(-1,0));
+                break;
             case WEST:
-                if (gameGrid[playerLocationY][playerLocationX - 1] < COBBLESTONE){
-                    if (gameGrid[playerLocationY][playerLocationX - 2] < FILLEDBOX){
-
-                    }
-                }break;
+                if (isValidMove(0,-1));
+                break;
             case EAST:
-                if (gameGrid[playerLocationY][playerLocationX + 1] < COBBLESTONE){
-                    if (gameGrid[playerLocationY][playerLocationX + 2] < FILLEDBOX){
-
-                    }
-                }break;
+                if (isValidMove(0,1));
+                break;
             case SOUTH:
-                if (gameGrid[playerLocationY + 1][playerLocationX] < COBBLESTONE){
-                    if (gameGrid[playerLocationY + 2][playerLocationX] < FILLEDBOX){
-
-                    }
-                }break;
+                if (isValidMove(1,0))
+                break;
         }
+    }
+
+    private boolean isValidMove(int Y, int X) {
+        int[][] gameGrid = getGameState();
+        if (gameGrid[playerLocationY + Y][playerLocationX + X] < COBBLESTONE)
+            return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < FILLEDBOX);
+        return false;
     }
 
     public void moveBox(int nextTileNumber, int direction){
