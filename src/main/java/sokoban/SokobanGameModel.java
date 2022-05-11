@@ -56,8 +56,6 @@ public class SokobanGameModel extends TileGameModel implements GameObserver {
                         else
                             setTileState(BOX, nextNextRow, nextNextColumn);
                         setTileState(SokobanInfo.SAND, nextRow, nextColumn);
-                        oldTile = getTileState(nextRow, nextColumn);
-                        setTileState(SokobanInfo.PLAYER, nextRow, nextColumn);
                     }
                     break;
                 case SokobanInfo.FILLEDBOX:
@@ -67,16 +65,12 @@ public class SokobanGameModel extends TileGameModel implements GameObserver {
                         else
                             setTileState(BOX, nextNextRow, nextNextColumn);
                         setTileState(SokobanInfo.DOT, nextRow, nextColumn);
-                        oldTile = getTileState(nextRow, nextColumn);
-                        setTileState(SokobanInfo.PLAYER, nextRow, nextColumn);
                     }
-                    break;
-                default:
-                    oldTile = getTileState(nextRow, nextColumn);
-                    setTileState(SokobanInfo.PLAYER, nextRow, nextColumn);
                     break;
 
             }
+            oldTile = getTileState(nextRow, nextColumn);
+            setTileState(SokobanInfo.PLAYER, nextRow, nextColumn);
             setCharacterPosition();
             updateObservers();
         }
