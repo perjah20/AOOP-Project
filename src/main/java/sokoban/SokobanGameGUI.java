@@ -24,7 +24,6 @@ abstract class SokobanGameGUI extends TileGameGUI {
             }
         }
         this.pack();
-
     }
 
     private void setTile(JLabel tile, int value) {
