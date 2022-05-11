@@ -32,7 +32,6 @@ public class SokobanGame  {
             }
         };
         sokobanGameModel.addGameObserver(sokobanGameGUI);
-        sokobanGameModel.addGameObserver(sokobanGameModel);
         sokobanGameModel.addGameObserver(gameState -> {
             for (int[] row :gameState) {
                 String string = "[";
