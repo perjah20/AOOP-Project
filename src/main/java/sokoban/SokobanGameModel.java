@@ -13,6 +13,7 @@ public class SokobanGameModel extends TileGameModel {
      */
     public SokobanGameModel(int rows, int columns) {
         super(rows, columns);
+        tileStack = new Stack<>();
         tileStack.push(SAND);
     }
 
@@ -38,80 +39,83 @@ public class SokobanGameModel extends TileGameModel {
         setCharacterPosition();
         switch (direction){
             case NORTH:
-                if (isValidMove(-1,0));
-                nextLocation = getTileState(playerLocationY -1, playerLocationX);
-                currentLocation = getTileState(playerLocationY,playerLocationX);
-                //int previousLocation = currentLocation;
-                currentLocation = tileStack.pop();
-                if (nextLocation == 10) {
-                    tileStack.push(SAND);
-                    moveCrate(NORTH);
+                if (isValidMove(-1,0)) {
+                    nextLocation = getTileState(playerLocationY - 1, playerLocationX);
+                    //currentLocation = getTileState(playerLocationY,playerLocationX);
+                    previousLocation = tileStack.pop();
+                    if (nextLocation == 10) {
+                        tileStack.push(SAND);
+                        moveCrate(NORTH);
+                    }
+                    if (nextLocation == 15) {
+                        tileStack.push(DOT);
+                        moveCrate(NORTH);
+                    }
+                    nextLocation = CHARACTER;
+                    setTileState(previousLocation, playerLocationY, playerLocationX);
+                    setTileState(nextLocation, playerLocationY - 1, playerLocationX);
+                    break;
                 }
-                if (nextLocation == 15) {
-                    tileStack.push(DOT);
-                    moveCrate(NORTH);
-                }
-                nextLocation = CHARACTER;
-                setTileState(currentLocation,playerLocationY,playerLocationX);
-                setTileState(nextLocation,playerLocationY -1, playerLocationX);
-                break;
 
             case WEST:
-                if (isValidMove(0,-1));
-                nextLocation = getTileState(playerLocationY, playerLocationX -1);
-                currentLocation = getTileState(playerLocationY,playerLocationX);
-                //int previousLocation = currentLocation;
-                currentLocation = tileStack.pop();
-                if (nextLocation == 10) {
-                    tileStack.push(SAND);
-                    moveCrate(NORTH);
+                if (isValidMove(0,-1)) {
+                    nextLocation = getTileState(playerLocationY, playerLocationX - 1);
+                    currentLocation = getTileState(playerLocationY, playerLocationX);
+                    //int previousLocation = currentLocation;
+                    currentLocation = tileStack.pop();
+                    if (nextLocation == 10) {
+                        tileStack.push(SAND);
+                        moveCrate(NORTH);
+                    }
+                    if (nextLocation == 15) {
+                        tileStack.push(DOT);
+                        moveCrate(NORTH);
+                    }
+                    nextLocation = CHARACTER;
+                    setTileState(currentLocation, playerLocationY, playerLocationX);
+                    setTileState(nextLocation, playerLocationY, playerLocationX - 1);
+                    break;
                 }
-                if (nextLocation == 15) {
-                    tileStack.push(DOT);
-                    moveCrate(NORTH);
-                }
-                nextLocation = CHARACTER;
-                setTileState(currentLocation,playerLocationY,playerLocationX);
-                setTileState(nextLocation,playerLocationY, playerLocationX -1);
-                break;
 
             case EAST:
-                if (isValidMove(0,1));
-                nextLocation = getTileState(playerLocationY, playerLocationX +1);
-                currentLocation = getTileState(playerLocationY,playerLocationX);
-                //int previousLocation = currentLocation;
-                currentLocation = tileStack.pop();
-                if (nextLocation == 10) {
-                    tileStack.push(SAND);
-                    moveCrate(NORTH);
+                if (isValidMove(0,1)) {
+                    nextLocation = getTileState(playerLocationY, playerLocationX + 1);
+                    currentLocation = getTileState(playerLocationY, playerLocationX);
+                    //int previousLocation = currentLocation;
+                    currentLocation = tileStack.pop();
+                    if (nextLocation == 10) {
+                        tileStack.push(SAND);
+                        moveCrate(NORTH);
+                    }
+                    if (nextLocation == 15) {
+                        tileStack.push(DOT);
+                        moveCrate(NORTH);
+                    }
+                    nextLocation = CHARACTER;
+                    setTileState(currentLocation, playerLocationY, playerLocationX);
+                    setTileState(nextLocation, playerLocationY, playerLocationX + 1);
+                    break;
                 }
-                if (nextLocation == 15) {
-                    tileStack.push(DOT);
-                    moveCrate(NORTH);
-                }
-                nextLocation = CHARACTER;
-                setTileState(currentLocation,playerLocationY,playerLocationX);
-                setTileState(nextLocation,playerLocationY, playerLocationX +1);
-                break;
 
             case SOUTH:
-                if (isValidMove(1,0))
-                    nextLocation = getTileState(playerLocationY +1, playerLocationX);
-                currentLocation = getTileState(playerLocationY,playerLocationX);
-                //int previousLocation = currentLocation;
-                currentLocation = tileStack.pop();
-                if (nextLocation == 10) {
-                    tileStack.push(SAND);
-                    moveCrate(NORTH);
+                if (isValidMove(1,0)) {
+                    nextLocation = getTileState(playerLocationY + 1, playerLocationX);
+                    currentLocation = getTileState(playerLocationY, playerLocationX);
+                    //int previousLocation = currentLocation;
+                    currentLocation = tileStack.pop();
+                    if (nextLocation == 10) {
+                        tileStack.push(SAND);
+                        moveCrate(NORTH);
+                    }
+                    if (nextLocation == 15) {
+                        tileStack.push(DOT);
+                        moveCrate(NORTH);
+                    }
+                    nextLocation = CHARACTER;
+                    setTileState(currentLocation, playerLocationY, playerLocationX);
+                    setTileState(nextLocation, playerLocationY + 1, playerLocationX);
+                    break;
                 }
-                if (nextLocation == 15) {
-                    tileStack.push(DOT);
-                    moveCrate(NORTH);
-                }
-                nextLocation = CHARACTER;
-                setTileState(currentLocation,playerLocationY,playerLocationX);
-                setTileState(nextLocation,playerLocationY +1, playerLocationX);
-                break;
         }
         updateObservers();
     }
@@ -164,6 +168,7 @@ public class SokobanGameModel extends TileGameModel {
     private Stack<Integer> tileStack;
     int playerLocationY;
     int playerLocationX;
+    int previousLocation;
     int currentLocation;
     int nextLocation;
 

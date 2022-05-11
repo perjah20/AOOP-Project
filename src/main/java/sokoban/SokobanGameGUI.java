@@ -52,5 +52,4 @@ abstract class SokobanGameGUI extends TileGameGUI {
             MARKED_BLANK = 2,
             BLANK        = 1;
     private final String pathToImages = "src/main/java/sokoban/icons/";
-
 }
