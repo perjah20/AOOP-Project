@@ -32,4 +32,6 @@ public class SokobanLevels {
             default: return level1;
         }
     }
+
+    public final int SAND = 1, CHARACTER = 2, DOT = 5, BOX = 10, FILLEDBOX = 15, COBBLESTONE = 20;
 }
