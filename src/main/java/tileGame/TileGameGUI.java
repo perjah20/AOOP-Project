@@ -155,6 +155,8 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
 
     // TODO Add a function that converts GameModel gamegrid values to sokoban tiles.
 
+    // TODO Consider adding a function that can change dimensions of gamegrid
+
 
     private JTextArea textArea; /** Used to display text of choice. **/
     private JButton[] buttons;  /** Just used so I could add key bindings **/
