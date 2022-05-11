@@ -1,7 +1,7 @@
 package sokoban;
 
 public class SokobanInfo {
-    public final int[][]
+    public static final int[][]
             level1 = new int[][] {
                     {0,0,6,6,6,6,6,0},
                     {6,6,6,1,1,1,6,0},
@@ -33,5 +33,5 @@ public class SokobanInfo {
         }
     }
 
-    public final int SAND = 1, CHARACTER = 2, DOT = 5, BOX = 10, FILLEDBOX = 15, COBBLESTONE = 20;
+    public static final int SAND = 1, CHARACTER = 2, DOT = 5, BOX = 10, FILLEDBOX = 15, COBBLESTONE = 20;
 }
