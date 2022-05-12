@@ -34,126 +34,125 @@ public class SokobanGameModel extends TileGameModel {
             }
         }
     }
+    private boolean isValidMove(int Y, int X) {
+        int[][] gameGrid = getGameState();
+        if (gameGrid[playerLocationY + Y][playerLocationX + X] == COBBLESTONE)
+            return false;
+        if (gameGrid[playerLocationY + Y][playerLocationX + X] < BOX)
+            return true;
+        else return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < BOX); //TODO Fix so that the array does not go out of bounds when we reach edges
+    }
 
     public void moveCharacter(directions direction){
-        // lokalisera karaktären
-        // Kolla vilken riktning vi ska gå
-        // Kolla vilken tile som finns på nästa position
-
         setCharacterPosition();
         switch (direction){
             case NORTH:
-                if (isValidMove(-1,0));
-                nextLocation = getTileState(playerLocationY -1, playerLocationX);
-                currentLocation = getTileState(playerLocationY,playerLocationX);
+                if (isValidMove(-1,0)) {
+                nextLocation = getTileState(playerLocationY - 1, playerLocationX);
+                currentLocation = getTileState(playerLocationY, playerLocationX);
                 //int previousLocation = currentLocation;
                 currentLocation = tileStack.pop();
                 if (nextLocation == 10) {
                     tileStack.push(SAND);
                     moveCrate(direction);
-                }
-                if (nextLocation == 15) {
+                } else if (nextLocation == 15) {
                     tileStack.push(DOT);
                     moveCrate(direction);
-                }
+                } else tileStack.push(nextLocation);
                 nextLocation = CHARACTER;
-                setTileState(currentLocation,playerLocationY,playerLocationX);
-                setTileState(nextLocation,playerLocationY -1, playerLocationX);
-                break;
+                setTileState(currentLocation, playerLocationY, playerLocationX);
+                setTileState(nextLocation, playerLocationY - 1, playerLocationX);
+            }break;
+
 
             case WEST:
-                if (isValidMove(0,-1));
-                nextLocation = getTileState(playerLocationY, playerLocationX -1);
-                currentLocation = getTileState(playerLocationY,playerLocationX);
-                //int previousLocation = currentLocation;
-                currentLocation = tileStack.pop();
-                if (nextLocation == 10) {
-                    tileStack.push(SAND);
-                    moveCrate(direction);
-                }
-                if (nextLocation == 15) {
-                    tileStack.push(DOT);
-                    moveCrate(direction);
-                }
-                nextLocation = CHARACTER;
-                setTileState(currentLocation,playerLocationY,playerLocationX);
-                setTileState(nextLocation,playerLocationY, playerLocationX -1);
-                break;
+                if (isValidMove(0,-1)) {
+                    nextLocation = getTileState(playerLocationY, playerLocationX - 1);
+                    currentLocation = getTileState(playerLocationY, playerLocationX);
+                    //int previousLocation = currentLocation;
+                    currentLocation = tileStack.pop();
+                    if (nextLocation == 10) {
+                        tileStack.push(SAND);
+                        moveCrate(direction);
+                    } else if (nextLocation == 15) {
+                        tileStack.push(DOT);
+                        moveCrate(direction);
+                    } else tileStack.push(nextLocation);
+                    nextLocation = CHARACTER;
+                    setTileState(currentLocation, playerLocationY, playerLocationX);
+                    setTileState(nextLocation, playerLocationY, playerLocationX - 1);
+                }break;
 
             case EAST:
-                if (isValidMove(0,1));
-                nextLocation = getTileState(playerLocationY, playerLocationX +1);
-                currentLocation = getTileState(playerLocationY,playerLocationX);
-                //int previousLocation = currentLocation;
-                currentLocation = tileStack.pop();
-                if (nextLocation == 10) {
-                    tileStack.push(SAND);
-                    moveCrate(direction);
-                }
-                if (nextLocation == 15) {
-                    tileStack.push(DOT);
-                    moveCrate(direction);
-                }
-                nextLocation = CHARACTER;
-                setTileState(currentLocation,playerLocationY,playerLocationX);
-                setTileState(nextLocation,playerLocationY, playerLocationX +1);
-                break;
+                if (isValidMove(0,1)) {
+                    nextLocation = getTileState(playerLocationY, playerLocationX + 1);
+                    currentLocation = getTileState(playerLocationY, playerLocationX);
+                    //int previousLocation = currentLocation;
+                    currentLocation = tileStack.pop();
+                    if (nextLocation == 10) {
+                        tileStack.push(SAND);
+                        moveCrate(direction);
+                    } else if (nextLocation == 15) {
+                        tileStack.push(DOT);
+                        moveCrate(direction);
+                    } else tileStack.push(nextLocation);
+
+                    nextLocation = CHARACTER;
+                    setTileState(currentLocation, playerLocationY, playerLocationX);
+                    setTileState(nextLocation, playerLocationY, playerLocationX + 1);
+                }break;
 
             case SOUTH:
-                if (isValidMove(1,0))
-                    nextLocation = getTileState(playerLocationY +1, playerLocationX);
-                currentLocation = getTileState(playerLocationY,playerLocationX);
-                //int previousLocation = currentLocation;
-                currentLocation = tileStack.pop();
-                if (nextLocation == 10) {
-                    tileStack.push(SAND);
-                    moveCrate(direction);
-                }
-                if (nextLocation == 15) {
-                    tileStack.push(DOT);
-                    moveCrate(direction);
-                }
-                nextLocation = CHARACTER;
-                setTileState(currentLocation,playerLocationY,playerLocationX);
-                setTileState(nextLocation,playerLocationY +1, playerLocationX);
-                break;
+                if (isValidMove(1,0)) {
+                    nextLocation = getTileState(playerLocationY + 1, playerLocationX);
+                    currentLocation = getTileState(playerLocationY, playerLocationX);
+                    //int previousLocation = currentLocation;
+                    currentLocation = tileStack.pop();
+                    if (nextLocation == 10) {
+                        tileStack.push(SAND);
+                        moveCrate(direction);
+                    } else if (nextLocation == 15) {
+                        tileStack.push(DOT);
+                        moveCrate(direction);
+                    } else tileStack.push(nextLocation);
+                    nextLocation = CHARACTER;
+                    setTileState(currentLocation, playerLocationY, playerLocationX);
+                    setTileState(nextLocation, playerLocationY + 1, playerLocationX);
+                }break;
         }
         updateObservers();
     }
 
-    private boolean isValidMove(int Y, int X) {
-        int[][] gameGrid = getGameState();
-        if (gameGrid[playerLocationY + Y][playerLocationX + X] < COBBLESTONE)
-            return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < BOX);
-        return false;
-    }
 
     public void moveCrate(directions direction) {
         //int[][] gameGrid = getGameState();
         switch (direction){
             case NORTH:
-                if (isValidMove(-1,0));
-                nextLocation = getTileState(playerLocationY -1, playerLocationX);
-                currentLocation = getTileState(playerLocationY,playerLocationX);
-                int previousLocation = currentLocation;
-                currentLocation = tileStack.pop();
-                if (nextLocation == 10) {
-                    tileStack.push(SAND);
-                    moveCrate(directions.NORTH);
-                }
-                if (nextLocation == 15) tileStack.push(DOT);
-                // repa
+                crateNextLocation = getTileState(playerLocationY -2,playerLocationX);
+                if (crateNextLocation == DOT)
+                    setTileState(FILLEDBOX,playerLocationY -2,playerLocationX);
+                else setTileState(BOX,playerLocationY -2,playerLocationX);
                 break;
             case WEST:
-                if (isValidMove(0,-1));
+                    crateNextLocation = getTileState(playerLocationY,playerLocationX -2);
+                    if (crateNextLocation == DOT)
+                        setTileState(FILLEDBOX,playerLocationY,playerLocationX -2);
+                    else setTileState(BOX,playerLocationY,playerLocationX -2);
                 break;
             case EAST:
-                if (isValidMove(0,1));
+                crateNextLocation = getTileState(playerLocationY,playerLocationX +2);
+                if (crateNextLocation == DOT)
+                    setTileState(FILLEDBOX,playerLocationY,playerLocationX +2);
+                else setTileState(BOX,playerLocationY,playerLocationX +2);
                 break;
             case SOUTH:
-                if (isValidMove(1,0))
-                    break;
+                    crateNextLocation = getTileState(playerLocationY +2,playerLocationX);
+                if (crateNextLocation == DOT)
+                    setTileState(FILLEDBOX,playerLocationY +2,playerLocationX);
+                else setTileState(BOX,playerLocationY +2,playerLocationX);
+                break;
         }
+        updateObservers();
     }
 
     @Override
@@ -169,6 +168,8 @@ public class SokobanGameModel extends TileGameModel {
     private Stack<Integer> tileStack;
     int playerLocationY;
     int playerLocationX;
+    int crateCurrentLocation;
+    int crateNextLocation;
     int currentLocation;
     int nextLocation;
 
