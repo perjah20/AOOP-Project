@@ -1,7 +1,7 @@
 package sokoban;
 
 public class SokobanInfo {
-    public static final int SAND = 1, PLAYER = 2, DOT = 5, BOX = 10, FILLEDBOX = 15, COBBLESTONE = 20;
+    public static final int SAND = 1, PLAYER = 2, DOT = 3, BOX = 4, FILLEDBOX = 5, COBBLESTONE = 6;
     private static final int S = SAND, P = PLAYER, D = DOT, B = BOX, F = FILLEDBOX, C = COBBLESTONE, E = 0;
 
     public static final int[][]
