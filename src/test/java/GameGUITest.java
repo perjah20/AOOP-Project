@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 import tileGame.TileGameGUI;
 
 import javax.sound.sampled.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -50,6 +51,11 @@ public class GameGUITest {
                 System.out.println("WestButtonPressed");
                 clip.start();
                 clip.setMicrosecondPosition(0);
+            }
+
+            @Override
+            protected JMenuBar createMenuBar() {
+                return null;
             }
         };
     }

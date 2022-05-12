@@ -1,5 +1,6 @@
 package sokoban;
 
+import sokoban.buttonStrategies.ButtonStrategy;
 import tileGame.TileGameModel;
 import java.util.Stack;
 
@@ -43,7 +44,7 @@ public class SokobanGameModel extends TileGameModel {
      * @param nextLocation Holds the value of the next location.
      * @param direction The direction of the object.
      */
-    private void checkNextTile(int nextLocation, directions direction){
+    private void checkNextTile(int nextLocation, Directions direction){
         if (nextLocation == BOX) {
             tileStack.push(SAND);
             moveCrate(direction);
@@ -53,8 +54,7 @@ public class SokobanGameModel extends TileGameModel {
         } else tileStack.push(nextLocation);
     }
 
-    private void moveCharacterDirection(directions direction, int Y, int X){
-
+    private void moveCharacterDirection(Directions direction, int Y, int X){
         if (isValidMove(Y,X)) {
             int nextLocation = getTileState(playerLocationY + Y, playerLocationX + X);
             int currentLocation = tileStack.pop();
@@ -66,7 +66,7 @@ public class SokobanGameModel extends TileGameModel {
         }
     }
 
-    public void moveCharacter(directions direction){
+    public void moveCharacter(Directions direction){
         setCharacterPosition();
         switch (direction) {
             case NORTH -> moveCharacterDirection(direction, UP, 0);
@@ -78,7 +78,7 @@ public class SokobanGameModel extends TileGameModel {
         gameWon();
     }
 
-    public void moveCrate(directions direction) {
+    public void moveCrate(Directions direction) {
         switch (direction) {
             case NORTH -> crateMover(UP, 0);
             case WEST -> crateMover(0, LEFT);
@@ -125,10 +125,29 @@ public class SokobanGameModel extends TileGameModel {
         updateGameGrid(SokobanInfo.level2);
     }
 
+    public void processButton(ButtonStrategy strategy) {
+        strategy.executeMethod(this);
+    }
+
+    public void resetLevel() {
+        System.out.println("Implement reset level method");
+    }
+
+    public void saveGame() {
+        System.out.println("Implement Save Game method");
+    }
+
+    public void loadGame() {
+        System.out.println("Implement Load game method");
+    }
+
+
     private Stack<Integer> tileStack;
     private int playerLocationY;
     private int playerLocationX;
 
     final private int UP = -1, LEFT = -1, RIGHT= 1, DOWN = 1;
-    enum directions {NORTH, WEST ,EAST, SOUTH}
+
+
+    public enum Directions {NORTH, WEST ,EAST, SOUTH}
 }

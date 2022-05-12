@@ -1,11 +1,18 @@
 package sokoban;
 
+import sokoban.buttonStrategies.MoveButton;
 import tileGame.TileGameGUI;
+
 
 import javax.swing.*;
 import java.awt.*;
 
-abstract class SokobanGameGUI extends TileGameGUI {
+import static sokoban.SokobanGameModel.Directions.NORTH;
+import static sokoban.SokobanGameModel.Directions.SOUTH;
+import static sokoban.SokobanGameModel.Directions.WEST;
+import static sokoban.SokobanGameModel.Directions.EAST;
+
+public class SokobanGameGUI extends TileGameGUI {
     /**
      * Creates a base for *ett spel att ha*
      *
@@ -53,6 +60,44 @@ abstract class SokobanGameGUI extends TileGameGUI {
         ));
     }
 
+    @Override
+    protected void northButtonPressed() {
+        sokobanController.handleButtonPress(new MoveButton(NORTH));
+    }
+    @Override
+    protected void eastButtonPressed() {
+        sokobanController.handleButtonPress(new MoveButton(EAST));
+    }
+    @Override
+    protected void southButtonPressed() {
+        sokobanController.handleButtonPress(new MoveButton(SOUTH));
+    }
+    @Override
+    protected void westButtonPressed() {
+        sokobanController.handleButtonPress(new MoveButton(WEST));
+    }
+
+    @Override
+    protected JMenuBar createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        JButton[] buttons = new JButton[3];
+        buttons[0] = new JButton("Reset Game");  buttons[0].addActionListener(e ->
+                sokobanController.handleButtonPress(sokobanGameModel -> sokobanGameModel.resetLevel()));
+        buttons[1] = new JButton("Save Game");   buttons[1].addActionListener(e ->
+                sokobanController.handleButtonPress(sokobanGameModel -> sokobanGameModel.saveGame()));
+        buttons[2] = new JButton("Load Game");   buttons[2].addActionListener(e ->
+                sokobanController.handleButtonPress(sokobanGameModel -> sokobanGameModel.loadGame()));
+        for (int i = 0; i < buttons.length; i++) {
+            menuBar.add(buttons[i]);
+        }
+        return menuBar;
+    }
+
+    public void setController(SokobanController aSokobanController) {
+        this.sokobanController = aSokobanController;
+    }
+
 
     private final String pathToImages = "src/main/java/sokoban/icons/";
+    private SokobanController sokobanController;
 }

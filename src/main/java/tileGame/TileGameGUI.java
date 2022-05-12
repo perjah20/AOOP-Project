@@ -11,6 +11,7 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
     protected abstract void eastButtonPressed();
     protected abstract void southButtonPressed();
     protected abstract void westButtonPressed();
+    protected abstract JMenuBar createMenuBar();
 
     /**
      * Creates a base for *ett spel att ha*
@@ -19,7 +20,9 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
-        this.setJMenuBar(createMenu());
+        JMenuBar menuBar = createMenuBar();
+        if (menuBar != null)
+            this.setJMenuBar(menuBar);
         this.add(createGrid(rows,columns),BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
@@ -105,19 +108,6 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
             inputMap.put(KeyStroke.getKeyStroke(keys[i],0,true),actionMapKeys[i]);
             actionMap.put(actionMapKeys[i],actions[i]);
         }
-    }
-
-    private JMenuBar createMenu() {
-        //TODO Expand this menubar and add some interactions like
-        // "Save Game" - Should save GameModel object using serialization. Maybe have a function in GameModel that gets called.
-        // "Load Game" - Should get a GameModel Object using serialization, Maybe have a function in GameModel that gets called.
-        // "Reset Game". - Optional. Could be fun.
-        // Consider using buttons instead of menu's
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("A menu");
-        menuBar.add(menu);
-
-        return menuBar;
     }
 
     /**
