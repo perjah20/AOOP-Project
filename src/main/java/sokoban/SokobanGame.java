@@ -24,6 +24,7 @@ public class SokobanGame extends TileGame {
     @Override
     protected TileGameGUI addTileGameGUI(int rows, int columns) {
         sgm = new SokobanGameModel(rows,columns);
+        sgm.getGameState();
         return new SokobanGameGUI(rows, columns) {
             @Override
             protected void northButtonPressed() {
@@ -54,29 +55,7 @@ public class SokobanGame extends TileGame {
      */
     public SokobanGame() {
         super(9,8 );
-        tileGameModel.updateGameGrid(new int[][] {
-                {20,20,20,20,20,20,20,20},
-                {20,1,1,1,1,1,1,20},
-                {20,1,1,1,1,1,1,20},
-                {20,1,1,2,10,1,1,20},
-                {20,1,1,1,5,1,1,20},
-                {20,1,1,1,1,1,1,20},
-                {20,1,1,1,1,1,1,20},
-                {20,1,1,1,1,1,1,20},
-                {20,20,20,20,20,20,20,20}
-        });
-/*        tileGameModel.updateGameGrid(new int[][] {
-            {0,0,6,6,6,6,6,0},
-            {6,6,6,1,1,1,6,0},
-            {6,2,5,3,1,1,6,0},
-            {6,6,6,1,3,2,6,0},
-            {6,2,6,6,3,1,6,0},
-            {6,1,6,1,2,1,6,6},
-            {6,3,1,4,3,3,2,6},
-            {6,1,1,1,2,1,1,6},
-            {6,6,6,6,6,6,6,6}
-        });*/
-
+        tileGameModel.updateGameGrid(SokobanInfo.level1);
     }
     SokobanGameModel sgm;
     //TileGameModel tileGameModel;

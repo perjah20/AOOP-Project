@@ -120,13 +120,6 @@ public class SokobanGameModel extends TileGameModel {
         updateObservers();
     }
 
-    private boolean isValidMove(int Y, int X) {
-        int[][] gameGrid = getGameState();
-        if (gameGrid[playerLocationY + Y][playerLocationX + X] < COBBLESTONE)
-            return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < BOX);
-        return false;
-    }
-
     public void moveCrate(int direction) {
         //int[][] gameGrid = getGameState();
         switch (direction){
@@ -153,6 +146,13 @@ public class SokobanGameModel extends TileGameModel {
                 if (isValidMove(1,0))
                     break;
         }
+    }
+
+    private boolean isValidMove(int Y, int X) {
+        int[][] gameGrid = getGameState();
+        if (gameGrid[playerLocationY + Y][playerLocationX + X] < COBBLESTONE)
+            return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < BOX);
+        return false;
     }
 
     @Override
