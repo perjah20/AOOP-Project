@@ -56,37 +56,34 @@ public class SokobanGameModel extends TileGameModel {
 
     private void moveCharacterDirection(directions direction, int Y, int X){
 
-        int nextLocation = getTileState(playerLocationY + Y, playerLocationX + X);
-        int currentLocation = tileStack.pop();
-        checkNextTile(nextLocation, direction);
+        if (isValidMove(Y,X)) {
+            int nextLocation = getTileState(playerLocationY + Y, playerLocationX + X);
+            int currentLocation = tileStack.pop();
+            checkNextTile(nextLocation, direction);
 
-        nextLocation = PLAYER;
-        setTileState(currentLocation, playerLocationY, playerLocationX);
-        setTileState(nextLocation, playerLocationY + Y, playerLocationX + X);
+            nextLocation = PLAYER;
+            setTileState(currentLocation, playerLocationY, playerLocationX);
+            setTileState(nextLocation, playerLocationY + Y, playerLocationX + X);
+        }
     }
 
     public void moveCharacter(directions direction){
         setCharacterPosition();
-        switch (direction){
-            case NORTH:
-                if (isValidMove(UP,0)) {
-                    moveCharacterDirection(direction, UP,0);
-                }break;
+        switch (direction) {
+            case NORTH -> moveCharacterDirection(direction, UP, 0);
+            case WEST -> moveCharacterDirection(direction, 0, LEFT);
+            case EAST -> moveCharacterDirection(direction, 0, RIGHT);
+            case SOUTH -> moveCharacterDirection(direction, DOWN, 0);
+        }
+        updateObservers();
+    }
 
-            case WEST:
-                if (isValidMove(0,LEFT)) {
-                    moveCharacterDirection(direction,0,LEFT);
-                }break;
-
-            case EAST:
-                if (isValidMove(0,RIGHT)) {
-                    moveCharacterDirection(direction,0,RIGHT);
-                }break;
-
-            case SOUTH:
-                if (isValidMove(DOWN,0)) {
-                    moveCharacterDirection(direction,DOWN,0);
-                }break;
+    public void moveCrate(directions direction) {
+        switch (direction) {
+            case NORTH -> crateMover(UP, 0);
+            case WEST -> crateMover(0, LEFT);
+            case EAST -> crateMover(0, RIGHT);
+            case SOUTH -> crateMover(DOWN, 0);
         }
         updateObservers();
     }
@@ -98,23 +95,7 @@ public class SokobanGameModel extends TileGameModel {
         else setTileState(BOX,playerLocationY + Y + Y,playerLocationX + X + X);
     }
 
-    public void moveCrate(directions direction) {
-        switch (direction){
-            case NORTH:
-                crateMover(UP,0);
-                break;
-            case WEST:
-                crateMover(0,LEFT);
-                break;
-            case EAST:
-                crateMover(0, RIGHT);
-                break;
-            case SOUTH:
-                crateMover(DOWN,0);
-                break;
-        }
-        updateObservers();
-    }
+
 
     private boolean isValidMove(int Y, int X) {
         int[][] gameGrid = getGameState();
