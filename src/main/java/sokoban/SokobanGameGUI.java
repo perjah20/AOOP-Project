@@ -18,9 +18,19 @@ abstract class SokobanGameGUI extends TileGameGUI {
 
     @Override
     public void updateGameObserver(int[][] gameState) {
-        for (int i = 0; i < gameState.length; i++) {
-            for (int j = 0; j < gameState[0].length; j++) {
-                setTile(getTile(i,j),gameState[i][j]);
+        if (gameState.length == tiles.length && gameState[0].length == tiles[0].length) {
+            for (int i = 0; i < gameState.length; i++) {
+                for (int j = 0; j < gameState[0].length; j++) {
+                    setTile(getTile(i, j), gameState[i][j]);
+                }
+            }
+        } else {
+            this.remove(gameGrid);
+            this.add(createGrid(gameState.length,gameState[0].length),BorderLayout.CENTER);
+            for (int i = 0; i < gameState.length; i++) {
+                for (int j = 0; j < gameState[0].length; j++) {
+                    setTile(getTile(i, j), gameState[i][j]);
+                }
             }
         }
         this.pack();

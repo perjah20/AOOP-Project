@@ -50,7 +50,6 @@ public class SokobanGameModel extends TileGameModel {
         } else if (nextLocation == FILLEDBOX) {
             tileStack.push(DOT);
             moveCrate(direction);
-            gameWon();
         } else tileStack.push(nextLocation);
     }
 
@@ -76,6 +75,7 @@ public class SokobanGameModel extends TileGameModel {
             case SOUTH -> moveCharacterDirection(direction, DOWN, 0);
         }
         updateObservers();
+        gameWon();
     }
 
     public void moveCrate(directions direction) {
@@ -117,13 +117,12 @@ public class SokobanGameModel extends TileGameModel {
 
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
-                if (gameGrid[i][j] == BOX) {
+                if (gameGrid[i][j] == BOX)
                     return;
-                }
             }
         }
-        //TileGameGUI.showText();
-
+        //TileGameGUI.showText("You finished first level. Now on level 2");
+        updateGameGrid(SokobanInfo.level2);
     }
 
     private Stack<Integer> tileStack;
