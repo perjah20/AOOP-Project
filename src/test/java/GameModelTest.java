@@ -7,7 +7,7 @@ public class GameModelTest {
     public static void main(String[] args) {
 
 
-        SokobanGameModel sokobanGameModel = new SokobanGameModel(9, 8) {
+        SokobanGameModel sokobanGameModel = new SokobanGameModel() {
             @Override
             protected void gameOver() {
                 // if (box.getTileAdjecent > 22)

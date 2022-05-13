@@ -9,23 +9,19 @@ public abstract class TileGameModel {
 
     /**
      * Constructs a GameModel object.
-     * @param rows Amount of tiles in vertically (y-axis).
-     * @param columns Amount of tiles in horizontally (x-axis).
      */
-    public TileGameModel(int rows, int columns) {
-        if (rows < 1 || columns < 1)
-            throw new IllegalArgumentException("Number of rows and columns has to be positive int's.");
-        gameGrid = new int[rows][columns];
+    public TileGameModel() {
+        gameGrid = new int[1][1];
     }
 
     /**
      * Updates the gamegrid to a new game grid
      * @param newGameGrid - A new gamegrid
-     * @precondition - newGameGrid has to be of same size as current gameGrid.
+     * @precondition - newGameGrid has to be at least a 1x1 grid.
      */
     public void updateGameGrid(int[][] newGameGrid) {
         if (newGameGrid.length < 1 || newGameGrid[0].length < 1)
-            throw new IllegalArgumentException("Wrong dimensions");
+            throw new IllegalArgumentException("Illegal dimension, has to be at least 1x1");
         gameGrid = newGameGrid;
         updateObservers();
     }
