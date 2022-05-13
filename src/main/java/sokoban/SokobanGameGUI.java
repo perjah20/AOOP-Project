@@ -16,11 +16,8 @@ public class SokobanGameGUI extends TileGameGUI {
     /**
      * Creates a base for *ett spel att ha*
      *
-     * @param rows
-     * @param columns
      */
-    public SokobanGameGUI(int rows, int columns) {
-        super(rows, columns);
+    public SokobanGameGUI() {
     }
 
     @Override
@@ -82,13 +79,13 @@ public class SokobanGameGUI extends TileGameGUI {
         JMenuBar menuBar = new JMenuBar();
         JButton[] buttons = new JButton[3];
         buttons[0] = new JButton("Reset Game");  buttons[0].addActionListener(e ->
-                sokobanController.handleButtonPress(sokobanGameModel -> sokobanGameModel.resetLevel()));
+                sokobanController.handleButtonPress(SokobanGameModel::resetLevel));
         buttons[1] = new JButton("Save Game");   buttons[1].addActionListener(e ->
-                sokobanController.handleButtonPress(sokobanGameModel -> sokobanGameModel.saveGame()));
+                sokobanController.handleButtonPress(SokobanGameModel::saveGame));
         buttons[2] = new JButton("Load Game");   buttons[2].addActionListener(e ->
-                sokobanController.handleButtonPress(sokobanGameModel -> sokobanGameModel.loadGame()));
-        for (int i = 0; i < buttons.length; i++) {
-            menuBar.add(buttons[i]);
+                sokobanController.handleButtonPress(SokobanGameModel::loadGame));
+        for (JButton button : buttons) {
+            menuBar.add(button);
         }
         return menuBar;
     }
