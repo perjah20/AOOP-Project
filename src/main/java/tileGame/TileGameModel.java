@@ -24,15 +24,9 @@ public abstract class TileGameModel {
      * @precondition - newGameGrid has to be of same size as current gameGrid.
      */
     public void updateGameGrid(int[][] newGameGrid) {
-        if (newGameGrid.length != this.getRows() || newGameGrid[0].length != this.getColumns())
+        if (newGameGrid.length < 1 || newGameGrid[0].length < 1)
             throw new IllegalArgumentException("Wrong dimensions");
         gameGrid = newGameGrid;
-
-        /*for (int i = 0; i < this.getRows(); i++) {
-            for (int j = 0; j < this.getColumns(); j++) {
-                gameGrid[i][j] = newGameGrid[i][j];
-            }
-        }*/
         updateObservers();
     }
 
