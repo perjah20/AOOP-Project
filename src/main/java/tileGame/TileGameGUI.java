@@ -16,14 +16,14 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
     /**
      * Creates a base for *ett spel att ha*
      */
-    public TileGameGUI(int rows, int columns) {
+    public TileGameGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
         JMenuBar menuBar = createMenuBar();
         if (menuBar != null)
             this.setJMenuBar(menuBar);
-        this.add(createGrid(rows,columns),BorderLayout.CENTER);
+        this.add(createGrid(1,1),BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
     }

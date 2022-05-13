@@ -18,7 +18,7 @@ public class GameGUITest {
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
-        new TileGameGUI(1,1) {
+        new TileGameGUI() {
 
             @Override
             public void updateGameObserver(int[][] gameState) {
