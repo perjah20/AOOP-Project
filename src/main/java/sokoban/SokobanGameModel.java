@@ -10,11 +10,8 @@ public class SokobanGameModel extends TileGameModel {
     /**
      * Constructs a GameModel object.
      *
-     * @param rows    Amount of tiles in vertically (y-axis).
-     * @param columns Amount of tiles in horizontally (x-axis).
      */
-    public SokobanGameModel(int rows, int columns) {
-        super(rows, columns);
+    public SokobanGameModel() {
         currentLevel = 0;
         tileStack = new Stack<>();
         tileStack.push(SAND);
@@ -94,7 +91,6 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     private boolean isValidMove(int Y, int X) {
-        //gameGrid = getGameState();
         if (gameGrid[playerLocationY + Y][playerLocationX + X] == COBBLESTONE)
             return false;
         if (gameGrid[playerLocationY + Y][playerLocationX + X] < BOX)
@@ -109,8 +105,6 @@ public class SokobanGameModel extends TileGameModel {
 
     @Override
     protected void gameWon() {
-        //gameGrid = getGameState();
-
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
                 if (gameGrid[i][j] == BOX)
@@ -130,19 +124,6 @@ public class SokobanGameModel extends TileGameModel {
         } else if (currentLevel == 3) {
             gameOver();
         }
-
-        /*if (currentLevel == levelList[0]) {
-            updateGameGrid(getLevel(1));
-            currentLevel = levelList[1];
-        } else if (currentLevel == levelList[1]) {
-            updateGameGrid(getLevel(2));
-            currentLevel = levelList[2];
-        } else if (currentLevel == levelList[2]) {
-            updateGameGrid(getLevel(3));
-            currentLevel = levelList[3];
-        } else if (currentLevel == levelList[3]) {
-            gameOver();
-        }*/
     }
 
     public void processButton(ButtonStrategy strategy) {
@@ -166,12 +147,10 @@ public class SokobanGameModel extends TileGameModel {
     private Stack<Integer> tileStack;
     private int[][] gameGrid;
     private int[][] save;
-    //private int[][] currentLevel; //kanske ta bort
     private int currentLevel;
     private boolean lastCratePushed;
     private int playerLocationY;
     private int playerLocationX;
-    //public static int[][][] levelList = {getLevel(0),getLevel(1),getLevel(2),getLevel(3)};
 
     final private int UP = -1, LEFT = -1, RIGHT= 1, DOWN = 1;
 
