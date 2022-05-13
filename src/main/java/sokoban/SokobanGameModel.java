@@ -15,11 +15,8 @@ public class SokobanGameModel extends TileGameModel {
     /**
      * Constructs a GameModel object.
      *
-     * @param rows    Amount of tiles in vertically (y-axis).
-     * @param columns Amount of tiles in horizontally (x-axis).
      */
-    public SokobanGameModel(int rows, int columns) {
-        super(rows, columns);
+    public SokobanGameModel() {
         tileStack = new Stack<>();
         tileStack.push(SAND);
     }
@@ -142,7 +139,7 @@ public class SokobanGameModel extends TileGameModel {
     }
 
 
-    private Stack<Integer> tileStack;
+    private final Stack<Integer> tileStack;
     private int playerLocationY;
     private int playerLocationX;
 
