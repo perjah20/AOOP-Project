@@ -1,6 +1,5 @@
 package sokoban;
 
-import sokoban.buttonStrategies.ButtonStrategy;
 import tileGame.TileGameModel;
 import java.util.Stack;
 
@@ -49,6 +48,7 @@ public class SokobanGameModel extends TileGameModel {
 
     private void moveCharacterDirection(Directions direction, int Y, int X){
         if (isValidMove(Y,X)) {
+            lastEvent = MOVED_PLAYER;
             int nextLocation = getTileState(playerLocationY + Y, playerLocationX + X);
             int currentLocation = tileStack.pop();
             checkNextTile(nextLocation, direction);
@@ -60,6 +60,7 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     public void moveCharacter(Directions direction){
+        lastEvent = TRIED_TO_MOVE;
         lastCratePushed = false;
         setCharacterPosition();
         switch (direction) {
@@ -73,6 +74,7 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     public void moveCrate(Directions direction) {
+        lastEvent = MOVED_BOX;
         switch (direction) {
             case NORTH -> crateMover(UP, 0);
             case WEST -> crateMover(0, LEFT);
