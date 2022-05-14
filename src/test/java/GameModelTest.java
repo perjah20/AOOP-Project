@@ -34,6 +34,6 @@ public class GameModelTest {
                 System.out.println(string+"]");
             }
         });
-        sokobanGameModel.updateGameGrid(SokobanInfo.level1);
+        sokobanGameModel.updateGameGrid(SokobanInfo.getLevel(1));
     }
 }
