@@ -14,7 +14,7 @@ import static sokoban.SokobanGameModel.Directions.EAST;
 
 public class SokobanGameGUI extends TileGameGUI {
     /**
-     * Creates a base for *ett spel att ha*
+     * Creates a base for a tile base game
      *
      */
     public SokobanGameGUI() {
@@ -22,7 +22,7 @@ public class SokobanGameGUI extends TileGameGUI {
 
     @Override
     public void updateGameObserver(int[][] gameState) {
-        if (gameState.length == tiles.length && gameState[0].length == tiles[0].length) {
+        if (gameState.length == getTiles().length && gameState[0].length == getTiles()[0].length) {
             for (int i = 0; i < gameState.length; i++) {
                 for (int j = 0; j < gameState[0].length; j++) {
                     setTile(getTile(i, j), gameState[i][j]);
