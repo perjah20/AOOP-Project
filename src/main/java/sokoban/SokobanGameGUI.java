@@ -1,6 +1,7 @@
 package sokoban;
 
 import sokoban.buttonStrategies.MoveButton;
+import tileGame.GameLabel;
 import tileGame.TileGameGUI;
 
 
@@ -44,55 +45,34 @@ public class SokobanGameGUI extends TileGameGUI {
                     showText("You pushed a box");
                     break;
             }
-
         } catch (Exception exception){}
-
-        int[][] gameState = gameModel.getGameState();
-        if (gameState.length == getTiles().length && gameState[0].length == getTiles()[0].length) {
-            for (int i = 0; i < gameState.length; i++) {
-                for (int j = 0; j < gameState[0].length; j++) {
-                    setTile(getTile(i, j), gameState[i][j]);
+        if (gameModel.getRows() == getTiles().length && gameModel.getColumns() == getTiles()[0].length) {
+            for (int i = 0; i < gameModel.getRows(); i++) {
+                for (int j = 0; j < gameModel.getColumns(); j++) {
+                    if (this.getTile(i,j).getTileValue() != gameModel.getTileState(i,j))
+                        setTile(getTile(i, j), gameModel.getTileState(i,j));
                 }
             }
         } else {
             this.remove(gameGrid);
-            this.add(createGrid(gameState.length,gameState[0].length),BorderLayout.CENTER);
-            for (int i = 0; i < gameState.length; i++) {
-                for (int j = 0; j < gameState[0].length; j++) {
-                    setTile(getTile(i, j), gameState[i][j]);
+            this.add(createGrid(gameModel.getRows(), gameModel.getColumns()),BorderLayout.CENTER);
+            for (int i = 0; i < gameModel.getRows(); i++) {
+                for (int j = 0; j < gameModel.getColumns(); j++) {
+                    setTile(getTile(i, j), gameModel.getTileState(i,j));
                 }
             }
         }
         this.pack();
     }
 
-    private void setTile(JLabel tile, int value) {
+    private void setTile(GameLabel tile, int value) {
         switch(value) {
-            case COBBLESTONE:
-                tile.setIcon(getImageIcon("wall.png"));
-                tile.setText(String.valueOf(COBBLESTONE));
-                //tile.set
-                break;
-            case PLAYER:
-                tile.setIcon(getImageIcon("player.png"));
-                tile.setText(String.valueOf(PLAYER));
-                break;
-            case FILLEDBOX:
-                tile.setIcon(getImageIcon("cratemarked.png"));
-                tile.setText(String.valueOf(FILLEDBOX));
-                break;
-            case BOX:
-                tile.setIcon(getImageIcon("crate.png"));
-                tile.setText(String.valueOf(BOX));
-                break;
-            case DOT:
-                tile.setIcon(getImageIcon("blankmarked.png"));
-                tile.setText(String.valueOf(DOT));
-                break;
-            case SAND:
-                tile.setIcon(getImageIcon("blank.png"));
-                tile.setText(String.valueOf(SAND));
-                break;
+            case COBBLESTONE: tile.setIcon(getImageIcon("wall.png")); tile.setTileValue(COBBLESTONE);break;
+            case PLAYER: tile.setIcon(getImageIcon("player.png")); tile.setTileValue(PLAYER);break;
+            case FILLEDBOX: tile.setIcon(getImageIcon("cratemarked.png")); tile.setTileValue(FILLEDBOX);break;
+            case BOX: tile.setIcon(getImageIcon("crate.png")); tile.setTileValue(BOX); break;
+            case DOT: tile.setIcon(getImageIcon("blankmarked.png")); tile.setTileValue(DOT);break;
+            case SAND: tile.setIcon(getImageIcon("blank.png")); tile.setTileValue(SAND);break;
             default: tile.setBackground(new Color(222,214,173));
         }
     }
