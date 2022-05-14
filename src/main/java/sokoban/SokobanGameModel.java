@@ -140,6 +140,11 @@ public class SokobanGameModel extends TileGameModel {
         System.out.println("Implement Load game method");
     }
 
+    public Events getLastEvent() {
+        return lastEvent;
+    }
+
+    private final Stack<Integer> tileStack;
     private Stack<Integer> tileStack;
     private int[][] gameGrid;
     private int[][] save;
@@ -147,6 +152,7 @@ public class SokobanGameModel extends TileGameModel {
     private boolean lastCratePushed;
     private int playerLocationY;
     private int playerLocationX;
+    private Events lastEvent;
 
     final private int UP = -1, LEFT = -1, RIGHT= 1, DOWN = 1;
 
