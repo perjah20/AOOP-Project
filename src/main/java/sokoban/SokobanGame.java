@@ -12,7 +12,7 @@ public class SokobanGame  {
         sokobanGameGUI.setController(new SokobanController(sokobanGameModel));
         sokobanGameModel.addGameObserver(sokobanGameGUI);
         sokobanGameModel.addGameObserver(new SokobanConsole());
+        sokobanGameModel.addGameObserver(new SokobanSounds());
         sokobanGameModel.updateGameGrid(SokobanInfo.getLevel(0));
-
     }
 }
