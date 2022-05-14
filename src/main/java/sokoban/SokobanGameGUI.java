@@ -3,6 +3,7 @@ package sokoban;
 import sokoban.buttonStrategies.MoveButton;
 import tileGame.GameLabel;
 import tileGame.TileGameGUI;
+import tileGame.TileGameModel;
 
 
 import javax.swing.*;

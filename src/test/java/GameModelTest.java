@@ -25,6 +25,7 @@ public class GameModelTest {
 
             }
         };
+        /*
         sokobanGameModel.addGameObserver(gameState -> {
             for (int[] row :gameState) {
                 String string = "[";
@@ -35,5 +36,7 @@ public class GameModelTest {
             }
         });
         sokobanGameModel.updateGameGrid(SokobanInfo.getLevel(1));
+
+         */
     }
 }
