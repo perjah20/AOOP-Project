@@ -84,14 +84,14 @@ public abstract class TileGameModel {
      * Gets the number of rows in a matrix
      * @return The number of rows in the matrix
      */
-    protected int getRows() {
+    public int getRows() {
         return gameGrid.length;
     }
     /**
      * Gets the number of columns in a matrix
      * @return The number of columns in the matrix
      */
-    protected int getColumns() {
+    public int getColumns() {
         return gameGrid[0].length;
     }
 

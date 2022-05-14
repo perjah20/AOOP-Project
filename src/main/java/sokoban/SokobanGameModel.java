@@ -84,6 +84,7 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     private void crateMover(int Y, int X){
+
         int crateNextLocation = getTileState(playerLocationY + Y + Y, playerLocationX + X + X);
         if (crateNextLocation == DOT) {
             lastCratePushed = true;
