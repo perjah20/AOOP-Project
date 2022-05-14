@@ -7,10 +7,10 @@ import tileGame.TileGameGUI;
 import javax.swing.*;
 import java.awt.*;
 
-import static sokoban.SokobanGameModel.Directions.NORTH;
-import static sokoban.SokobanGameModel.Directions.SOUTH;
-import static sokoban.SokobanGameModel.Directions.WEST;
-import static sokoban.SokobanGameModel.Directions.EAST;
+import static sokoban.SokobanInfo.Directions.NORTH;
+import static sokoban.SokobanInfo.Directions.SOUTH;
+import static sokoban.SokobanInfo.Directions.WEST;
+import static sokoban.SokobanInfo.Directions.EAST;
 
 public class SokobanGameGUI extends TileGameGUI {
     /**

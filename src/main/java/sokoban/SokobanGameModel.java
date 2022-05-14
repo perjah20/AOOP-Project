@@ -150,5 +150,6 @@ public class SokobanGameModel extends TileGameModel {
 
     final private int UP = -1, LEFT = -1, RIGHT= 1, DOWN = 1;
 
-    public enum Directions {NORTH, WEST ,EAST, SOUTH}
+
+
 }

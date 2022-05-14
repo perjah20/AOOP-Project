@@ -1,7 +1,7 @@
 package sokoban.buttonStrategies;
 
 import sokoban.SokobanGameModel;
-import static sokoban.SokobanGameModel.Directions;
+import static sokoban.SokobanInfo.Directions;
 
 
 public class MoveButton implements ButtonStrategy {
