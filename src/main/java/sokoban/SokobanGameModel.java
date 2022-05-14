@@ -104,6 +104,7 @@ public class SokobanGameModel extends TileGameModel {
 
     @Override
     protected void gameOver() {
+        lastEvent = GAME_WON;
         System.out.println("You won!");
     }
 
@@ -115,7 +116,6 @@ public class SokobanGameModel extends TileGameModel {
                     return;
             }
         }
-        //TileGameGUI.showText("You finished first level. Now on level 2");
         if (currentLevel == 0) {
             updateGameGrid(getLevel(1));
             currentLevel++;
@@ -158,7 +158,4 @@ public class SokobanGameModel extends TileGameModel {
     private Events lastEvent;
 
     final private int UP = -1, LEFT = -1, RIGHT= 1, DOWN = 1;
-
-
-
 }
