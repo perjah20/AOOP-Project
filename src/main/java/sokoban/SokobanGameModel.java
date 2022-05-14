@@ -4,25 +4,24 @@ import sokoban.buttonStrategies.ButtonStrategy;
 import tileGame.TileGameModel;
 import java.util.Stack;
 
-import static sokoban.SokobanInfo.SAND;
-import static sokoban.SokobanInfo.PLAYER;
-import static sokoban.SokobanInfo.DOT;
-import static sokoban.SokobanInfo.BOX;
-import static sokoban.SokobanInfo.FILLEDBOX;
-import static sokoban.SokobanInfo.COBBLESTONE;
+import static sokoban.SokobanInfo.*;
 
 public class SokobanGameModel extends TileGameModel {
     /**
      * Constructs a GameModel object.
      *
+     * @param rows    Amount of tiles in vertically (y-axis).
+     * @param columns Amount of tiles in horizontally (x-axis).
      */
-    public SokobanGameModel() {
+    public SokobanGameModel(int rows, int columns) {
+        super(rows, columns);
+        currentLevel = 0;
         tileStack = new Stack<>();
         tileStack.push(SAND);
     }
 
     private void setCharacterPosition() {
-        int[][] gameGrid = getGameState();
+        gameGrid = getGameState();
 
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
@@ -64,6 +63,7 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     public void moveCharacter(Directions direction){
+        lastCratePushed = false;
         setCharacterPosition();
         switch (direction) {
             case NORTH -> moveCharacterDirection(direction, UP, 0);
@@ -72,7 +72,7 @@ public class SokobanGameModel extends TileGameModel {
             case SOUTH -> moveCharacterDirection(direction, DOWN, 0);
         }
         updateObservers();
-        gameWon();
+        if (lastCratePushed) gameWon();
     }
 
     public void moveCrate(Directions direction) {
@@ -82,35 +82,34 @@ public class SokobanGameModel extends TileGameModel {
             case EAST -> crateMover(0, RIGHT);
             case SOUTH -> crateMover(DOWN, 0);
         }
-        updateObservers();
     }
 
     private void crateMover(int Y, int X){
         int crateNextLocation = getTileState(playerLocationY + Y + Y, playerLocationX + X + X);
-        if (crateNextLocation == DOT)
+        if (crateNextLocation == DOT) {
+            lastCratePushed = true;
             setTileState(FILLEDBOX,playerLocationY + Y + Y,playerLocationX + X + X);
+        }
         else setTileState(BOX,playerLocationY + Y + Y,playerLocationX + X + X);
     }
 
-
-
     private boolean isValidMove(int Y, int X) {
-        int[][] gameGrid = getGameState();
+        //gameGrid = getGameState();
         if (gameGrid[playerLocationY + Y][playerLocationX + X] == COBBLESTONE)
             return false;
         if (gameGrid[playerLocationY + Y][playerLocationX + X] < BOX)
             return true;
-        else return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < BOX); //TODO Fix so that the array does not go out of bounds when we reach edges
+        else return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < BOX);
     }
 
     @Override
     protected void gameOver() {
-
+        System.out.println("You won!");
     }
 
     @Override
     protected void gameWon() {
-        int[][] gameGrid = getGameState();
+        //gameGrid = getGameState();
 
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
@@ -119,7 +118,31 @@ public class SokobanGameModel extends TileGameModel {
             }
         }
         //TileGameGUI.showText("You finished first level. Now on level 2");
-        updateGameGrid(SokobanInfo.level2);
+        if (currentLevel == 0) {
+            updateGameGrid(getLevel(1));
+            currentLevel++;
+        } else if (currentLevel == 1) {
+            updateGameGrid(getLevel(2));
+            currentLevel++;
+        } else if (currentLevel == 2) {
+            updateGameGrid(getLevel(3));
+            currentLevel++;
+        } else if (currentLevel == 3) {
+            gameOver();
+        }
+
+        /*if (currentLevel == levelList[0]) {
+            updateGameGrid(getLevel(1));
+            currentLevel = levelList[1];
+        } else if (currentLevel == levelList[1]) {
+            updateGameGrid(getLevel(2));
+            currentLevel = levelList[2];
+        } else if (currentLevel == levelList[2]) {
+            updateGameGrid(getLevel(3));
+            currentLevel = levelList[3];
+        } else if (currentLevel == levelList[3]) {
+            gameOver();
+        }*/
     }
 
     public void processButton(ButtonStrategy strategy) {
@@ -127,24 +150,30 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     public void resetLevel() {
-        System.out.println("Implement reset level method");
+        updateGameGrid(getLevel(currentLevel));
     }
 
     public void saveGame() {
+        save = gameGrid.clone();
         System.out.println("Implement Save Game method");
     }
 
     public void loadGame() {
+        updateGameGrid(save);
         System.out.println("Implement Load game method");
     }
 
-
-    private final Stack<Integer> tileStack;
+    private Stack<Integer> tileStack;
+    private int[][] gameGrid;
+    private int[][] save;
+    //private int[][] currentLevel; //kanske ta bort
+    private int currentLevel;
+    private boolean lastCratePushed;
     private int playerLocationY;
     private int playerLocationX;
+    //public static int[][][] levelList = {getLevel(0),getLevel(1),getLevel(2),getLevel(3)};
 
     final private int UP = -1, LEFT = -1, RIGHT= 1, DOWN = 1;
-
 
     public enum Directions {NORTH, WEST ,EAST, SOUTH}
 }
