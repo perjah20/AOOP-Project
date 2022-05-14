@@ -3,11 +3,9 @@ package sokoban;
 import sokoban.buttonStrategies.ButtonStrategy;
 
 public class SokobanController {
-    private final SokobanGameGUI sokobanGameGUI;
     private final SokobanGameModel sokobanGameModel;
 
-    public SokobanController(SokobanGameGUI aSokobanGameGUI, SokobanGameModel aSokobanGameModel) {
-        this.sokobanGameGUI = aSokobanGameGUI;
+    public SokobanController(SokobanGameModel aSokobanGameModel) {
         this.sokobanGameModel = aSokobanGameModel;
     }
 
