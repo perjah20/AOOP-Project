@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import tileGame.TileGameGUI;
+import tileGame.TileGameModel;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class GameGUITest {
         new TileGameGUI() {
 
             @Override
-            public void updateGameObserver(int[][] gameState) {
+            public void updateGameObserver(TileGameModel gameModel) {
 
             }
 
