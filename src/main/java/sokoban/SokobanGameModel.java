@@ -4,6 +4,7 @@ import tileGame.TileGameModel;
 import java.util.Stack;
 
 import static sokoban.SokobanInfo.*;
+import static sokoban.SokobanInfo.Events.*;
 
 public class SokobanGameModel extends TileGameModel {
     /**
@@ -148,7 +149,6 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     private final Stack<Integer> tileStack;
-    private Stack<Integer> tileStack;
     private int[][] gameGrid;
     private int[][] save;
     private int currentLevel;
