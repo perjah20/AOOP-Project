@@ -58,9 +58,7 @@ public class SokobanGameGUI extends TileGameGUI {
     }
 
     @Override
-    protected void northButtonPressed() {
-        sokobanController.handleButtonPress(new MoveButton(NORTH));
-    }
+    protected void northButtonPressed() { sokobanController.handleButtonPress(new MoveButton(NORTH));}
     @Override
     protected void eastButtonPressed() {
         sokobanController.handleButtonPress(new MoveButton(EAST));
