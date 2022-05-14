@@ -3,8 +3,8 @@ package sokoban;
 import sokoban.buttonStrategies.ButtonStrategy;
 
 public class SokobanController {
-    private SokobanGameGUI sokobanGameGUI;
-    private SokobanGameModel sokobanGameModel;
+    private final SokobanGameGUI sokobanGameGUI;
+    private final SokobanGameModel sokobanGameModel;
 
     public SokobanController(SokobanGameGUI aSokobanGameGUI, SokobanGameModel aSokobanGameModel) {
         this.sokobanGameGUI = aSokobanGameGUI;
