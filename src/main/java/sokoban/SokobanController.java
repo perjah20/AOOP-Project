@@ -12,7 +12,6 @@ public class SokobanController {
     }
 
     public void handleButtonPress(ButtonStrategy buttonStrategy){
-        sokobanGameModel.processButton(buttonStrategy);
+        buttonStrategy.executeMethod(sokobanGameModel);
     }
-
 }

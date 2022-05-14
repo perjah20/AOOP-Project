@@ -126,10 +126,6 @@ public class SokobanGameModel extends TileGameModel {
         }
     }
 
-    public void processButton(ButtonStrategy strategy) {
-        strategy.executeMethod(this);
-    }
-
     public void resetLevel() {
         updateGameGrid(getLevel(currentLevel));
     }
