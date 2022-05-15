@@ -116,18 +116,9 @@ public class SokobanGameModel extends TileGameModel {
                     return;
             }
         }
-        if (currentLevel == 0) {
-            updateGameGrid(getLevel(1));
-            currentLevel++;
-        } else if (currentLevel == 1) {
-            updateGameGrid(getLevel(2));
-            currentLevel++;
-        } else if (currentLevel == 2) {
-            updateGameGrid(getLevel(3));
-            currentLevel++;
-        } else if (currentLevel == 3) {
-            gameOver();
-        }
+        lastEvent = GAME_WON;
+        currentLevel++;
+        updateGameGrid(getLevel(currentLevel));
     }
 
     public void resetLevel() {
