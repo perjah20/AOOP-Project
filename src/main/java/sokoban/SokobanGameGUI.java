@@ -1,6 +1,8 @@
 package sokoban;
 
+import sokoban.buttonStrategies.LoadButton;
 import sokoban.buttonStrategies.MoveButton;
+import sokoban.buttonStrategies.SaveButton;
 import tileGame.GameLabel;
 import tileGame.TileGameGUI;
 import tileGame.TileGameModel;
@@ -27,26 +29,16 @@ public class SokobanGameGUI extends TileGameGUI {
     @Override
     public void updateGameObserver(TileGameModel gameModel) {
         try {
-            Method getLastEvent = gameModel.getClass().getMethod("getLastEvent", new Class[] {});
+            Method getLastEvent = gameModel.getClass().getMethod("getLastEvent");
             Events lastEvent = (Events) getLastEvent.invoke(gameModel);
             switch (lastEvent) {
-                case GAME_WON:
-                    showText("You beat the level!");
-                    break;
-                case TRIED_TO_MOVE:
-                    showText("You cant move that way");
-                    break;
-                case RESET_GAME:
-                    showText("You reset the level");
-                    break;
-                case MOVED_PLAYER:
-                    showText("You moved your player");
-                    break;
-                case MOVED_BOX:
-                    showText("You pushed a box");
-                    break;
+                case GAME_WON -> showText("You beat the level!");
+                case TRIED_TO_MOVE -> showText("You cant move that way");
+                case RESET_GAME -> showText("You reset the level");
+                case MOVED_PLAYER -> showText("You moved your player");
+                case MOVED_BOX -> showText("You pushed a box");
             }
-        } catch (Exception exception){}
+        } catch (Exception ignored){}
         if (gameModel.getRows() == getTiles().length && gameModel.getColumns() == getTiles()[0].length) {
             for (int i = 0; i < gameModel.getRows(); i++) {
                 for (int j = 0; j < gameModel.getColumns(); j++) {
@@ -67,14 +59,32 @@ public class SokobanGameGUI extends TileGameGUI {
     }
 
     private void setTile(GameLabel tile, int value) {
-        switch(value) {
-            case COBBLESTONE: tile.setIcon(getImageIcon("wall.png")); tile.setTileValue(COBBLESTONE);break;
-            case PLAYER: tile.setIcon(getImageIcon("player.png")); tile.setTileValue(PLAYER);break;
-            case FILLEDBOX: tile.setIcon(getImageIcon("cratemarked.png")); tile.setTileValue(FILLEDBOX);break;
-            case BOX: tile.setIcon(getImageIcon("crate.png")); tile.setTileValue(BOX); break;
-            case DOT: tile.setIcon(getImageIcon("blankmarked.png")); tile.setTileValue(DOT);break;
-            case SAND: tile.setIcon(getImageIcon("blank.png")); tile.setTileValue(SAND);break;
-            default: tile.setBackground(new Color(222,214,173));
+        switch (value) {
+            case COBBLESTONE -> {
+                tile.setIcon(getImageIcon("wall.png"));
+                tile.setTileValue(COBBLESTONE);
+            }
+            case PLAYER -> {
+                tile.setIcon(getImageIcon("player.png"));
+                tile.setTileValue(PLAYER);
+            }
+            case FILLEDBOX -> {
+                tile.setIcon(getImageIcon("cratemarked.png"));
+                tile.setTileValue(FILLEDBOX);
+            }
+            case BOX -> {
+                tile.setIcon(getImageIcon("crate.png"));
+                tile.setTileValue(BOX);
+            }
+            case DOT -> {
+                tile.setIcon(getImageIcon("blankmarked.png"));
+                tile.setTileValue(DOT);
+            }
+            case SAND -> {
+                tile.setIcon(getImageIcon("blank.png"));
+                tile.setTileValue(SAND);
+            }
+            default -> tile.setBackground(new Color(222, 214, 173));
         }
     }
 
@@ -105,9 +115,9 @@ public class SokobanGameGUI extends TileGameGUI {
         buttons[0] = new JButton("Reset Game");  buttons[0].addActionListener(e ->
                 sokobanController.handleButtonPress(SokobanGameModel::resetLevel));
         buttons[1] = new JButton("Save Game");   buttons[1].addActionListener(e ->
-                sokobanController.handleButtonPress(SokobanGameModel::saveGame));
+                sokobanController.handleButtonPress(new SaveButton()));
         buttons[2] = new JButton("Load Game");   buttons[2].addActionListener(e ->
-                sokobanController.handleButtonPress(SokobanGameModel::loadGame));
+                sokobanController.handleButtonPress(new LoadButton()));
         for (JButton button : buttons) {
             menuBar.add(button);
         }
