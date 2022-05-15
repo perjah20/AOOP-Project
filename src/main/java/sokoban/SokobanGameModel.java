@@ -1,28 +1,29 @@
 package sokoban;
 
 import tileGame.TileGameModel;
+
+import java.io.Serializable;
 import java.util.Stack;
 
 import static sokoban.SokobanInfo.*;
 import static sokoban.SokobanInfo.Events.*;
 
-public class SokobanGameModel extends TileGameModel {
+public class SokobanGameModel extends TileGameModel implements Serializable {
     /**
      * Constructs a GameModel object.
      *
      */
     public SokobanGameModel() {
         currentLevel = 0;
+        lastEvent = RESET_GAME;
         tileStack = new Stack<>();
         tileStack.push(SAND);
     }
 
     private void setCharacterPosition() {
-        gameGrid = getGameState();
-
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
-                if (gameGrid[i][j] == PLAYER) {
+                if (getTileState(i,j) == PLAYER) {
                     playerLocationY = i;
                     playerLocationX = j;
                     return;
@@ -95,11 +96,11 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     private boolean isValidMove(int Y, int X) {
-        if (gameGrid[playerLocationY + Y][playerLocationX + X] == COBBLESTONE)
+        if (getTileState(playerLocationY + Y,playerLocationX + X) == COBBLESTONE)
             return false;
-        if (gameGrid[playerLocationY + Y][playerLocationX + X] < BOX)
+        if (getTileState(playerLocationY + Y,playerLocationX + X) < BOX)
             return true;
-        else return (gameGrid[playerLocationY + Y*2][playerLocationX + X*2] < BOX);
+        else return (getTileState(playerLocationY + Y*2,playerLocationX + X*2)< BOX);
     }
 
     @Override
@@ -112,7 +113,7 @@ public class SokobanGameModel extends TileGameModel {
     protected void gameWon() {
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
-                if (gameGrid[i][j] == BOX)
+                if (getTileState(i,j) == BOX)
                     return;
             }
         }
@@ -126,21 +127,18 @@ public class SokobanGameModel extends TileGameModel {
     }
 
     public void saveGame() {
-        save = gameGrid.clone();
-        System.out.println("Implement Save Game method");
-    }
-
-    public void loadGame() {
-        updateGameGrid(save);
-        System.out.println("Implement Load game method");
+        save = this.getGameState().clone();
     }
 
     public Events getLastEvent() {
         return lastEvent;
     }
 
+    public int[][] getSave() {
+        return save;
+    }
+
     private final Stack<Integer> tileStack;
-    private int[][] gameGrid;
     private int[][] save;
     private int currentLevel;
     private boolean lastCratePushed;
