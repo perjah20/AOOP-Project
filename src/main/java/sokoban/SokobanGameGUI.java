@@ -36,7 +36,7 @@ public class SokobanGameGUI extends TileGameGUI {
                 case TRIED_TO_MOVE -> showText("You cant move that way");
                 case RESET_GAME -> showText("You reset the level");
                 case MOVED_PLAYER -> showText("You moved your player");
-                case MOVED_BOX -> showText("You pushed a box");
+                case MOVED_CRATE -> showText("You pushed a box");
             }
         } catch (Exception ignored){}
         if (gameModel.getRows() == getTiles().length && gameModel.getColumns() == getTiles()[0].length) {
