@@ -17,7 +17,6 @@ public class SokobanSounds implements GameObserver {
 
     public void playSound(String filename) {
         try {
-            //File audioFile = new File("src/main/java/sokoban/sounds/footstep_carpet_002 (1).wav").getAbsoluteFile();
             File audioFile = new File(filename);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
             Clip clip = AudioSystem.getClip();
@@ -46,17 +45,20 @@ public class SokobanSounds implements GameObserver {
                     System.out.println("Generate sound TRIED_TO_MOVE");
                     break;
                 case RESET_GAME:
-                    //playSound("src/main/java/sokoban/sounds/Reset_Level.wav");
+                    playSound("src/main/java/sokoban/sounds/Reset_Level.wav");
                     System.out.println("Generate sound RESET_GAME");
                     break;
                 case MOVED_PLAYER:
-                    //playSound("src/main/java/sokoban/sounds/Moved_Player.wav");
+                    playSound("src/main/java/sokoban/sounds/Moved_Player.wav");
                     System.out.println("Generate sound MOVED_PLAYER");
                     break;
-                case MOVED_BOX:
+                case MOVED_CRATE:
                     playSound("src/main/java/sokoban/sounds/Moved_Crate.wav");
                     System.out.println("Generate sound MOVED_BOX");
                     break;
+                case FILLED_CRATE:
+                    playSound("src/main/java/sokoban/sounds/Crate_Filled.wav");
+                    System.out.println("Generate filled box sound");
             }
         } catch (Exception exception){}
     }
