@@ -20,6 +20,7 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.add(createTextAndButtonContainer(), BorderLayout.SOUTH);
+        this.setResizable(false);
         JMenuBar menuBar = createMenuBar();
         if (menuBar != null)
             this.setJMenuBar(menuBar);
