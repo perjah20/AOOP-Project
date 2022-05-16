@@ -15,7 +15,6 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
      */
     public SokobanGameModel() {
         currentLevel = 0;
-        lastEvent = RESET_GAME;
         tileStack = new Stack<>();
         tileStack.push(SAND);
     }
@@ -63,7 +62,6 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
 
     public void moveCharacter(Directions direction){
         lastEvent = TRIED_TO_MOVE;
-        lastCratePushed = false;
         setCharacterPosition();
         switch (direction) {
             case NORTH -> moveCharacterDirection(direction, UP, 0);
@@ -72,24 +70,26 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
             case SOUTH -> moveCharacterDirection(direction, DOWN, 0);
         }
         updateObservers();
-        if (lastCratePushed) gameWon();
+        if (filledCratePush) gameWon();
     }
 
     public void moveCrate(Directions direction) {
-        lastEvent = MOVED_BOX;
+        filledCratePush = false;
         switch (direction) {
             case NORTH -> crateMover(UP, 0);
             case WEST -> crateMover(0, LEFT);
             case EAST -> crateMover(0, RIGHT);
             case SOUTH -> crateMover(DOWN, 0);
         }
+        if (filledCratePush) lastEvent = FILLED_CRATE;
+        else lastEvent = MOVED_CRATE;
     }
 
     private void crateMover(int Y, int X){
 
         int crateNextLocation = getTileState(playerLocationY + Y + Y, playerLocationX + X + X);
         if (crateNextLocation == DOT) {
-            lastCratePushed = true;
+            filledCratePush = true;
             setTileState(FILLEDBOX,playerLocationY + Y + Y,playerLocationX + X + X);
         }
         else setTileState(BOX,playerLocationY + Y + Y,playerLocationX + X + X);
@@ -123,6 +123,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     }
 
     public void resetLevel() {
+        lastEvent = RESET_GAME;
         updateGameGrid(getLevel(currentLevel));
     }
 
@@ -141,7 +142,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     private final Stack<Integer> tileStack;
     private int[][] save;
     private int currentLevel;
-    private boolean lastCratePushed;
+    private boolean filledCratePush;
     private int playerLocationY;
     private int playerLocationX;
     private Events lastEvent;
