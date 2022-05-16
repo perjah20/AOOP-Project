@@ -117,6 +117,7 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
      * @return A JPanel containing rows * columns JLabels.
      */
     protected JPanel createGrid(int rows, int columns) {
+        if(gameGrid != null) this.remove(gameGrid);
         gameGrid = new JPanel(new GridLayout(rows, columns));
         tiles = new GameLabel[rows][columns];
         for (int i = 0; i < rows; i++) {
@@ -135,9 +136,8 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         return tiles[row][column];
     }
 
-    public GameLabel[][] getTiles() {
-        return tiles;
-    }
+    public int getRowLength() { return tiles.length; }
+    public int getColLength() { return tiles[0].length; }
 
     //TODO Add functions to manipulate the gameGrid
     //  "Update a specific tile on the gameGrid"
