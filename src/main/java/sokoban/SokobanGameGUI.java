@@ -32,27 +32,20 @@ public class SokobanGameGUI extends TileGameGUI {
             Method getLastEvent = gameModel.getClass().getMethod("getLastEvent");
             Events lastEvent = (Events) getLastEvent.invoke(gameModel);
             switch (lastEvent) {
-                case GAME_WON -> showText("You beat the level!");
-                case TRIED_TO_MOVE -> showText("You cant move that way");
-                case RESET_GAME -> showText("You reset the level");
-                case MOVED_PLAYER -> showText("You moved your player");
-                case MOVED_BOX -> showText("You pushed a box");
+                case GAME_WON       -> showText("You beat the level!");
+                case TRIED_TO_MOVE  -> showText("You cant move that way");
+                case RESET_GAME     -> showText("You reset the level");
+                case MOVED_PLAYER   -> showText("You moved your player");
+                case MOVED_BOX      -> showText("You pushed a box");
             }
         } catch (Exception ignored){}
-        if (gameModel.getRows() == getTiles().length && gameModel.getColumns() == getTiles()[0].length) {
-            for (int i = 0; i < gameModel.getRows(); i++) {
-                for (int j = 0; j < gameModel.getColumns(); j++) {
-                    if (this.getTile(i,j).getTileValue() != gameModel.getTileState(i,j))
-                        setTile(getTile(i, j), gameModel.getTileState(i,j));
-                }
-            }
-        } else {
-            this.remove(gameGrid);
-            this.add(createGrid(gameModel.getRows(), gameModel.getColumns()),BorderLayout.CENTER);
-            for (int i = 0; i < gameModel.getRows(); i++) {
-                for (int j = 0; j < gameModel.getColumns(); j++) {
+        if (gameModel.getRows() != getRowLength() && gameModel.getColumns() != getColLength()) {
+            this.add(createGrid(gameModel.getRows(), gameModel.getColumns()), BorderLayout.CENTER);
+        }
+        for (int i = 0; i < gameModel.getRows(); i++) {
+            for (int j = 0; j < gameModel.getColumns(); j++) {
+                if (this.getTile(i,j).getTileValue() != gameModel.getTileState(i,j))
                     setTile(getTile(i, j), gameModel.getTileState(i,j));
-                }
             }
         }
         this.pack();
