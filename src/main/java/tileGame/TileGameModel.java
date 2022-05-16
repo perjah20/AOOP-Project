@@ -2,10 +2,7 @@ package tileGame;
 
 import java.util.ArrayList;
 
-public abstract class TileGameModel {
-
-    protected abstract void gameOver();
-    protected abstract void gameWon();
+public class TileGameModel  {
 
     /**
      * Constructs a GameModel object.
