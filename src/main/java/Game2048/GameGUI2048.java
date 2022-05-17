@@ -74,6 +74,15 @@ public class GameGUI2048 extends TileGameGUI {
 
     @Override
     protected JMenuBar createMenuBar() {
-        return null;
+        JMenuBar menuBar = new JMenuBar();
+        JButton button = new JButton("Reset Game");
+        button.addActionListener( e-> gameController.handleButtonPress(gameModel -> {
+            try {
+                Method resetGame = gameModel.getClass().getDeclaredMethod("resetGame");
+                resetGame.invoke(gameModel);
+            } catch(Exception ignored) {}
+        }));
+        menuBar.add(button);
+        return menuBar;
     }
 }
