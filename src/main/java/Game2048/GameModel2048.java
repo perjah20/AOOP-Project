@@ -9,30 +9,37 @@ public class GameModel2048 extends TileGameModel {
     }
 
     public void move(Direction direction) {
-        System.out.println("invoked");
-        switch (direction) {
-            case LEFT -> {
-                shiftLeft();
-                mergeLeft();
-                shiftLeft();
+        if (lastEvent != GAME_WON && lastEvent != GAME_OVER) {
+            modified = false;
+            switch (direction) {
+                case LEFT -> {
+                    shiftLeft();
+                    mergeLeft();
+                    shiftLeft();
+                    lastDirection = Direction.LEFT;
+                }
+                case RIGHT -> {
+                    shiftRight();
+                    mergeRight();
+                    shiftRight();
+                    lastDirection = Direction.RIGHT;
+                }
+                case UP -> {
+                    shiftUp();
+                    mergeUp();
+                    shiftUp();
+                    lastDirection = Direction.UP;
+                }
+                case DOWN -> {
+                    shiftDown();
+                    mergeDown();
+                    shiftDown();
+                    lastDirection = Direction.DOWN;
+                }
             }
-            case RIGHT -> {
-                shiftRight();
-                mergeRight();
-                shiftRight();
-            }
-            case UP -> {
-                shiftUp();
-                mergeUp();
-                shiftUp();
-            }
-            case DOWN -> {
-                shiftDown();
-                mergeDown();
-                shiftDown();
-            }
+            generateRandomNumber();
+            updateObservers();
         }
-        updateObservers();
     }
 
     private void shiftLeft() {
@@ -109,6 +116,8 @@ public class GameModel2048 extends TileGameModel {
         if (currentTileValue == nextTileValue && currentTileValue != 0) {
             setTileState(currentTileValue + nextTileValue, row, col);
             setTileState(0, row + offsetY, col + offsetX);
+            if (currentTileValue == 1024) lastEvent = GAME_WON;
+            modified = true;
         }
     }
 
@@ -120,12 +129,81 @@ public class GameModel2048 extends TileGameModel {
         if (currentTileValue == 0 && nextTileValue != 0) {
             setTileState(nextTileValue, row, col);
             setTileState(0,row + offsetY, col + offsetX);
+            modified = true;
             return true;
         } else return false;
     }
 
     private void generateRandomNumber() {
-        if (Math.random() >= 0.9);
+        countEmpty();
+        if(emptyTiles == 0) gameOver();
+        if (!modified) return;
+        else {
+            int k = emptyTiles;
+            for (int i = 0; i < getRows(); i++) {
+                for (int j = 0; j < getColumns(); j++) {
+                    if (getTileState(i, j) == 0) {
+                        k--;
+                        if (Math.random() < 0.2 || k == 0) {
+                            if ((Math.random() >= 0.9)) {
+                                setTileState(4, i, j);
+                            } else {
+                                setTileState(2, i, j);
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     }
-    enum Direction {LEFT,RIGHT,UP,DOWN}
+
+    private void gameOver() {
+        lastEvent = GAME_OVER;
+        updateObservers();
+    }
+
+    private void countEmpty() {
+        emptyTiles = 0;
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                if (getTileState(i,j) == 0) emptyTiles += 1;
+            }
+        }
+    }
+
+    public void resetGame() {
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                setTileState(0,i,j);
+            }
+        }
+        emptyTiles = 0;
+        modified = true;
+        generateRandomNumber();
+        generateRandomNumber();
+        lastEvent = RESET_GAME;
+        updateObservers();
+    }
+
+    public Events getLastEvent() {
+        return lastEvent;
+    }
+
+    public Direction getLastDirection() {
+        return lastDirection;
+    }
+
+    public boolean isModified() {
+        return modified;
+    }
+
+    private int emptyTiles;
+    private boolean modified;
+    private Events lastEvent;
+    private Direction lastDirection;
+
+    public static enum Direction {LEFT,RIGHT,UP,DOWN}
+    enum Events {RESET_GAME, GAME_OVER, GAME_WON}
+
 }
