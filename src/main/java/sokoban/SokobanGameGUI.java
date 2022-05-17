@@ -39,7 +39,8 @@ public class SokobanGameGUI extends TileGameGUI {
                 case MOVED_BOX      -> showText("You pushed a box");
             }
         } catch (Exception ignored){}
-        if (gameModel.getRows() != getRowLength() && gameModel.getColumns() != getColLength()) {
+
+        if (gameModel.getRows() != getRowLength() || gameModel.getColumns() != getColLength()) {
             this.add(createGrid(gameModel.getRows(), gameModel.getColumns()), BorderLayout.CENTER);
         }
         for (int i = 0; i < gameModel.getRows(); i++) {
