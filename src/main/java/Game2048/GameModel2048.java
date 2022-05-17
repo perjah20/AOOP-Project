@@ -2,6 +2,8 @@ package Game2048;
 
 import tileGame.TileGameModel;
 
+import static Game2048.GameModel2048.Events.*;
+
 public class GameModel2048 extends TileGameModel {
     public GameModel2048() {
         this.updateGameGrid(new int[4][4]);
