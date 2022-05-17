@@ -69,7 +69,7 @@ public class TileGameModel  {
     /**
      * Informs all gameObservers that the gameState has been changed.
      */
-    protected void updateObservers() {
+    public void updateObservers() {
         for (GameObserver gameObserver : gameObservers)
             gameObserver.updateGameObserver(this);
     }
