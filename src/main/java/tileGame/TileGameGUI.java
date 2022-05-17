@@ -139,19 +139,6 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
     public int getRowLength() { return tiles.length; }
     public int getColLength() { return tiles[0].length; }
 
-    //TODO Add functions to manipulate the gameGrid
-    //  "Update a specific tile on the gameGrid"
-    //  "Get status of specific tile on the gameGrid"
-
-    //TODO Add a iterator for the gameGrid.
-
-    //TODO Add a abstract start functions that populates the gameGrid. Perhaps return an array containing values.
-
-    // TODO Add a function that converts GameModel gamegrid values to sokoban tiles.
-
-    // TODO Consider adding a function that can change dimensions of gamegrid
-
-
     private JTextArea textArea; /** Used to display text of choice. **/
     private JButton[] buttons;  /** Just used so I could add key bindings **/
     private GameLabel[][] tiles;   /** Used to access and manipulate the tiles **/
