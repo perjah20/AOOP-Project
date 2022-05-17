@@ -36,25 +36,40 @@ public class GameGUI2048 extends TileGameGUI {
     protected void northButtonPressed() {
         gameController.handleButtonPress(gameModel -> {
             try {
-                Method move = gameModel.getClass().getDeclaredMethod("move", int.class);
-                move.invoke(gameModel, 1);
+                Method move = gameModel.getClass().getDeclaredMethod("move", Direction.class);
+                move.invoke(gameModel, UP);
             } catch(Exception ignored) {}
         });
     }
 
     @Override
     protected void eastButtonPressed() {
-
+        gameController.handleButtonPress(gameModel -> {
+            try {
+                Method move = gameModel.getClass().getDeclaredMethod("move", Direction.class);
+                move.invoke(gameModel, RIGHT);
+            } catch(Exception ignored) {}
+        });
     }
 
     @Override
     protected void southButtonPressed() {
-
+        gameController.handleButtonPress(gameModel -> {
+            try {
+                Method move = gameModel.getClass().getDeclaredMethod("move", Direction.class);
+                move.invoke(gameModel, DOWN);
+            } catch(Exception ignored) {}
+        });
     }
 
     @Override
     protected void westButtonPressed() {
-
+        gameController.handleButtonPress(gameModel -> {
+            try {
+                Method move = gameModel.getClass().getDeclaredMethod("move", Direction.class);
+                move.invoke(gameModel, LEFT);
+            } catch(Exception ignored) {}
+        });
     }
 
     @Override
