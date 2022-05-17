@@ -4,7 +4,8 @@ import tileGame.TileGameModel;
 
 public class GameModel2048 extends TileGameModel {
     public GameModel2048() {
-
+        this.updateGameGrid(new int[4][4]);
+        resetGame();
     }
 
     public void move(Direction direction) {
