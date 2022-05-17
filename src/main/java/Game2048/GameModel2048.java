@@ -38,10 +38,7 @@ public class GameModel2048 extends TileGameModel {
     private void shiftLeft() {
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 3;) {
-                if (shiftTiles(row,col,0,1))
-                    col = 0;
-                else
-                    col++;
+                col = shiftTiles(row, col, 0, 1) ? 0 : col+1;
             }
         }
     }
@@ -58,10 +55,7 @@ public class GameModel2048 extends TileGameModel {
     private void shiftRight() {
         for (int row = 0; row < 4; row++) {
             for (int col = 3; col > 0;) {
-                if (shiftTiles(row,col,0,-1))
-                    col = 3;
-                else
-                    col--;
+                col = shiftTiles(row,col,0,-1) ? 3 : col-1;
             }
         }
     }
@@ -78,10 +72,7 @@ public class GameModel2048 extends TileGameModel {
     private void shiftUp() {
         for (int col = 0; col < 4; col++) {
             for (int row = 0; row < 3;) {
-                if (shiftTiles(row,col,1,0))
-                    row = 0;
-                else
-                    row++;
+                row = shiftTiles(row,col,1,0) ? 0 : row+1;
             }
         }
     }
@@ -98,10 +89,7 @@ public class GameModel2048 extends TileGameModel {
     private void shiftDown() {
         for (int col = 0; col < 4; col++) {
             for (int row = 3; row > 0;) {
-                if (shiftTiles(row,col,-1,0))
-                    row = 3;
-                else
-                    row--;
+                row = shiftTiles(row,col,-1,0) ? 3 : row-1;
             }
         }
     }
