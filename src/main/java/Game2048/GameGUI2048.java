@@ -1,7 +1,5 @@
 package Game2048;
-
-import Game2048.buttonStrategies.ButtonStrategyI;
-import sokoban.SokobanInfo;
+import tileGame.GameLabel;
 import tileGame.TileGameController;
 import tileGame.TileGameGUI;
 import tileGame.TileGameModel;
