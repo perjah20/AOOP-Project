@@ -1,7 +1,5 @@
 package tileGame;
 
-import sokoban.buttonStrategies.ButtonStrategy;
-
 public class TileGameController<T extends TileGameModel> {
     private T gameModel;
 
@@ -11,7 +9,7 @@ public class TileGameController<T extends TileGameModel> {
         gameModel = aGameModel;
     }
 
-    public void handleButtonPress(ButtonStrategy buttonStrategy){
+    public void handleButtonPress(ButtonStrategy<T> buttonStrategy){
         buttonStrategy.executeMethod(gameModel);
     }
 }

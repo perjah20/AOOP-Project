@@ -1,13 +1,13 @@
 package sokoban.buttonStrategies;
 
 import sokoban.SokobanGameModel;
-import tileGame.TileGameModel;
+import tileGame.ButtonStrategy;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class LoadButton implements ButtonStrategy<SokobanGameModel>{
+public class LoadButton implements ButtonStrategy<SokobanGameModel> {
     @Override
     public void executeMethod(SokobanGameModel gameModel) {
         try {
@@ -16,7 +16,6 @@ public class LoadButton implements ButtonStrategy<SokobanGameModel>{
             SokobanGameModel loadedSokobanGameModel = (SokobanGameModel) in.readObject();
             in.close();
             fileIn.close();
-            //printInfo(loadedSokobanGameModel);
             gameModel.updateGameGrid(loadedSokobanGameModel.getSave());
         } catch (IOException i) {
             i.printStackTrace();
@@ -28,16 +27,16 @@ public class LoadButton implements ButtonStrategy<SokobanGameModel>{
 
     private void printInfo(SokobanGameModel sokobanGameModel) {
         System.out.println(sokobanGameModel.getLastEvent());
-        System.out.println(sokobanGameModel.getGameState());
+        //System.out.println(sokobanGameModel.getGameState());
         System.out.println(sokobanGameModel.getColumns());
         System.out.println(sokobanGameModel.getRows());
         int[][] save = sokobanGameModel.getSave();
         System.out.println(save.length);
         System.out.println(save[0].length);
         for (int[] row :save) {
-            String string = "[";
+            StringBuilder string = new StringBuilder("[");
             for (int column :row) {
-                string += column+",";
+                string.append(column).append(",");
             }
             System.out.println(string+"]");
         }

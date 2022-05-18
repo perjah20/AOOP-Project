@@ -1,12 +1,13 @@
 package sokoban.buttonStrategies;
 
 import sokoban.SokobanGameModel;
+import tileGame.ButtonStrategy;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class SaveButton implements ButtonStrategy<SokobanGameModel>{
+public class SaveButton implements ButtonStrategy<SokobanGameModel> {
 
     @Override
     public void executeMethod(SokobanGameModel gameModel) {
