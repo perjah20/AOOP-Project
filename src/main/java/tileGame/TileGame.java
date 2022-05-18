@@ -1,27 +1,29 @@
 package tileGame;
 
-public abstract class TileGame {
-    private TileGameModel tileGameModel;
-    private TileGameGUI tileGameGUI;
-
-    protected abstract TileGameModel addTileGameModel(int rows, int columns) ;
-    protected abstract TileGameGUI addTileGameGUI(int rows, int columns);
+public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI, U extends TileGameController<T>> {
+    private final T tileGameModel;
+    private final S tileGameGUI;
+    private final U tileGameController;
 
     /**
      * Creates a new tile based game with specified dimensions
-     * @param rows - Amount of tiles in vertically (y-axis).
-     * @param columns- Amount of tiles in horizontally (x-axis).
      */
-    public TileGame(int rows, int columns){
-        tileGameModel = addTileGameModel(rows, columns);
-        tileGameGUI = addTileGameGUI(rows, columns);
+    public TileGame(T aTileGameModel, S aTileGameGUI, U aTileGameController ){
+        tileGameModel = aTileGameModel;
+        tileGameController = aTileGameController;
+        tileGameController.addGameModel(tileGameModel);
+        this.tileGameGUI = aTileGameGUI;
+        tileGameGUI.setGameController(tileGameController);
         tileGameModel.addGameObserver(tileGameGUI);
     }
 
-    protected TileGameModel getTileGameModel() {
+    protected T getTileGameModel() {
         return tileGameModel;
     }
-    protected TileGameGUI getTileGameGUI() {
+    protected S getTileGameGUI() {
         return tileGameGUI;
+    }
+    protected TileGameController<T> getTileGameController() {
+        return tileGameController;
     }
 }

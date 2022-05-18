@@ -4,6 +4,8 @@ pom.xml
 # ignore ALL files in ANY directory named .idea
 .idea/
 
+SokobanGameModel.ser/
+
 /target/
 
 SokobanGameModel.ser

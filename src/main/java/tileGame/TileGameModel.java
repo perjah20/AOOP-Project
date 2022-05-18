@@ -2,10 +2,7 @@ package tileGame;
 
 import java.util.ArrayList;
 
-public abstract class TileGameModel {
-
-    protected abstract void gameOver();
-    protected abstract void gameWon();
+public class TileGameModel  {
 
     /**
      * Constructs a GameModel object.
@@ -72,7 +69,7 @@ public abstract class TileGameModel {
     /**
      * Informs all gameObservers that the gameState has been changed.
      */
-    protected void updateObservers() {
+    public void updateObservers() {
         for (GameObserver gameObserver : gameObservers)
             gameObserver.updateGameObserver(this);
     }

@@ -1,20 +1,19 @@
 package sokoban;
 
+import tileGame.TileGame;
 /**
  * The SokobanGame class holds the method for instantiating the game.
  */
-public class SokobanGame  {
+public class SokobanGame extends TileGame<SokobanGameModel,SokobanGameGUI,SokobanController> {
 
     /**
      * Instantiates a Sokoban game session.
+     *
      */
     public SokobanGame() {
-        SokobanGameModel sokobanGameModel = new SokobanGameModel();
-        SokobanGameGUI sokobanGameGUI = new SokobanGameGUI();
-        sokobanGameGUI.setController(new SokobanController(sokobanGameModel));
-        sokobanGameModel.addGameObserver(sokobanGameGUI);
-        sokobanGameModel.addGameObserver(new SokobanConsole());
-        sokobanGameModel.addGameObserver(new SokobanSounds());
-        sokobanGameModel.updateGameGrid(SokobanInfo.getLevel(0));
+        super(new SokobanGameModel(),new SokobanGameGUI(),new SokobanController());
+        getTileGameModel().addGameObserver(new SokobanConsole());
+        getTileGameModel().addGameObserver(new SokobanSounds());
+        this.getTileGameModel().updateGameGrid(SokobanInfo.getLevel(0));
     }
 }

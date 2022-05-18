@@ -18,7 +18,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     public SokobanGameModel() {
         currentLevel = 0;
         tileStack = new Stack<>();
-        tileStack.push(SAND);
+        resetLevel();
     }
 
     private void setCharacterPosition() {
@@ -113,13 +113,11 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         else return (getTileState(playerLocationY + Y*2,playerLocationX + X*2)< BOX);
     }
 
-    @Override
-    protected void gameOver() {
+    private void gameOver() {
         lastEvent = GAME_WON;
         System.out.println("You won!");
     }
 
-    @Override
     protected void gameWon() {
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
@@ -134,6 +132,9 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
 
     public void resetLevel() {
         lastEvent = RESET_GAME;
+        while (!tileStack.empty())
+            tileStack.pop();
+        tileStack.push(SAND);
         updateGameGrid(getLevel(currentLevel));
     }
 

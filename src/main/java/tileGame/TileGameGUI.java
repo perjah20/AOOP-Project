@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public abstract class TileGameGUI extends JFrame implements GameObserver {
+public abstract class TileGameGUI<T extends TileGameController<S>, S extends TileGameModel> extends JFrame implements GameObserver<S> {
     protected abstract void northButtonPressed();
     protected abstract void eastButtonPressed();
     protected abstract void southButtonPressed();
@@ -27,6 +27,10 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         this.add(createGrid(1,1),BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
+    }
+
+    public void setGameController(T aTileGameController) {
+        this.tileGameController = aTileGameController;
     }
 
     /**
@@ -118,6 +122,7 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
      * @return A JPanel containing rows * columns JLabels.
      */
     protected JPanel createGrid(int rows, int columns) {
+        if(gameGrid != null) this.remove(gameGrid);
         gameGrid = new JPanel(new GridLayout(rows, columns));
         tiles = new GameLabel[rows][columns];
         for (int i = 0; i < rows; i++) {
@@ -135,26 +140,16 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
     protected GameLabel getTile(int row, int column) {
         return tiles[row][column];
     }
-
-    public GameLabel[][] getTiles() {
-        return tiles;
+    protected T getTileGameController() {
+        return tileGameController;
     }
 
-    //TODO Add functions to manipulate the gameGrid
-    //  "Update a specific tile on the gameGrid"
-    //  "Get status of specific tile on the gameGrid"
-
-    //TODO Add a iterator for the gameGrid.
-
-    //TODO Add a abstract start functions that populates the gameGrid. Perhaps return an array containing values.
-
-    // TODO Add a function that converts GameModel gamegrid values to sokoban tiles.
-
-    // TODO Consider adding a function that can change dimensions of gamegrid
-
+    public int getRowLength() { return tiles.length; }
+    public int getColLength() { return tiles[0].length; }
 
     private JTextArea textArea; /** Used to display text of choice. **/
     private JButton[] buttons;  /** Just used so I could add key bindings **/
     private GameLabel[][] tiles;   /** Used to access and manipulate the tiles **/
     protected JPanel gameGrid;
+    protected T tileGameController;
 }
