@@ -14,9 +14,9 @@ public class SokobanConsole implements GameObserver<SokobanGameModel> {
     public void updateGameObserver(SokobanGameModel gameModel) {
         int[][] gameState = gameModel.getGameState();
             for (int[] row :gameState) {
-                String string = "[";
+                StringBuilder string = new StringBuilder("[");
                 for (int column :row) {
-                    string += column+",";
+                    string.append(column).append(",");
                 }
                 System.out.println(string+"]");
             }
