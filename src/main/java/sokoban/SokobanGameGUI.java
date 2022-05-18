@@ -29,7 +29,7 @@ public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameMod
     @Override
     public void updateGameObserver(SokobanGameModel gameModel) {
         switch (gameModel.getLastEvent()) {
-                case START_GAME     -> showText("Welcome to Sokkoban!");
+                case START_GAME     -> showText("Welcome to Sokoban!");
                 case GAME_WON       -> showText("You beat the level!");
                 case TRIED_TO_MOVE  -> showText("You cant move that way");
                 case RESET_GAME     -> showText("You reset the level");
