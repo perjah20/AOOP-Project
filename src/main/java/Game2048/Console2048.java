@@ -1,22 +1,16 @@
 package Game2048;
 
 import tileGame.GameObserver;
-import tileGame.TileGameModel;
 
-import java.lang.reflect.Method;
+public class Console2048 implements GameObserver<GameModel2048> {
 
-public class Console2048 implements GameObserver {
+    public Console2048() {}
     @Override
-    public void updateGameObserver(TileGameModel gameModel) {
+    public void updateGameObserver(GameModel2048 gameModel) {
         System.out.println("\nUpdating console");
-        try {
-            Method getLastEvent = gameModel.getClass().getDeclaredMethod("getLastEvent");
-            Method getLastDirection = gameModel.getClass().getDeclaredMethod("getLastDirection");
-            Method isModified = gameModel.getClass().getDeclaredMethod("isModified");
-            System.out.println(getLastEvent.invoke(gameModel));
-            System.out.println(getLastDirection.invoke(gameModel));
-            System.out.println(isModified.invoke(gameModel));
-        } catch(Exception ignored) {}
+        System.out.println(gameModel.getLastEvent());
+        System.out.println(gameModel.getLastDirection());
+        System.out.println(gameModel.isModified());
         for (int i = 0; i < gameModel.getRows(); i++) {
             for (int j = 0; j < gameModel.getColumns(); j++) {
                 System.out.print(gameModel.getTileState(i,j)+ "  ");
