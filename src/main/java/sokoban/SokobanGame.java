@@ -1,10 +1,12 @@
 package sokoban;
 
+/**
+ * The SokobanGame class holds the method for instantiating the game.
+ */
 public class SokobanGame  {
 
     /**
      * Instantiates a Sokoban game session.
-     *
      */
     public SokobanGame() {
         SokobanGameModel sokobanGameModel = new SokobanGameModel();

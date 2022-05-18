@@ -5,3 +5,5 @@ pom.xml
 .idea/
 
 /target/
+
+SokobanGameModel.ser

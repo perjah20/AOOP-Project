@@ -8,10 +8,12 @@ import java.util.Stack;
 import static sokoban.SokobanInfo.*;
 import static sokoban.SokobanInfo.Events.*;
 
+/**
+ * The SokobanGameModel is the central component which directly manages the data, logic and rules of the game.
+ */
 public class SokobanGameModel extends TileGameModel implements Serializable {
     /**
      * Constructs a GameModel object.
-     *
      */
     public SokobanGameModel() {
         currentLevel = 0;
@@ -60,6 +62,10 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         }
     }
 
+    /**
+     * Locates where the player is, then tries to move the player in the given direction.
+     * @param direction the direction where the player wants to move.
+     */
     public void moveCharacter(Directions direction){
         lastEvent = TRIED_TO_MOVE;
         setCharacterPosition();
@@ -73,6 +79,10 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         if (filledCratePush) gameWon();
     }
 
+    /**
+     * Moves the crate in the given direction by calling the method {@link #crateMover(int, int)} crateMover}.
+     * @param direction the direction where the crate is supposed to move.
+     */
     public void moveCrate(Directions direction) {
         filledCratePush = false;
         switch (direction) {

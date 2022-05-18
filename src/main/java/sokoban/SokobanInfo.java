@@ -1,5 +1,8 @@
 package sokoban;
 
+/**
+ * This class holds necessary information used in multiple classes.
+ */
 public class SokobanInfo {
     public enum Directions {NORTH, WEST ,EAST, SOUTH}
     public enum Events {RESET_GAME, MOVED_CRATE, FILLED_CRATE, MOVED_PLAYER, TRIED_TO_MOVE, GAME_WON}

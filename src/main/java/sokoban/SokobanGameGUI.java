@@ -26,6 +26,11 @@ public class SokobanGameGUI extends TileGameGUI {
     public SokobanGameGUI() {
     }
 
+    /**
+     * This method uses the reflection pattern to invoke events in the
+     * GameModel such as updating the text area.
+     * @param gameModel the game model to make the updates on.
+     */
     @Override
     public void updateGameObserver(TileGameModel gameModel) {
         try {
@@ -108,6 +113,10 @@ public class SokobanGameGUI extends TileGameGUI {
         sokobanController.handleButtonPress(new MoveButton(WEST));
     }
 
+    /**
+     * Creates a JMenuBar that holds three buttons that responds when pressed.
+     * @return a reset button, save button and load button inside a JMenuBar.
+     */
     @Override
     protected JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -124,6 +133,10 @@ public class SokobanGameGUI extends TileGameGUI {
         return menuBar;
     }
 
+    /**
+     *
+     * @param aSokobanController
+     */
     public void setController(SokobanController aSokobanController) {
         this.sokobanController = aSokobanController;
     }
