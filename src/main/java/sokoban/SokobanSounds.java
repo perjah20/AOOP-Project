@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-public class SokobanSounds implements GameObserver {
+public class SokobanSounds implements GameObserver<SokobanGameModel> {
 
     public SokobanSounds() {
 
@@ -31,11 +31,8 @@ public class SokobanSounds implements GameObserver {
     }
 
     @Override
-    public void updateGameObserver(TileGameModel gameModel) {
-        try {
-            Method getLastEvent = gameModel.getClass().getMethod("getLastEvent", new Class[] {});
-            SokobanInfo.Events lastEvent = (SokobanInfo.Events) getLastEvent.invoke(gameModel);
-            switch (lastEvent) {
+    public void updateGameObserver(SokobanGameModel gameModel) {
+            switch (gameModel.getLastEvent()) {
                 case GAME_WON:
                     playSound("src/main/java/sokoban/sounds/You_Win.wav");
                     System.out.println("Generate sound GAME_WON");
@@ -60,6 +57,5 @@ public class SokobanSounds implements GameObserver {
                     playSound("src/main/java/sokoban/sounds/Crate_Filled.wav");
                     System.out.println("Generate filled box sound");
             }
-        } catch (Exception exception){}
     }
 }
