@@ -16,4 +16,8 @@ public class SokobanGame extends TileGame<SokobanGameModel,SokobanGameGUI,Sokoba
         getTileGameModel().addGameObserver(new SokobanSounds());
         this.getTileGameModel().updateGameGrid(SokobanInfo.getLevel(0));
     }
+
+    public static void main(String[] args) {
+        new SokobanGame();
+    }
 }
