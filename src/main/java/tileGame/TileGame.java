@@ -1,6 +1,6 @@
 package tileGame;
 
-public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI, U extends TileGameController<T>> {
+public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI<U,T>, U extends TileGameController<T>> {
     private final T tileGameModel;
     private final S tileGameGUI;
     private final U tileGameController;
@@ -23,7 +23,7 @@ public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI, U 
     protected S getTileGameGUI() {
         return tileGameGUI;
     }
-    protected TileGameController<T> getTileGameController() {
+    protected U getTileGameController() {
         return tileGameController;
     }
 }
