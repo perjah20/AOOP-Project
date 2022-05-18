@@ -1,6 +1,5 @@
 package sokoban;
 
-import tileGame.ButtonStrategy;
 import sokoban.buttonStrategies.*;
 import tileGame.GameLabel;
 import tileGame.TileGameGUI;
@@ -85,7 +84,9 @@ public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameMod
     }
 
     @Override
-    protected void northButtonPressed() { this.getTileGameController().handleButtonPress(new MoveButton(NORTH));}
+    protected void northButtonPressed() {
+        this.getTileGameController().handleButtonPress(new MoveButton(NORTH));
+    }
     @Override
     protected void eastButtonPressed() {
         this.getTileGameController().handleButtonPress(new MoveButton(EAST));
