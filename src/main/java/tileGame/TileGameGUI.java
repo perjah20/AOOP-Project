@@ -151,5 +151,5 @@ public abstract class TileGameGUI<T extends TileGameController<S>, S extends Til
     private JButton[] buttons;  /** Just used so I could add key bindings **/
     private GameLabel[][] tiles;   /** Used to access and manipulate the tiles **/
     protected JPanel gameGrid;
-    protected T tileGameController;
+    private T tileGameController;
 }
