@@ -1,5 +1,5 @@
 package Game2048;
-import sokoban.buttonStrategies.ButtonStrategy;
+
 import tileGame.GameLabel;
 import tileGame.TileGameGUI;
 
@@ -50,26 +50,22 @@ public class GameGUI2048 extends TileGameGUI<GameController2048,GameModel2048> {
 
     @Override
     protected void northButtonPressed() {
-        this.getTileGameController().handleButtonPress((ButtonStrategy<GameModel2048>)
-                gameModel -> gameModel.move(UP));
+        this.getTileGameController().handleButtonPress(gameModel -> gameModel.move(UP));
     }
 
     @Override
     protected void eastButtonPressed() {
-        this.getTileGameController().handleButtonPress((ButtonStrategy<GameModel2048>)
-        gameModel -> gameModel.move(RIGHT));
+        this.getTileGameController().handleButtonPress(gameModel -> gameModel.move(RIGHT));
     }
 
     @Override
     protected void southButtonPressed() {
-        this.getTileGameController().handleButtonPress((ButtonStrategy<GameModel2048>)
-        gameModel -> gameModel.move(DOWN));
+        this.getTileGameController().handleButtonPress(gameModel -> gameModel.move(DOWN));
     }
 
     @Override
     protected void westButtonPressed() {
-        this.getTileGameController().handleButtonPress((ButtonStrategy<GameModel2048>)
-        gameModel -> gameModel.move(LEFT));
+        this.getTileGameController().handleButtonPress(gameModel -> gameModel.move(LEFT));
     }
 
     @Override
@@ -77,9 +73,7 @@ public class GameGUI2048 extends TileGameGUI<GameController2048,GameModel2048> {
         JMenuBar menuBar = new JMenuBar();
         JButton button = new JButton("Reset Game");
         button.addActionListener(e->this.getTileGameController().
-                handleButtonPress((ButtonStrategy<GameModel2048>)
-                gameModel -> gameModel.resetGame()));
-
+                handleButtonPress(gameModel -> gameModel.resetGame()));
         menuBar.add(button);
         return menuBar;
     }
