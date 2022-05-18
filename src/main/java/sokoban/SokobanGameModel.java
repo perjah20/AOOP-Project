@@ -114,11 +114,6 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         else return (getTileState(playerLocationY + Y*2,playerLocationX + X*2)< BOX);
     }
 
-    private void gameOver() {
-        lastEvent = GAME_WON;
-        System.out.println("You won!");
-    }
-
     protected void gameWon() {
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
