@@ -124,8 +124,6 @@ public class GameModel2048 extends TileGameModel {
     }
 
     private boolean shiftTiles(int row, int col, int offsetY, int offsetX) {
-
-
         int currentTileValue = this.getTileState(row, col);
         int nextTileValue = this.getTileState(row + offsetY, col + offsetX);
         if (currentTileValue == 0 && nextTileValue != 0) {
@@ -139,8 +137,7 @@ public class GameModel2048 extends TileGameModel {
     private void generateRandomNumber() {
         countEmpty();
         if(emptyTiles == 0) gameOver();
-        if (!modified) return;
-        else {
+        if(modified) {
             int k = emptyTiles;
             for (int i = 0; i < getRows(); i++) {
                 for (int j = 0; j < getColumns(); j++) {
@@ -161,6 +158,18 @@ public class GameModel2048 extends TileGameModel {
     }
 
     private void gameOver() {
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns() - 1 ; j++) {
+                if (getTileState(i,j) == getTileState(i,j+1))
+                    return;
+            }
+        }
+        for (int i = 0; i < getColumns() - 1; i++) {
+            for (int j = 0; j < getRows(); j++) {
+                if (getTileState(i,j) == getTileState(i + 1,j))
+                    return;
+            }
+        }
         lastEvent = GAME_OVER;
         updateObservers();
     }
@@ -205,7 +214,7 @@ public class GameModel2048 extends TileGameModel {
     private Events lastEvent;
     private Direction lastDirection;
 
-    public static enum Direction {LEFT,RIGHT,UP,DOWN}
+    public  enum Direction {LEFT,RIGHT,UP,DOWN}
     enum Events {RESET_GAME, GAME_OVER, GAME_WON}
 
 }
