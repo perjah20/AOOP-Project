@@ -1,12 +1,10 @@
 package sokoban;
 
 import tileGame.GameObserver;
-import tileGame.TileGameModel;
 
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 public class SokobanSounds implements GameObserver<SokobanGameModel> {
 
