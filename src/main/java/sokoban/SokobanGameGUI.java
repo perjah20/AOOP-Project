@@ -1,9 +1,7 @@
 package sokoban;
 
-import sokoban.buttonStrategies.ButtonStrategy;
-import sokoban.buttonStrategies.LoadButton;
-import sokoban.buttonStrategies.MoveButton;
-import sokoban.buttonStrategies.SaveButton;
+import tileGame.ButtonStrategy;
+import sokoban.buttonStrategies.*;
 import tileGame.GameLabel;
 import tileGame.TileGameGUI;
 
@@ -110,7 +108,7 @@ public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameMod
         JMenuBar menuBar = new JMenuBar();
         JButton[] buttons = new JButton[3];
         buttons[0] = new JButton("Reset Game");  buttons[0].addActionListener(e ->
-                this.getTileGameController().handleButtonPress((ButtonStrategy<SokobanGameModel>) gameModel -> gameModel.resetLevel()));
+                this.getTileGameController().handleButtonPress(SokobanGameModel::resetLevel));
         buttons[1] = new JButton("Save Game");   buttons[1].addActionListener(e ->
                 this.getTileGameController().handleButtonPress(new SaveButton()));
         buttons[2] = new JButton("Load Game");   buttons[2].addActionListener(e ->
