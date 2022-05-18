@@ -1,15 +1,17 @@
 package tileGame;
 
-import Game2048.buttonStrategies.ButtonStrategyI;
+import sokoban.buttonStrategies.ButtonStrategy;
 
-public class TileGameController {
-    private final TileGameModel gameModel;
+public class TileGameController<T extends TileGameModel> {
+    private T gameModel;
 
-    public TileGameController(TileGameModel aGameModel) {
-        this.gameModel = aGameModel;
+    public TileGameController() {}
+
+    public void addGameModel(T aGameModel) {
+        gameModel = aGameModel;
     }
 
-    public void handleButtonPress(ButtonStrategyI buttonStrategy){
+    public void handleButtonPress(ButtonStrategy buttonStrategy){
         buttonStrategy.executeMethod(gameModel);
     }
 }

@@ -1,15 +1,9 @@
 package sokoban;
 
-import sokoban.buttonStrategies.ButtonStrategy;
+import tileGame.TileGameController;
 
-public class SokobanController {
-    private final SokobanGameModel sokobanGameModel;
+public class SokobanController extends TileGameController<SokobanGameModel> {
+    public SokobanController() {
 
-    public SokobanController(SokobanGameModel aSokobanGameModel) {
-        this.sokobanGameModel = aSokobanGameModel;
-    }
-
-    public void handleButtonPress(ButtonStrategy buttonStrategy){
-        buttonStrategy.executeMethod(sokobanGameModel);
     }
 }

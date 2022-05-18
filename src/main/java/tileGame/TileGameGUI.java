@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public abstract class TileGameGUI extends JFrame implements GameObserver {
+public abstract class TileGameGUI<T extends TileGameController<S>, S extends TileGameModel> extends JFrame implements GameObserver<S> {
     protected abstract void northButtonPressed();
     protected abstract void eastButtonPressed();
     protected abstract void southButtonPressed();
@@ -26,6 +26,10 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
         this.add(createGrid(1,1),BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
+    }
+
+    public void setGameController(T aTileGameController) {
+        this.tileGameController = aTileGameController;
     }
 
     /**
@@ -135,6 +139,9 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
     protected GameLabel getTile(int row, int column) {
         return tiles[row][column];
     }
+    protected T getTileGameController() {
+        return tileGameController;
+    }
 
     public int getRowLength() { return tiles.length; }
     public int getColLength() { return tiles[0].length; }
@@ -143,4 +150,5 @@ public abstract class TileGameGUI extends JFrame implements GameObserver {
     private JButton[] buttons;  /** Just used so I could add key bindings **/
     private GameLabel[][] tiles;   /** Used to access and manipulate the tiles **/
     protected JPanel gameGrid;
+    protected T tileGameController;
 }

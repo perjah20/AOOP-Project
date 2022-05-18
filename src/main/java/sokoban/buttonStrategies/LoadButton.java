@@ -1,14 +1,15 @@
 package sokoban.buttonStrategies;
 
 import sokoban.SokobanGameModel;
+import tileGame.TileGameModel;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class LoadButton implements ButtonStrategy{
+public class LoadButton implements ButtonStrategy<SokobanGameModel>{
     @Override
-    public void executeMethod(SokobanGameModel sokobanGameModel) {
+    public void executeMethod(SokobanGameModel gameModel) {
         try {
             FileInputStream fileIn = new FileInputStream("src/main/java/sokoban/SokobanGameModel.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -16,7 +17,7 @@ public class LoadButton implements ButtonStrategy{
             in.close();
             fileIn.close();
             //printInfo(loadedSokobanGameModel);
-            sokobanGameModel.updateGameGrid(loadedSokobanGameModel.getSave());
+            gameModel.updateGameGrid(loadedSokobanGameModel.getSave());
         } catch (IOException i) {
             i.printStackTrace();
         } catch (ClassNotFoundException c) {

@@ -1,5 +1,5 @@
 package tileGame;
 
-public interface GameObserver {
-    void updateGameObserver(TileGameModel gameModel);
+public interface GameObserver<T extends TileGameModel> {
+    void updateGameObserver(T gameModel);
 }

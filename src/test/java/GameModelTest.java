@@ -8,8 +8,8 @@ public class GameModelTest {
 
 
         SokobanGameModel sokobanGameModel = new SokobanGameModel() {
-            @Override
-            protected void gameOver() {
+
+            private void gameOver() {
                 // if (box.getTileAdjecent > 22)
                 // updateGameGrid to game over screen/menu
 

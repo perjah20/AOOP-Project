@@ -1,7 +1,7 @@
 package sokoban.buttonStrategies;
 
-import sokoban.SokobanGameModel;
+import tileGame.TileGameModel;
 
-public interface ButtonStrategy {
-    void executeMethod(SokobanGameModel sokobanGameModel);
+public interface ButtonStrategy<T extends TileGameModel> {
+    void executeMethod(T gameModel);
 }

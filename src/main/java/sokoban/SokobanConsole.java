@@ -1,11 +1,10 @@
 package sokoban;
 
 import tileGame.GameObserver;
-import tileGame.TileGameModel;
 
-public class SokobanConsole implements GameObserver {
+public class SokobanConsole implements GameObserver<SokobanGameModel> {
     @Override
-    public void updateGameObserver(TileGameModel gameModel) {
+    public void updateGameObserver(SokobanGameModel gameModel) {
         int[][] gameState = gameModel.getGameState();
             for (int[] row :gameState) {
                 String string = "[";

@@ -1,10 +1,12 @@
 package sokoban.buttonStrategies;
 
 import sokoban.SokobanGameModel;
+import tileGame.TileGameModel;
+
 import static sokoban.SokobanInfo.Directions;
 
 
-public class MoveButton implements ButtonStrategy {
+public class MoveButton implements ButtonStrategy<SokobanGameModel> {
     Directions direction;
 
     public MoveButton(Directions aDirection) {
@@ -12,7 +14,7 @@ public class MoveButton implements ButtonStrategy {
     }
 
     @Override
-    public void executeMethod(SokobanGameModel sokobanGameModel) {
-        sokobanGameModel.moveCharacter(direction);
+    public void executeMethod(SokobanGameModel gameModel) {
+        gameModel.moveCharacter(direction);
     }
 }

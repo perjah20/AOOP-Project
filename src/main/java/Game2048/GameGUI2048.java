@@ -1,22 +1,17 @@
 package Game2048;
+import sokoban.buttonStrategies.ButtonStrategy;
 import tileGame.GameLabel;
-import tileGame.TileGameController;
 import tileGame.TileGameGUI;
-import tileGame.TileGameModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import static Game2048.GameModel2048.Direction.*;
-import static Game2048.GameModel2048.Direction;
 
-public class GameGUI2048 extends TileGameGUI {
-    private TileGameController gameController;
+public class GameGUI2048 extends TileGameGUI<GameController2048,GameModel2048> {
 
-    public GameGUI2048(TileGameController aGameController) {
-        gameController = aGameController;
+    public GameGUI2048() {
         this.add(createGrid(4,4));
         this.setResizable(false);
         for (int i = 0; i < numbers.length; i++)
@@ -33,7 +28,7 @@ public class GameGUI2048 extends TileGameGUI {
         this.pack();
     }
     @Override
-    public void updateGameObserver(TileGameModel gameModel) {
+    public void updateGameObserver(GameModel2048 gameModel) {
         System.out.println("updating Game GUI");
         int value;
         for (int i = 0; i < this.getRowLength(); i++) {
@@ -55,54 +50,36 @@ public class GameGUI2048 extends TileGameGUI {
 
     @Override
     protected void northButtonPressed() {
-        gameController.handleButtonPress(gameModel -> {
-            try {
-                Method move = gameModel.getClass().getDeclaredMethod("move", Direction.class);
-                move.invoke(gameModel, UP);
-            } catch(Exception ignored) {}
-        });
+        this.getTileGameController().handleButtonPress((ButtonStrategy<GameModel2048>)
+                gameModel -> gameModel.move(UP));
     }
 
     @Override
     protected void eastButtonPressed() {
-        gameController.handleButtonPress(gameModel -> {
-            try {
-                Method move = gameModel.getClass().getDeclaredMethod("move", Direction.class);
-                move.invoke(gameModel, RIGHT);
-            } catch(Exception ignored) {}
-        });
+        this.getTileGameController().handleButtonPress((ButtonStrategy<GameModel2048>)
+        gameModel -> gameModel.move(RIGHT));
     }
 
     @Override
     protected void southButtonPressed() {
-        gameController.handleButtonPress(gameModel -> {
-            try {
-                Method move = gameModel.getClass().getDeclaredMethod("move", Direction.class);
-                move.invoke(gameModel, DOWN);
-            } catch(Exception ignored) {}
-        });
+        this.getTileGameController().handleButtonPress((ButtonStrategy<GameModel2048>)
+        gameModel -> gameModel.move(DOWN));
     }
 
     @Override
     protected void westButtonPressed() {
-        gameController.handleButtonPress(gameModel -> {
-            try {
-                Method move = gameModel.getClass().getDeclaredMethod("move", Direction.class);
-                move.invoke(gameModel, LEFT);
-            } catch(Exception ignored) {}
-        });
+        this.getTileGameController().handleButtonPress((ButtonStrategy<GameModel2048>)
+        gameModel -> gameModel.move(LEFT));
     }
 
     @Override
     protected JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JButton button = new JButton("Reset Game");
-        button.addActionListener( e-> gameController.handleButtonPress(gameModel -> {
-            try {
-                Method resetGame = gameModel.getClass().getDeclaredMethod("resetGame");
-                resetGame.invoke(gameModel);
-            } catch(Exception ignored) {}
-        }));
+        button.addActionListener(e->this.getTileGameController().
+                handleButtonPress((ButtonStrategy<GameModel2048>)
+                gameModel -> gameModel.resetGame()));
+
         menuBar.add(button);
         return menuBar;
     }

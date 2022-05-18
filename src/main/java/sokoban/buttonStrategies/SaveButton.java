@@ -6,16 +6,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class SaveButton implements ButtonStrategy{
+public class SaveButton implements ButtonStrategy<SokobanGameModel>{
 
     @Override
-    public void executeMethod(SokobanGameModel sokobanGameModel) {
+    public void executeMethod(SokobanGameModel gameModel) {
         try {
             FileOutputStream fileOut =
                     new FileOutputStream("src/main/java/sokoban/SokobanGameModel.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            sokobanGameModel.saveGame();
-            out.writeObject(sokobanGameModel);
+            gameModel.saveGame();
+            out.writeObject(gameModel);
             out.close();
             fileOut.close();
         } catch (IOException i) {
