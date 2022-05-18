@@ -18,7 +18,8 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     public SokobanGameModel() {
         currentLevel = 0;
         tileStack = new Stack<>();
-        resetLevel();
+        tileStack.push(SAND);
+        lastEvent = START_GAME;
     }
 
     private void setCharacterPosition() {
@@ -68,6 +69,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
      */
     public void moveCharacter(Directions direction){
         lastEvent = TRIED_TO_MOVE;
+        filledCratePush = false;
         setCharacterPosition();
         switch (direction) {
             case NORTH -> moveCharacterDirection(direction, UP, 0);
@@ -84,7 +86,6 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
      * @param direction the direction where the crate is supposed to move.
      */
     public void moveCrate(Directions direction) {
-        filledCratePush = false;
         switch (direction) {
             case NORTH -> crateMover(UP, 0);
             case WEST -> crateMover(0, LEFT);
