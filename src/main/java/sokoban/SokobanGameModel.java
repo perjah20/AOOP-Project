@@ -17,14 +17,15 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
      */
     public SokobanGameModel(int [][][] setOfLeveles) {
         tileStack = new Stack<>();
-        levels = setOfLeveles;
+        levels = makeCopyOf3DArray(setOfLeveles);
         tileStack.push(SAND);
     }
 
     public void startGame() {
         currentLevel = 0;
         lastEvent = START_GAME;
-        updateGameGrid(getLevel(currentLevel));
+        currentLevelGrid = makeCopyOf2DArray(levels[currentLevel]);
+        updateGameGrid(this.levels[currentLevel]);
     }
 
     private void setCharacterPosition() {
@@ -128,9 +129,10 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         }
         lastEvent = GAME_WON;
         currentLevel++;
-        if (currentLevel < levels.length)
-            updateGameGrid(levels[currentLevel]);
-        //updateGameGrid(getLevel(currentLevel));
+        if (currentLevel < levels.length) {
+            currentLevelGrid = makeCopyOf2DArray(levels[currentLevel]);
+            updateGameGrid(this.levels[currentLevel]);
+        }
     }
 
     public void resetLevel() {
@@ -138,7 +140,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         while (!tileStack.empty())
             tileStack.pop();
         tileStack.push(SAND);
-        updateGameGrid(getLevel(currentLevel));
+        updateGameGrid(currentLevelGrid);
     }
 
     public void saveGame() {
@@ -153,8 +155,26 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         return save;
     }
 
+    private int[][] makeCopyOf2DArray(int [][] arrayToMakeACopyOf) {
+        int[][] newArray = new int[arrayToMakeACopyOf.length][];
+        for(int i = 0; i < arrayToMakeACopyOf.length; i++)
+            newArray[i] = arrayToMakeACopyOf[i].clone();
+        return newArray;
+    }
+
+    private int[][][] makeCopyOf3DArray(int [][][] arrayToMakeACopyOf) {
+        int[][][] newArray = new int[arrayToMakeACopyOf.length][arrayToMakeACopyOf[0].length][];
+        for(int i = 0; i < arrayToMakeACopyOf.length; i++) {
+            for (int j = 0; j < arrayToMakeACopyOf[0].length; j++) {
+                newArray[i][j] = arrayToMakeACopyOf[i][j].clone();
+            }
+        }
+        return newArray;
+    }
+
     private final Stack<Integer> tileStack;
     private int[][] save;
+    private int[][] currentLevelGrid;
     private int currentLevel;
     private boolean filledCratePush;
     private int playerLocationY;
