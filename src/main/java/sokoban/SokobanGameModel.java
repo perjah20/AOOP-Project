@@ -163,11 +163,9 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     }
 
     private int[][][] makeCopyOf3DArray(int [][][] arrayToMakeACopyOf) {
-        int[][][] newArray = new int[arrayToMakeACopyOf.length][arrayToMakeACopyOf[0].length][];
-        for(int i = 0; i < arrayToMakeACopyOf.length; i++) {
-            for (int j = 0; j < arrayToMakeACopyOf[0].length; j++) {
-                newArray[i][j] = arrayToMakeACopyOf[i][j].clone();
-            }
+        int[][][] newArray = new int[arrayToMakeACopyOf.length][][];
+        for (int i = 0; i < arrayToMakeACopyOf.length; i++) {
+            newArray[i] = makeCopyOf2DArray(arrayToMakeACopyOf[i]);
         }
         return newArray;
     }
