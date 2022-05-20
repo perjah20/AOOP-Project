@@ -15,11 +15,16 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     /**
      * Constructs a GameModel object.
      */
-    public SokobanGameModel() {
-        currentLevel = 0;
+    public SokobanGameModel(int [][][] setOfLeveles) {
         tileStack = new Stack<>();
+        levels = setOfLeveles;
         tileStack.push(SAND);
+    }
+
+    public void startGame() {
+        currentLevel = 0;
         lastEvent = START_GAME;
+        updateGameGrid(getLevel(currentLevel));
     }
 
     private void setCharacterPosition() {
@@ -123,7 +128,9 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         }
         lastEvent = GAME_WON;
         currentLevel++;
-        updateGameGrid(getLevel(currentLevel));
+        if (currentLevel < levels.length)
+            updateGameGrid(levels[currentLevel]);
+        //updateGameGrid(getLevel(currentLevel));
     }
 
     public void resetLevel() {
@@ -153,6 +160,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     private int playerLocationY;
     private int playerLocationX;
     private Events lastEvent;
+    private int[][][] levels;
 
     final private int UP = -1, LEFT = -1, RIGHT= 1, DOWN = 1;
 }

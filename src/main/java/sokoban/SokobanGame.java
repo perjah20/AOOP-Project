@@ -11,10 +11,10 @@ public class SokobanGame extends TileGame<SokobanGameModel,SokobanGameGUI,Sokoba
      *
      */
     public SokobanGame() {
-        super(new SokobanGameModel(),new SokobanGameGUI(),new SokobanController());
+        super(new SokobanGameModel(SokobanInfo.sokobanLevels),new SokobanGameGUI(),new SokobanController());
         getTileGameModel().addGameObserver(new SokobanConsole());
         getTileGameModel().addGameObserver(new SokobanSounds());
-        this.getTileGameModel().updateGameGrid(SokobanInfo.getLevel(0));
+        this.getTileGameModel().startGame();
     }
 
     public static void main(String[] args) {
