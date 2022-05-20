@@ -6,8 +6,8 @@ package sokoban;
 public class SokobanInfo {
     public enum Directions {NORTH, WEST ,EAST, SOUTH}
     public enum Events {START_GAME, RESET_GAME, MOVED_CRATE, FILLED_CRATE, MOVED_PLAYER, TRIED_TO_MOVE, GAME_WON}
-    public static final int SAND = 1, PLAYER = 2, DOT = 3, BOX = 4, FILLEDBOX = 5, COBBLESTONE = 6;
-    private static final int S = SAND, P = PLAYER, D = DOT, B = BOX, F = FILLEDBOX, C = COBBLESTONE, E = -1;
+    public static final int SAND = 1, PLAYER = 2, DOT = 3, CRATE = 4, FILLEDBOX = 5, COBBLESTONE = 6;
+    private static final int S = SAND, P = PLAYER, D = DOT, B = CRATE, F = FILLEDBOX, C = COBBLESTONE, E = -1;
 
     private static final int[][]
             level0 = new int[][] {

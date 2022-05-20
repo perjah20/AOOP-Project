@@ -62,9 +62,9 @@ public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameMod
                 tile.setIcon(getImageIcon("cratemarked.png"));
                 tile.setTileValue(FILLEDBOX);
             }
-            case BOX -> {
+            case CRATE -> {
                 tile.setIcon(getImageIcon("crate.png"));
-                tile.setTileValue(BOX);
+                tile.setTileValue(CRATE);
             }
             case DOT -> {
                 tile.setIcon(getImageIcon("blankmarked.png"));

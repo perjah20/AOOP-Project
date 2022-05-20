@@ -41,7 +41,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
      * @param direction The direction of the object.
      */
     private void checkNextTile(int nextLocation, Directions direction){
-        if (nextLocation == BOX) {
+        if (nextLocation == CRATE) {
             tileStack.push(SAND);
             moveCrate(direction);
         } else if (nextLocation == FILLEDBOX) {
@@ -85,7 +85,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
      * Moves the crate in the given direction by calling the method {@link #crateMover(int, int)} crateMover}.
      * @param direction the direction where the crate is supposed to move.
      */
-    public void moveCrate(Directions direction) {
+    private void moveCrate(Directions direction) {
         switch (direction) {
             case NORTH -> crateMover(UP, 0);
             case WEST -> crateMover(0, LEFT);
@@ -103,21 +103,21 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
             filledCratePush = true;
             setTileState(FILLEDBOX,playerLocationY + Y + Y,playerLocationX + X + X);
         }
-        else setTileState(BOX,playerLocationY + Y + Y,playerLocationX + X + X);
+        else setTileState(CRATE,playerLocationY + Y + Y,playerLocationX + X + X);
     }
 
     private boolean isValidMove(int Y, int X) {
         if (getTileState(playerLocationY + Y,playerLocationX + X) == COBBLESTONE)
             return false;
-        if (getTileState(playerLocationY + Y,playerLocationX + X) < BOX)
+        if (getTileState(playerLocationY + Y,playerLocationX + X) < CRATE)
             return true;
-        else return (getTileState(playerLocationY + Y*2,playerLocationX + X*2)< BOX);
+        else return (getTileState(playerLocationY + Y*2,playerLocationX + X*2)< CRATE);
     }
 
-    protected void gameWon() {
+    private void gameWon() {
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
-                if (getTileState(i,j) == BOX)
+                if (getTileState(i,j) == CRATE)
                     return;
             }
         }
