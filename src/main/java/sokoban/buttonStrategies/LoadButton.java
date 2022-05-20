@@ -16,7 +16,7 @@ public class LoadButton implements ButtonStrategy<SokobanGameModel> {
             SokobanGameModel loadedSokobanGameModel = (SokobanGameModel) in.readObject();
             in.close();
             fileIn.close();
-            gameModel.updateGameGrid(loadedSokobanGameModel.getSave());
+            gameModel.getSave(loadedSokobanGameModel);
         } catch (IOException i) {
             i.printStackTrace();
         } catch (ClassNotFoundException c) {
@@ -24,13 +24,13 @@ public class LoadButton implements ButtonStrategy<SokobanGameModel> {
             c.printStackTrace();
         }
     }
-
+/*
     private void printInfo(SokobanGameModel sokobanGameModel) {
         System.out.println(sokobanGameModel.getLastEvent());
         //System.out.println(sokobanGameModel.getGameState());
         System.out.println(sokobanGameModel.getColumns());
         System.out.println(sokobanGameModel.getRows());
-        int[][] save = sokobanGameModel.getSave();
+        int[][] save = sokobanGameModel.getSave(sokobanGameModel);
         System.out.println(save.length);
         System.out.println(save[0].length);
         for (int[] row :save) {
@@ -42,4 +42,5 @@ public class LoadButton implements ButtonStrategy<SokobanGameModel> {
         }
         System.out.println();
     }
+    */
 }

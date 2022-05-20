@@ -151,8 +151,17 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         return lastEvent;
     }
 
-    public int[][] getSave() {
-        return save;
+    public void getSave(SokobanGameModel savedModel) {
+        this.tileStack = savedModel.tileStack;
+        this.save = savedModel.save;
+        this.currentLevelGrid = savedModel.currentLevelGrid;
+        this.currentLevel = savedModel.currentLevel;
+        this.filledCratePush = savedModel.filledCratePush;
+        this.playerLocationY = savedModel.playerLocationY;
+        this.playerLocationX = savedModel.playerLocationX;
+        this.lastEvent = savedModel.lastEvent;
+        this.levels = savedModel.levels;
+        this.updateGameGrid(levels[currentLevel]);
     }
 
     private int[][] makeCopyOf2DArray(int [][] arrayToMakeACopyOf) {
@@ -170,7 +179,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         return newArray;
     }
 
-    private final Stack<Integer> tileStack;
+    private Stack<Integer> tileStack;
     private int[][] save;
     private int[][] currentLevelGrid;
     private int currentLevel;
