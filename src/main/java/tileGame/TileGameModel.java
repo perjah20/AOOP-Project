@@ -2,19 +2,23 @@ package tileGame;
 
 import java.util.ArrayList;
 
-public class TileGameModel  {
+/**
+ * The class TileGameModel allows programmers to
+ * develop their own tile game model and manipulate it.
+ */
+public abstract class TileGameModel  {
 
     /**
-     * Constructs a GameModel object.
+     * Constructs a GameModel object of size 1x1.
      */
     public TileGameModel() {
         gameGrid = new int[1][1];
     }
 
     /**
-     * Updates the gamegrid to a new game grid
-     * @param newGameGrid - A new gamegrid
-     * @precondition - newGameGrid has to be at least a 1x1 grid.
+     * Updates the game grid to a new game grid and informs observes of the update.
+     * @param newGameGrid This is the new game grid
+     * @throws IllegalArgumentException if game grid is smaller than 1x1
      */
     public void updateGameGrid(int[][] newGameGrid) {
         if (newGameGrid.length < 1 || newGameGrid[0].length < 1)
@@ -25,14 +29,22 @@ public class TileGameModel  {
 
     /**
      * Gets an element at a particular row and column position
-     * @param i - Specified Row
-     * @param j - Specified Column
+     * @param row - Specified Row
+     * @param column - Specified Column
+     * @throws IndexOutOfBoundsException if row or column are outside game grid.
      * @return Element at specified position
+     *
      */
-    public int getTileState(int i, int j) {
-        return gameGrid[i][j];
+    public int getTileState(int row, int column) {
+        return gameGrid[row][column];
     }
 
+    /**
+     * Gets an element at tile position counting from 0 to rows * columns.
+     * @param position A position between 0 and rows * columns
+     * @throws IndexOutOfBoundsException if position is outside game grid.
+     * @return Element at specified position
+     */
     public int getTileState(int position) {
         return gameGrid[getRow(position)][getColumn(position)];
     }
@@ -40,19 +52,26 @@ public class TileGameModel  {
     /**
      * Sets an element at a particular row and column position
      * @param value - New value you want to set at particular position
-     * @param i - Specified Row
-     * @param j - Specified Column
+     * @param row - Specified Row
+     * @param column - Specified Column
+     * @throws IndexOutOfBoundsException if position is outside game grid.
      */
-    public void setTileState(int value, int i, int j) {
-        gameGrid[i][j] = value;
+    public void setTileState(int value, int row, int column) {
+        gameGrid[row][column] = value;
     }
 
+    /**
+     * Gets an element at tile position counting from 0 to rows * columns.
+     * @param position A position between 0 and rows * columns
+     * @throws IndexOutOfBoundsException if position is outside game grid.
+     */
     public void setTileState(int value, int position) {
-        gameGrid[getRow(position)][getColumn(position)] = value; }
+        gameGrid[getRow(position)][getColumn(position)] = value;
+    }
 
     /**
      * Gets the grid for the game
-     * @return gameGrid.
+     * @return A 2D-array containing the current game grid.
      */
     public int[][] getGameState() {
         return gameGrid;
@@ -74,7 +93,17 @@ public class TileGameModel  {
             gameObserver.updateGameObserver(this);
     }
 
+    /**
+     * Calculates which row a position corresponds to.
+     * @param position a tile position counting from 0 to rows*columns.
+     * @return A row
+     */
     private int getRow(int position) { return position/getRows(); }
+    /**
+     * Calculates which column a position corresponds to.
+     * @param position a tile position counting from 0 to rows*columns.
+     * @return A column
+     */
     private int getColumn(int position) { return position%getColumns(); }
 
     /**

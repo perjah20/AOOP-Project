@@ -9,10 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static sokoban.SokobanInfo.*;
-import static sokoban.SokobanInfo.Directions.NORTH;
-import static sokoban.SokobanInfo.Directions.SOUTH;
-import static sokoban.SokobanInfo.Directions.WEST;
-import static sokoban.SokobanInfo.Directions.EAST;
+import static sokoban.SokobanInfo.Directions.*;
 
 public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameModel> {
     /**
@@ -22,9 +19,11 @@ public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameMod
     }
 
     /**
-     * This method uses the reflection pattern to invoke events in the
-     * GameModel such as updating the text area.
-     * @param gameModel the game model to make the updates on.
+     * Reads changes from the SokobanGameModel and updates the text area
+     * on the GUI. Also updates the tiles depending on type of change.
+     * Will generate a whole new GameGrid if the dimensions of the
+     * GameModel and GameGUI does not match.
+     * @param gameModel A game model to read changes from.
      */
     @Override
     public void updateGameObserver(SokobanGameModel gameModel) {
@@ -48,6 +47,12 @@ public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameMod
         this.pack();
     }
 
+    /**
+     * This method updates the icon of the GameLabel and sets
+     * GameLabel value to the corresponding game model tile value.
+     * @param tile GameLabel tile you want to update
+     * @param value Tile value you are reading from the GameModel.
+     */
     private void setTile(GameLabel tile, int value) {
         switch (value) {
             case COBBLESTONE -> {
@@ -78,23 +83,42 @@ public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameMod
         }
     }
 
+    /**
+     * This method gets a specified image and returns it.
+     * @param image Image name
+     * @return A ImageIcon of the specified image.
+     */
     private ImageIcon getImageIcon(String image) {
-        return new ImageIcon(new ImageIcon(pathToImages + image).getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH
+        String pathToImages = "src/main/java/sokoban/icons/";
+        return new ImageIcon(new ImageIcon(pathToImages + image).
+                getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH
         ));
     }
 
+    /**
+     * This method invokes the move method on the SokobanGameModel with direction NORTH.
+     */
     @Override
     protected void northButtonPressed() {
         this.getTileGameController().handleButtonPress(new MoveButton(NORTH));
     }
+    /**
+     * This method invokes the move method on the SokobanGameModel with direction EAST.
+     */
     @Override
     protected void eastButtonPressed() {
         this.getTileGameController().handleButtonPress(new MoveButton(EAST));
     }
+    /**
+     * This method invokes the move method on the SokobanGameModel with direction SOUTH.
+     */
     @Override
     protected void southButtonPressed() {
         this.getTileGameController().handleButtonPress(new MoveButton(SOUTH));
     }
+    /**
+     * This method invokes the move method on the SokobanGameModel with direction WEST.
+     */
     @Override
     protected void westButtonPressed() {
         this.getTileGameController().handleButtonPress(new MoveButton(WEST));
@@ -120,6 +144,4 @@ public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameMod
         return menuBar;
     }
 
-
-    private final String pathToImages = "src/main/java/sokoban/icons/";
 }

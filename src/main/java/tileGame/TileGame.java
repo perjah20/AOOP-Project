@@ -1,12 +1,25 @@
 package tileGame;
 
+/**
+ * The abstract class TileGame allows programmers to
+ * develop their own tile based game by supplying
+ * a TileGameModel, a TileGameGUI, and a TileGameController.
+ *
+ * @param <T> A game model that extends the TileGameModel class.
+ * @param <S> A graphical user interface that extends the TileGameGUI class.
+ * @param <U> A controller for allowing any user interface to control the game.
+ */
 public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI<U,T>, U extends TileGameController<T>> {
     private final T tileGameModel;
     private final S tileGameGUI;
     private final U tileGameController;
 
     /**
-     * Creates a new tile based game with specified dimensions
+     * This constructor initiates a game with the supplied
+     * parameters.
+     * @param aTileGameModel The Game Model you want to use
+     * @param aTileGameGUI  The GUI to represent the GameModel
+     * @param aTileGameController The controller to alter the Game Model.
      */
     public TileGame(T aTileGameModel, S aTileGameGUI, U aTileGameController ){
         tileGameModel = aTileGameModel;
@@ -17,12 +30,26 @@ public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI<U,T
         tileGameModel.addGameObserver(tileGameGUI);
     }
 
+    /**
+     * This method returns the game model
+     * @return TileGameModel object.
+     */
     protected T getTileGameModel() {
         return tileGameModel;
     }
+
+    /**
+     * This method returns the graphical user interface
+     * @return TileGameGUI object.
+     */
     protected S getTileGameGUI() {
         return tileGameGUI;
     }
+
+    /**
+     * This method returns the controller for the game model
+     * @return TileGameController object.
+     */
     protected U getTileGameController() {
         return tileGameController;
     }

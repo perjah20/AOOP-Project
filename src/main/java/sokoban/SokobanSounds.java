@@ -1,5 +1,6 @@
 package sokoban;
 
+import org.jetbrains.annotations.NotNull;
 import tileGame.GameObserver;
 
 import javax.sound.sampled.*;
@@ -8,12 +9,13 @@ import java.io.IOException;
 
 public class SokobanSounds implements GameObserver<SokobanGameModel> {
 
-    public SokobanSounds() {
+    public SokobanSounds() {}
 
-
-    }
-
-    public void playSound(String filename) {
+    /**
+     * This method will play the specified
+     * @param filename Name of soundfile.
+     */
+    private void playSound(String filename) {
         try {
             File audioFile = new File(filename);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
@@ -28,26 +30,31 @@ public class SokobanSounds implements GameObserver<SokobanGameModel> {
 
     }
 
+    /**
+     * Plays a sound based on the last event that occurred in the game model.
+     * @param gameModel A game model to read changes from.
+     */
     @Override
-    public void updateGameObserver(SokobanGameModel gameModel) {
+    public final void updateGameObserver(SokobanGameModel gameModel) {
+        final String path = "src/main/java/sokoban/sounds/";
             switch (gameModel.getLastEvent()) {
                 case GAME_WON:
-                    playSound("src/main/java/sokoban/sounds/You_Win.wav");
+                    playSound(path+"You_Win.wav");
                     break;
                 case TRIED_TO_MOVE:
-                    playSound("src/main/java/sokoban/sounds/Tried_To_Move.wav");
+                    playSound(path+"Tried_To_Move.wav");
                     break;
                 case RESET_GAME:
-                    playSound("src/main/java/sokoban/sounds/Reset_Level.wav");
+                    playSound(path+"Reset_Level.wav");
                     break;
                 case MOVED_PLAYER:
-                    playSound("src/main/java/sokoban/sounds/Moved_Player.wav");
+                    playSound(path+"Moved_Player.wav");
                     break;
                 case MOVED_CRATE:
-                    playSound("src/main/java/sokoban/sounds/Moved_Crate.wav");
+                    playSound(path+"Moved_Crate.wav");
                     break;
                 case FILLED_CRATE:
-                    playSound("src/main/java/sokoban/sounds/Crate_Filled.wav");
+                    playSound(path+"Crate_Filled.wav");
             }
     }
 }

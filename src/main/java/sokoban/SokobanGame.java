@@ -8,7 +8,7 @@ public class SokobanGame extends TileGame<SokobanGameModel,SokobanGameGUI,Sokoba
 
     /**
      * Instantiates a Sokoban game session.
-     *
+     * Adds a console observer and a sound observer.
      */
     public SokobanGame() {
         super(new SokobanGameModel(SokobanInfo.sokobanLevels),new SokobanGameGUI(),new SokobanController());
