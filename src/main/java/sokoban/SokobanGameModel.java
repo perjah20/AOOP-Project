@@ -9,7 +9,8 @@ import static sokoban.SokobanInfo.*;
 import static sokoban.SokobanInfo.Events.*;
 
 /**
- * The SokobanGameModel is the central component which directly manages the data, logic and rules of the game.
+ * The SokobanGameModel is the central component which directly
+ * manages the data, logic and rules of the game.
  */
 public class SokobanGameModel extends TileGameModel implements Serializable {
     /**
@@ -21,6 +22,11 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         tileStack.push(SAND);
     }
 
+    /**
+     * Initiates the game by loading the first level
+     * and setting lastEvent to start game.
+     * Lastly informs all observers.
+     */
     public void startGame() {
         currentLevel = 0;
         lastEvent = START_GAME;
@@ -28,6 +34,10 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         updateGameGrid(this.levels[currentLevel]);
     }
 
+    /**
+     * Finds the position of our player and updates
+     * our player location variables.
+     */
     private void setCharacterPosition() {
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
@@ -56,6 +66,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         } else tileStack.push(nextLocation);
     }
 
+    // TODO Rasmus du får fixa.
     private void moveCharacterDirection(Directions direction, int Y, int X){
         if (isValidMove(Y,X)) {
             lastEvent = MOVED_PLAYER;
@@ -102,6 +113,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         else lastEvent = MOVED_CRATE;
     }
 
+    // TODO Rasmus du får fixa
     private void crateMover(int Y, int X){
 
         int crateNextLocation = getTileState(playerLocationY + Y + Y, playerLocationX + X + X);
@@ -112,6 +124,12 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         else setTileState(CRATE,playerLocationY + Y + Y,playerLocationX + X + X);
     }
 
+    /**
+     * Checks if it is possible for the player to move in a certain direction.
+     * @param Y Direction in Y axis, so which row player are trying to move to.
+     * @param X Direction in X axis, so which column player are trying to move to.
+     * @return True if possible, false if not.
+     */
     private boolean isValidMove(int Y, int X) {
         if (getTileState(playerLocationY + Y,playerLocationX + X) == COBBLESTONE)
             return false;
@@ -120,6 +138,11 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         else return (getTileState(playerLocationY + Y*2,playerLocationX + X*2)< CRATE);
     }
 
+    /**
+     * Checks if player has completed a level and if player has completed a level
+     * it will load the next level as long as we have levels to load.
+     * Ends with informing observers of changes
+     */
     private void gameWon() {
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getColumns(); j++) {
@@ -135,22 +158,37 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         }
     }
 
+    /**
+     * Resets the level to its original state and informs observers of changes.
+     */
     public void resetLevel() {
         lastEvent = RESET_GAME;
         while (!tileStack.empty())
             tileStack.pop();
         tileStack.push(SAND);
-        updateGameGrid(currentLevelGrid);
+        updateGameGrid(makeCopyOf2DArray(currentLevelGrid));
     }
 
+    /**
+     * Clones the current state to save
+     */
     public void saveGame() {
         save = this.getGameState().clone();
     }
 
+    /**
+     * This method returns the latest event of the game
+     * @return The last event.
+     */
     public Events getLastEvent() {
         return lastEvent;
     }
 
+    /**
+     * This method will update our current SokobanGameModel with
+     * values from a previously serialized SokobanGameModel.
+     * @param savedModel The serialized SokobanGameModel
+     */
     public void getSave(SokobanGameModel savedModel) {
         this.tileStack = savedModel.tileStack;
         this.save = savedModel.save;
@@ -164,6 +202,11 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         this.updateGameGrid(levels[currentLevel]);
     }
 
+    /**
+     * This method creates a copy of a 2D-array with no reference to the original.
+     * @param arrayToMakeACopyOf Array to copy.
+     * @return A copy of the 2D-array
+     */
     private int[][] makeCopyOf2DArray(int [][] arrayToMakeACopyOf) {
         int[][] newArray = new int[arrayToMakeACopyOf.length][];
         for(int i = 0; i < arrayToMakeACopyOf.length; i++)
@@ -171,12 +214,28 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         return newArray;
     }
 
+    /**
+     * This method creates a copy of a 3D-array with no reference to the original.
+     * @param arrayToMakeACopyOf Array to copy.
+     * @return A copy of the 3D-array
+     */
     private int[][][] makeCopyOf3DArray(int [][][] arrayToMakeACopyOf) {
         int[][][] newArray = new int[arrayToMakeACopyOf.length][][];
         for (int i = 0; i < arrayToMakeACopyOf.length; i++) {
             newArray[i] = makeCopyOf2DArray(arrayToMakeACopyOf[i]);
         }
         return newArray;
+    }
+
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getColumns(); j++) {
+                string.append(this.getTileState(i, j)).append("  ");
+            }
+            string.append("\n");
+        }
+        return string.toString();
     }
 
     private Stack<Integer> tileStack;
