@@ -4,6 +4,7 @@ package tilegame;
  * This interface class allows the programmers to
  * create observers to observe a TileGameModel
  * @param <T> A game model that extends the tileGameModel class.
+ * @see tilegame/TileGameModel.java
  */
 public interface GameObserver<T extends TileGameModel> {
     /**

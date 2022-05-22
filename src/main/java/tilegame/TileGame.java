@@ -4,10 +4,12 @@ package tilegame;
  * The abstract class TileGame allows programmers to
  * develop their own tile based game by supplying
  * a TileGameModel, a TileGameGUI, and a TileGameController.
- *
  * @param <T> A game model that extends the TileGameModel class.
  * @param <S> A graphical user interface that extends the TileGameGUI class.
  * @param <U> A controller for allowing any user interface to control the game.
+ * @see tilegame/TileGameController.java
+ * @see tilegame/TileGameModel.java
+ * @see tilegame/TileGameGUI.java
  */
 public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI<U,T>, U extends TileGameController<T>> {
     private final T tileGameModel;

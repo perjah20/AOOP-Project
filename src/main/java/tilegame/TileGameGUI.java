@@ -17,6 +17,8 @@ import java.awt.event.KeyEvent;
  * @param <T> A controller for allowing the TileGameGUI to communicate
  *           with the game model.
  * @param <S> A Game Model to allow for easier implementation of GameObserver.
+ * @see tilegame/TileGameModel.java
+ * @see tilegame/TileGameController.java
  */
 public abstract class TileGameGUI<T extends TileGameController<S>, S extends TileGameModel> extends JFrame implements GameObserver<S> {
     protected abstract void northButtonPressed();
