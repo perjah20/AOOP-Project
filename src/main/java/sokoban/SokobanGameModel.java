@@ -14,7 +14,7 @@ import static sokoban.SokobanInfo.Events.*;
  */
 public class SokobanGameModel extends TileGameModel implements Serializable {
     /**
-     * Constructs a GameModel object.
+     * Constructs a SokobanGameModel object.
      */
     public SokobanGameModel(int [][][] setOfLeveles) {
         tileStack = new Stack<>();
