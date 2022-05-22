@@ -11,13 +11,13 @@ import java.awt.*;
 import static sokoban.SokobanInfo.*;
 import static sokoban.SokobanInfo.Directions.*;
 
+/**
+ * The SokobanGameGUI class creates a window to represent the SokobanGameModel class graphically.
+ * It comes with 4 buttons to support mouse interaction as well as the keyboard keys.
+ * It will update the text based on the last event from the SokobanGameModel.
+ * It comes with 3 menu buttons to reset, save and load the game.
+ */
 public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameModel> {
-    /**
-     * Creates a base GUI for a tile based game
-     */
-    public SokobanGameGUI() {
-    }
-
     /**
      * Reads changes from the SokobanGameModel and updates the text area
      * on the GUI. Also updates the tiles depending on type of change.

@@ -6,10 +6,6 @@ package tilegame;
  * @param <T> A game model that extends the TileGameModel class.
  */
 public class TileGameController<T extends TileGameModel> {
-    private T gameModel;
-
-    public TileGameController() {}
-
     /**
      * This method allows the user to add a
      * game model.
@@ -29,4 +25,9 @@ public class TileGameController<T extends TileGameModel> {
     public void handleButtonPress(ButtonStrategy<T> buttonStrategy){
         buttonStrategy.executeMethod(gameModel);
     }
+
+    /**
+     * Used for modifying the game model.
+     */
+    private T gameModel;
 }

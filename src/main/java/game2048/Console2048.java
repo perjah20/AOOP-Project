@@ -8,7 +8,6 @@ import tilegame.GameObserver;
  */
 public class Console2048 implements GameObserver<GameModel2048> {
 
-    public Console2048() {}
     /**
      * Prints the last event, direction, if the board has been modified
      * and displays a model of the current game map in the console.

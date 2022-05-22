@@ -6,10 +6,10 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This class is used to generate sounds based on the last event that occurred
+ */
 public class SokobanSounds implements GameObserver<SokobanGameModel> {
-
-    public SokobanSounds() {}
-
     /**
      * This method will play the specified
      * @param filename Name of soundfile.
