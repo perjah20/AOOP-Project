@@ -11,6 +11,9 @@ import static game2048.GameModel2048.Direction.*;
 
 public class GameGUI2048 extends TileGameGUI<GameController2048,GameModel2048> {
 
+    /**
+     * Creates a 4x4 grid used to represent the GameModel2048
+     */
     public GameGUI2048() {
         this.add(createGrid(4,4));
         this.setResizable(false);
@@ -27,6 +30,12 @@ public class GameGUI2048 extends TileGameGUI<GameController2048,GameModel2048> {
         }
         this.pack();
     }
+
+    /**
+     * Will read changes from the 2048 game model and update the game grid
+     * with colors.
+     * @param gameModel A game model to read changes from.
+     */
     @Override
     public void updateGameObserver(GameModel2048 gameModel) {
         System.out.println("updating Game GUI");
@@ -48,26 +57,42 @@ public class GameGUI2048 extends TileGameGUI<GameController2048,GameModel2048> {
         }
     }
 
+    /**
+     * Moves the tiles upwards on the 2048 game model
+     */
     @Override
     protected void northButtonPressed() {
         this.getTileGameController().handleButtonPress(gameModel -> gameModel.move(UP));
     }
 
+    /**
+     * Moves the tiles to the right on the 2048 game model
+     */
     @Override
     protected void eastButtonPressed() {
         this.getTileGameController().handleButtonPress(gameModel -> gameModel.move(RIGHT));
     }
 
+    /**
+     * Moves the tiles downwards on the 2048 game model
+     */
     @Override
     protected void southButtonPressed() {
         this.getTileGameController().handleButtonPress(gameModel -> gameModel.move(DOWN));
     }
 
+    /**
+     * Moves the tiles to the left on the 2048 game model
+     */
     @Override
     protected void westButtonPressed() {
         this.getTileGameController().handleButtonPress(gameModel -> gameModel.move(LEFT));
     }
 
+    /**
+     * Adds a reset button to the GameGUI to reset the game.
+     * @return A menu bar that has a reset button.
+     */
     @Override
     protected JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();

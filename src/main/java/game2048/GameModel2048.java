@@ -1,15 +1,30 @@
-package Game2048;
+package game2048;
 
-import tileGame.TileGameModel;
+import tilegame.TileGameModel;
 
-import static Game2048.GameModel2048.Events.*;
+import static game2048.GameModel2048.Events.*;
 
+/**
+ * The GameModel2048 is the central component which directly
+ * manages the data, logic and rules of the game.
+ */
 public class GameModel2048 extends TileGameModel {
+
+    /**
+     * Instantiates the 2048GameModel Object.
+     */
     public GameModel2048() {
         this.updateGameGrid(new int[4][4]);
         resetGame();
     }
 
+    /**
+     * This method moves the tiles in a specified direction,
+     * if the player has not beaten or lost the game.
+     *
+     * It updates the lastDirection and lastEvent.
+     * @param direction The direction to move the tiles.
+     */
     public void move(Direction direction) {
         if (lastEvent != GAME_WON && lastEvent != GAME_OVER) {
             modified = false;
@@ -19,24 +34,28 @@ public class GameModel2048 extends TileGameModel {
                     mergeLeft();
                     shiftLeft();
                     lastDirection = Direction.LEFT;
+                    lastEvent = MOVED_LEFT;
                 }
                 case RIGHT -> {
                     shiftRight();
                     mergeRight();
                     shiftRight();
                     lastDirection = Direction.RIGHT;
+                    lastEvent = MOVED_RIGHT;
                 }
                 case UP -> {
                     shiftUp();
                     mergeUp();
                     shiftUp();
                     lastDirection = Direction.UP;
+                    lastEvent = MOVED_UP;
                 }
                 case DOWN -> {
                     shiftDown();
                     mergeDown();
                     shiftDown();
                     lastDirection = Direction.DOWN;
+                    lastEvent = MOVED_DOWN;
                 }
             }
             generateRandomNumber();
@@ -44,6 +63,9 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * Shift all tiles that can be shifted to the left.
+     */
     private void shiftLeft() {
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 3;) {
@@ -52,6 +74,9 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * Merges all tiles that can be merged to the left.
+     */
     private void mergeLeft() {
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 3;) {
@@ -61,6 +86,9 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * Shifts all tiles that can be moved to the right
+     */
     private void shiftRight() {
         for (int row = 0; row < 4; row++) {
             for (int col = 3; col > 0;) {
@@ -69,6 +97,9 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * Merges all tiles that can be merged to the right.
+     */
     private void mergeRight() {
         for (int row = 0; row < 4; row++) {
             for (int col = 3; col > 0;) {
@@ -78,6 +109,9 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * Shifts all tiles that can be moved upwards
+     */
     private void shiftUp() {
         for (int col = 0; col < 4; col++) {
             for (int row = 0; row < 3;) {
@@ -86,6 +120,9 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * Merges all tiles that can be merged upwards.
+     */
     private void mergeUp() {
         for (int col = 0; col < 4; col++) {
             for (int row = 0; row < 3;) {
@@ -95,6 +132,9 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * Shifts all tiles that can be moved downwards
+     */
     private void shiftDown() {
         for (int col = 0; col < 4; col++) {
             for (int row = 3; row > 0;) {
@@ -103,6 +143,9 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * Merges all tiles that can be merged downwards.
+     */
     private void mergeDown() {
         for (int col = 0; col < 4; col++) {
             for (int row = 3; row > 0;) {
@@ -112,6 +155,14 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * This method merges two tiles if they have the same value and
+     * sets the old tile to 0.
+     * @param row The current row position
+     * @param col The current column position
+     * @param offsetY This is used to select the next row to compare with.
+     * @param offsetX This is used to select the next column to compare with.
+     */
     private void mergeTiles(int row, int col, int offsetY, int offsetX) {
         int currentTileValue = this.getTileState(row, col);
         int nextTileValue = this.getTileState(row + offsetY, col + offsetX);
@@ -123,6 +174,15 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * This method moves a tile to the current tile if:
+     * the current tile is 0 and the next tile is not 0.
+     * @param row The current row position
+     * @param col The current column position
+     * @param offsetY This is used to select the next row to compare with.
+     * @param offsetX This is used to select the next column to compare with.
+     * @return True if we moved a tile, false if not. 
+     */
     private boolean shiftTiles(int row, int col, int offsetY, int offsetX) {
         int currentTileValue = this.getTileState(row, col);
         int nextTileValue = this.getTileState(row + offsetY, col + offsetX);
@@ -134,6 +194,11 @@ public class GameModel2048 extends TileGameModel {
         } else return false;
     }
 
+    /**
+     * This method generates a either 2 or a 4 on the playing board where there is empty
+     * tiles left and the board as been modified.
+     * If there are no empty tiles left, the game will check if it is game over.
+     */
     private void generateRandomNumber() {
         countEmpty();
         if(emptyTiles == 0) gameOver();
@@ -157,6 +222,10 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * This method will check if the there are any moves left the player can make.
+     * If the player is out of moves, it will set lastEvent to GAME_OVER and update observers.
+     */
     private void gameOver() {
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < getColumns() - 1 ; j++) {
@@ -174,6 +243,9 @@ public class GameModel2048 extends TileGameModel {
         updateObservers();
     }
 
+    /**
+     * Will count the amount of empty tiles on the playing board.
+     */
     private void countEmpty() {
         emptyTiles = 0;
         for (int i = 0; i < getRows(); i++) {
@@ -183,6 +255,9 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
+    /**
+     * This method will reset the game and generate 2 new tiles.
+     */
     public void resetGame() {
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < getColumns(); j++) {
@@ -197,14 +272,26 @@ public class GameModel2048 extends TileGameModel {
         updateObservers();
     }
 
+    /**
+     * Gets the last occurred event.
+     * @return The last occurred event.
+     */
     public Events getLastEvent() {
         return lastEvent;
     }
 
+    /**
+     * Gets the last moved direction.
+     * @return The last moved direction.
+     */
     public Direction getLastDirection() {
         return lastDirection;
     }
 
+    /**
+     * Returns true of false whether the board has been modified or not.
+     * @return True if board has been modified, false if it has not been modified.
+     */
     public boolean isModified() {
         return modified;
     }
@@ -215,6 +302,6 @@ public class GameModel2048 extends TileGameModel {
     private Direction lastDirection;
 
     public  enum Direction {LEFT,RIGHT,UP,DOWN}
-    enum Events {RESET_GAME, GAME_OVER, GAME_WON}
+    enum Events {RESET_GAME, GAME_OVER, GAME_WON, MOVED_LEFT, MOVED_UP, MOVED_DOWN, MOVED_RIGHT}
 
 }
