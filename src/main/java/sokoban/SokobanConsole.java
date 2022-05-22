@@ -3,12 +3,12 @@ package sokoban;
 import tilegame.GameObserver;
 
 /**
- * The SokobanConsole class is a class that shows a different view of the game board.
+ * The SokobanConsole class is a class that is used to see the
+ * actual SokobanGameModel values. It is primarily used for debugging.
  */
 public class SokobanConsole implements GameObserver<SokobanGameModel> {
     /**
-     * Prints the last event and
-     * displays a model of the current game map in the console.
+     * Prints the last event and displays a model of the current game map in the console.
      * @param gameModel The game model to get information from
      */
     @Override
