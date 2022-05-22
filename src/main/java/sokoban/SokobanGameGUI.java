@@ -13,7 +13,7 @@ import static sokoban.SokobanInfo.Directions.*;
 
 public class SokobanGameGUI extends TileGameGUI<SokobanController,SokobanGameModel> {
     /**
-     * Creates a base for a tile base game
+     * Creates a base GUI for a tile based game
      */
     public SokobanGameGUI() {
     }
