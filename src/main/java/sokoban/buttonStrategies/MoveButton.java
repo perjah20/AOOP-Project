@@ -22,7 +22,7 @@ public class MoveButton implements ButtonStrategy<SokobanGameModel> {
 
     /**
      * This method executes the move character method in SokobanGameModel.
-     * @see sokoban/SokobanGameModel.java#moveCharacter(Directions direction)
+     * @see sokoban.SokobanGameModel#moveCharacter(Directions direction)
      * @param gameModel This is the SokobanGameModel object to execute the method on.
      */
     @Override

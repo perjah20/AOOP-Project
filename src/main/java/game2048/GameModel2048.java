@@ -301,7 +301,14 @@ public class GameModel2048 extends TileGameModel {
     private Events lastEvent;
     private Direction lastDirection;
 
+    /**
+     * These are the directions in which you can move the character
+     */
     public  enum Direction {LEFT,RIGHT,UP,DOWN}
+
+    /**
+     * This is the events of the game, and they are used for keeping track of which event has occurred the game is in.
+     */
     enum Events {RESET_GAME, GAME_OVER, GAME_WON, MOVED_LEFT, MOVED_UP, MOVED_DOWN, MOVED_RIGHT}
 
 }

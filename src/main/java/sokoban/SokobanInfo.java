@@ -4,7 +4,16 @@ package sokoban;
  * This class holds necessary information used in multiple classes.
  */
 public class SokobanInfo {
+
+    /**
+     * These are the directions in which you can move the character
+     */
     public enum Directions {NORTH, WEST ,EAST, SOUTH}
+
+    /**
+     * This is the events of the game, and they are used
+     * for keeping track of which event has occurred the game is in.
+     */
     public enum Events {START_GAME, RESET_GAME, MOVED_CRATE, FILLED_CRATE, MOVED_PLAYER, TRIED_TO_MOVE, GAME_WON}
     public static final int SAND = 1, PLAYER = 2, DOT = 3, CRATE = 4, FILLEDBOX = 5, COBBLESTONE = 6;
     private static final int S = SAND, P = PLAYER, D = DOT, B = CRATE, F = FILLEDBOX, C = COBBLESTONE, E = -1;

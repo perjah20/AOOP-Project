@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 /**
  * This class is used in SokobanGameGUI to serialize a SokobanGameModel object.
  * It is added to the Save Game button in the menu bar.
- * @see sokoban/SokobanGameGUI.java#createMenuBar()
+ *
  */
 public class SaveButton implements ButtonStrategy<SokobanGameModel> {
 

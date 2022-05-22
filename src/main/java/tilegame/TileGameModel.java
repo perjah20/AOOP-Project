@@ -121,6 +121,12 @@ public abstract class TileGameModel  {
         return gameGrid[0].length;
     }
 
-    private int[][] gameGrid; /** Our Game Grid for keeping track of game state. **/
+    /**
+     * Our Game Grid for keeping track of game state.
+     */
+    private int[][] gameGrid;
+    /**
+     * Used to store our observers and inform them of updates.
+     */
     ArrayList<GameObserver> gameObservers = new ArrayList<>();
 }

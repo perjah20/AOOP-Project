@@ -9,6 +9,12 @@ import java.util.HashMap;
 
 import static game2048.GameModel2048.Direction.*;
 
+/**
+ * The GameGUI2048 class creates a window to represent the GameModel2048 class graphically.
+ * It comes with 4 buttons to support mouse interaction as well as the keyboard keys.
+ * It will update the text based on the last event from the GameModel2048.
+ * It comes with one menu button to reset the game.
+ */
 public class GameGUI2048 extends TileGameGUI<GameController2048,GameModel2048> {
 
     /**

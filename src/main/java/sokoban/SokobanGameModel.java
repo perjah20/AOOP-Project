@@ -234,14 +234,41 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         return string.toString();
     }
 
+    /**
+     * TODO rasmus du får fixa
+     */
     private Stack<Integer> tileStack;
+    /**
+     * Used to store the current state of the game grid.
+     */
     private int[][] save;
+    /**
+     * Used to keep track of which level the player is on.
+     */
     private int currentLevel;
+    /**
+     *  TODO rasmus du får fixa
+     */
     private boolean filledCratePush;
+    /**
+     * Used to keep track of which row the player is located
+     */
     private int playerLocationY;
+    /**
+     * Used to keep track of which column the player is located
+     */
     private int playerLocationX;
+    /**
+     * Used to inform observers of the latest event.
+     */
     private Events lastEvent;
+    /**
+     * Used to store the levels.
+     */
     private int[][][] levels;
 
+    /**
+     * Used in our moving algorithms.
+     */
     final private int UP = -1, LEFT = -1, RIGHT= 1, DOWN = 1;
 }

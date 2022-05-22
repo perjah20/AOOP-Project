@@ -17,8 +17,8 @@ import java.awt.event.KeyEvent;
  * @param <T> A controller for allowing the TileGameGUI to communicate
  *           with the game model.
  * @param <S> A Game Model to allow for easier implementation of GameObserver.
- * @see tilegame/TileGameModel.java
- * @see tilegame/TileGameController.java
+ * @see tilegame.TileGameModel
+ * @see tilegame.TileGameController
  */
 public abstract class TileGameGUI<T extends TileGameController<S>, S extends TileGameModel> extends JFrame implements GameObserver<S> {
     protected abstract void northButtonPressed();
@@ -187,9 +187,24 @@ public abstract class TileGameGUI<T extends TileGameController<S>, S extends Til
      */
     public int getColLength() { return tiles[0].length; }
 
-    private JTextArea textArea; /** Used to display text of choice. **/
-    private JButton[] buttons;  /** Just used so I could add key bindings **/
-    private GameLabel[][] tiles;   /** Used to access and manipulate the tiles **/
+    /**
+     *  Used to display text of choice.
+     */
+    private JTextArea textArea;
+    /**
+     * Just used to add key bindings
+     */
+    private JButton[] buttons;
+    /**
+     * Used to access and manipulate the tiles
+     */
+    private GameLabel[][] tiles;
+    /**
+     * Used for removing or adding to the JFrame
+     */
     private JPanel gameGrid;
+    /**
+     * Used to communicate the game model.
+     */
     private T tileGameController;
 }

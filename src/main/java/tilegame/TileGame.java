@@ -7,14 +7,11 @@ package tilegame;
  * @param <T> A game model that extends the TileGameModel class.
  * @param <S> A graphical user interface that extends the TileGameGUI class.
  * @param <U> A controller for allowing any user interface to control the game.
- * @see tilegame/TileGameController.java
- * @see tilegame/TileGameModel.java
- * @see tilegame/TileGameGUI.java
+ * @see tilegame.TileGameController
+ * @see tilegame.TileGameModel
+ * @see tilegame.TileGameGUI
  */
 public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI<U,T>, U extends TileGameController<T>> {
-    private final T tileGameModel;
-    private final S tileGameGUI;
-    private final U tileGameController;
 
     /**
      * This constructor initiates a game with the supplied
@@ -55,4 +52,8 @@ public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI<U,T
     protected U getTileGameController() {
         return tileGameController;
     }
+
+    private final T tileGameModel;
+    private final S tileGameGUI;
+    private final U tileGameController;
 }
