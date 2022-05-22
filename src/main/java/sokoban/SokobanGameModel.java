@@ -30,8 +30,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     public void startGame() {
         currentLevel = 0;
         lastEvent = START_GAME;
-        currentLevelGrid = makeCopyOf2DArray(levels[currentLevel]);
-        updateGameGrid(this.levels[currentLevel]);
+        updateGameGrid(makeCopyOf2DArray(this.levels[currentLevel]));
     }
 
     /**
@@ -152,10 +151,8 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         }
         lastEvent = GAME_WON;
         currentLevel++;
-        if (currentLevel < levels.length) {
-            currentLevelGrid = makeCopyOf2DArray(levels[currentLevel]);
-            updateGameGrid(this.levels[currentLevel]);
-        }
+        if (currentLevel < levels.length)
+            updateGameGrid(makeCopyOf2DArray(levels[currentLevel]));
     }
 
     /**
@@ -166,14 +163,14 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         while (!tileStack.empty())
             tileStack.pop();
         tileStack.push(SAND);
-        updateGameGrid(makeCopyOf2DArray(currentLevelGrid));
+        updateGameGrid(makeCopyOf2DArray(levels[currentLevel]));
     }
 
     /**
      * Clones the current state to save
      */
     public void saveGame() {
-        save = this.getGameState().clone();
+        save = makeCopyOf2DArray(this.getGameState());
     }
 
     /**
@@ -192,14 +189,13 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     public void getSave(SokobanGameModel savedModel) {
         this.tileStack = savedModel.tileStack;
         this.save = savedModel.save;
-        this.currentLevelGrid = savedModel.currentLevelGrid;
         this.currentLevel = savedModel.currentLevel;
         this.filledCratePush = savedModel.filledCratePush;
         this.playerLocationY = savedModel.playerLocationY;
         this.playerLocationX = savedModel.playerLocationX;
         this.lastEvent = savedModel.lastEvent;
         this.levels = savedModel.levels;
-        this.updateGameGrid(levels[currentLevel]);
+        this.updateGameGrid(makeCopyOf2DArray(save));
     }
 
     /**
@@ -240,7 +236,6 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
 
     private Stack<Integer> tileStack;
     private int[][] save;
-    private int[][] currentLevelGrid;
     private int currentLevel;
     private boolean filledCratePush;
     private int playerLocationY;
