@@ -5,7 +5,7 @@ package tilegame;
  * to modify a game model.
  * @param <T> A game model that extends the TileGameModel class.
  */
-public class TileGameController<T extends TileGameModel> {
+public abstract class TileGameController<T extends TileGameModel> {
     /**
      * This method allows the user to add a
      * game model.
