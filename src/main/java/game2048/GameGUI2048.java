@@ -1,13 +1,13 @@
-package Game2048;
+package game2048;
 
-import tileGame.GameLabel;
-import tileGame.TileGameGUI;
+import tilegame.GameLabel;
+import tilegame.TileGameGUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-import static Game2048.GameModel2048.Direction.*;
+import static game2048.GameModel2048.Direction.*;
 
 public class GameGUI2048 extends TileGameGUI<GameController2048,GameModel2048> {
 

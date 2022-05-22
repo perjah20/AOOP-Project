@@ -1,4 +1,4 @@
-package tileGame;
+package tilegame;
 
 /**
  * This class is an interface. It allows you to create algorithms that can be run on a game model.

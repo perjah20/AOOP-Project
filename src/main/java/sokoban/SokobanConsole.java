@@ -1,6 +1,6 @@
 package sokoban;
 
-import tileGame.GameObserver;
+import tilegame.GameObserver;
 
 /**
  * The SokobanConsole class is a class that shows a different view of the game board.

@@ -1,4 +1,4 @@
-package tileGame;
+package tilegame;
 
 import java.util.ArrayList;
 

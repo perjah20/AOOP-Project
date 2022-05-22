@@ -1,8 +1,8 @@
 package sokoban;
 
 import sokoban.buttonStrategies.*;
-import tileGame.GameLabel;
-import tileGame.TileGameGUI;
+import tilegame.GameLabel;
+import tilegame.TileGameGUI;
 
 
 import javax.swing.*;

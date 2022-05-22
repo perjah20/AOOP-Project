@@ -1,4 +1,4 @@
-package tileGame;
+package tilegame;
 
 /**
  * This interface class allows the programmers to

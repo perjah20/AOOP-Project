@@ -1,7 +1,7 @@
 package sokoban.buttonStrategies;
 
 import sokoban.SokobanGameModel;
-import tileGame.ButtonStrategy;
+import tilegame.ButtonStrategy;
 
 import static sokoban.SokobanInfo.Directions;
 

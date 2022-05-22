@@ -1,7 +1,6 @@
 package sokoban;
 
-import org.jetbrains.annotations.NotNull;
-import tileGame.GameObserver;
+import tilegame.GameObserver;
 
 import javax.sound.sampled.*;
 import java.io.File;

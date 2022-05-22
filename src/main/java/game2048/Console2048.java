@@ -1,6 +1,6 @@
-package Game2048;
+package game2048;
 
-import tileGame.GameObserver;
+import tilegame.GameObserver;
 
 public class Console2048 implements GameObserver<GameModel2048> {
 

@@ -1,6 +1,6 @@
 package sokoban;
 
-import tileGame.TileGameModel;
+import tilegame.TileGameModel;
 
 import java.io.Serializable;
 import java.util.Stack;

@@ -1,4 +1,4 @@
-package tileGame;
+package tilegame;
 
 /**
  * The abstract class TileGame allows programmers to

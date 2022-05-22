@@ -1,6 +1,6 @@
 package sokoban;
 
-import tileGame.TileGameController;
+import tilegame.TileGameController;
 
 /**
  * The SokobanController class is a mediator between GameModel and GameGUI.

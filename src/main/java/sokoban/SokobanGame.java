@@ -1,6 +1,6 @@
 package sokoban;
 
-import tileGame.TileGame;
+import tilegame.TileGame;
 /**
  * The SokobanGame class holds the method for instantiating the game.
  */

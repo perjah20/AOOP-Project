@@ -1,4 +1,4 @@
-package tileGame;
+package tilegame;
 
 /**
  * The public class TileGameController allows you

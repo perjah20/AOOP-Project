@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
-import tileGame.TileGameGUI;
-import tileGame.TileGameModel;
+import tilegame.TileGameGUI;
+import tilegame.TileGameModel;
 
 import javax.sound.sampled.*;
 import javax.swing.*;

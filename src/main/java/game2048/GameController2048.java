@@ -1,5 +1,5 @@
-package Game2048;
-import tileGame.TileGameController;
+package game2048;
+import tilegame.TileGameController;
 
 public class GameController2048 extends TileGameController<GameModel2048> {
 
