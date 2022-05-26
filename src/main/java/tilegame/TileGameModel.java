@@ -128,5 +128,5 @@ public abstract class TileGameModel  {
     /**
      * Used to store our observers and inform them of updates.
      */
-    ArrayList<GameObserver> gameObservers = new ArrayList<>();
+    private final ArrayList<GameObserver> gameObservers = new ArrayList<>();
 }

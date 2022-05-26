@@ -20,7 +20,8 @@ import java.awt.event.KeyEvent;
  * @see tilegame.TileGameModel
  * @see tilegame.TileGameController
  */
-public abstract class TileGameGUI<T extends TileGameController<S>, S extends TileGameModel> extends JFrame implements GameObserver<S> {
+public abstract class TileGameGUI<T extends TileGameController<S>,
+        S extends TileGameModel> extends JFrame implements GameObserver<S> {
     protected abstract void northButtonPressed();
     protected abstract void eastButtonPressed();
     protected abstract void southButtonPressed();

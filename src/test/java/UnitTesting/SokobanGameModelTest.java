@@ -35,7 +35,6 @@ class SokobanGameModelTest {
 
     @Test
     void playerMovingIntoCollision() {
-        // Testing Collision
         sokobanGameModel = new SokobanGameModel(new int[][][]{testLevelCollision});
         sokobanGameModel.startGame();
         sokobanGameModel.moveCharacter(NORTH);
@@ -95,53 +94,53 @@ class SokobanGameModelTest {
     @Test
     void playerMovingNorth() {
         sokobanGameModel = new SokobanGameModel(new int[][][]{testLevelMoving});
-        SokobanGameModelTest.this.sokobanGameModel.startGame();
-        SokobanGameModelTest.this.sokobanGameModel.moveCharacter(NORTH);
-        assertEquals(1,SokobanGameModelTest.this.sokobanGameModel.getTileState(2,2));
-        assertEquals(2,SokobanGameModelTest.this.sokobanGameModel.getTileState(1,2));
-        assertEquals(MOVED_PLAYER, SokobanGameModelTest.this.sokobanGameModel.getLastEvent());
+        sokobanGameModel.startGame();
+        sokobanGameModel.moveCharacter(NORTH);
+        assertEquals(1,sokobanGameModel.getTileState(2,2));
+        assertEquals(2,sokobanGameModel.getTileState(1,2));
+        assertEquals(MOVED_PLAYER, sokobanGameModel.getLastEvent());
     }
 
     @Test
     void playerMovingWest() {
         sokobanGameModel = new SokobanGameModel(new int[][][]{testLevelMoving});
-        SokobanGameModelTest.this.sokobanGameModel.startGame();
-        SokobanGameModelTest.this.sokobanGameModel.moveCharacter(WEST);
-        assertEquals(1,SokobanGameModelTest.this.sokobanGameModel.getTileState(2,2));
-        assertEquals(2,SokobanGameModelTest.this.sokobanGameModel.getTileState(2,1));
-        assertEquals(MOVED_PLAYER, SokobanGameModelTest.this.sokobanGameModel.getLastEvent());
+        sokobanGameModel.startGame();
+        sokobanGameModel.moveCharacter(WEST);
+        assertEquals(1,sokobanGameModel.getTileState(2,2));
+        assertEquals(2,sokobanGameModel.getTileState(2,1));
+        assertEquals(MOVED_PLAYER, sokobanGameModel.getLastEvent());
     }
 
     @Test
     void playerMovingEast() {
         sokobanGameModel = new SokobanGameModel(new int[][][]{testLevelMoving});
-        SokobanGameModelTest.this.sokobanGameModel.startGame();
-        SokobanGameModelTest.this.sokobanGameModel.moveCharacter(EAST);
-        assertEquals(1,SokobanGameModelTest.this.sokobanGameModel.getTileState(2,2));
-        assertEquals(2,SokobanGameModelTest.this.sokobanGameModel.getTileState(2,3));
-        assertEquals(MOVED_PLAYER, SokobanGameModelTest.this.sokobanGameModel.getLastEvent());
+        sokobanGameModel.startGame();
+        sokobanGameModel.moveCharacter(EAST);
+        assertEquals(1,sokobanGameModel.getTileState(2,2));
+        assertEquals(2,sokobanGameModel.getTileState(2,3));
+        assertEquals(MOVED_PLAYER, sokobanGameModel.getLastEvent());
     }
 
     @Test
     void playerMovingSouth() {
         sokobanGameModel = new SokobanGameModel(new int[][][]{testLevelMoving});
-        SokobanGameModelTest.this.sokobanGameModel.startGame();
-        SokobanGameModelTest.this.sokobanGameModel.moveCharacter(SOUTH);
-        assertEquals(1,SokobanGameModelTest.this.sokobanGameModel.getTileState(2,2));
-        assertEquals(2,SokobanGameModelTest.this.sokobanGameModel.getTileState(3,2));
-        assertEquals(MOVED_PLAYER, SokobanGameModelTest.this.sokobanGameModel.getLastEvent());
+        sokobanGameModel.startGame();
+        sokobanGameModel.moveCharacter(SOUTH);
+        assertEquals(1,sokobanGameModel.getTileState(2,2));
+        assertEquals(2,sokobanGameModel.getTileState(3,2));
+        assertEquals(MOVED_PLAYER, sokobanGameModel.getLastEvent());
     }
 
     @Test
     void resetLevel() {
         sokobanGameModel = new SokobanGameModel(new int[][][]{testLevelMoving});
-        SokobanGameModelTest.this.sokobanGameModel.startGame();
-        SokobanGameModelTest.this.sokobanGameModel.moveCharacter(NORTH);
-        assertEquals(1,SokobanGameModelTest.this.sokobanGameModel.getTileState(2,2));
-        assertEquals(2,SokobanGameModelTest.this.sokobanGameModel.getTileState(1,2));
-        SokobanGameModelTest.this.sokobanGameModel.resetLevel();
+        sokobanGameModel.startGame();
+        sokobanGameModel.moveCharacter(NORTH);
+        assertEquals(1,sokobanGameModel.getTileState(2,2));
+        assertEquals(2,sokobanGameModel.getTileState(1,2));
+        sokobanGameModel.resetLevel();
         compareGrids(testLevelMoving);
-        assertEquals(RESET_GAME, SokobanGameModelTest.this.sokobanGameModel.getLastEvent());
+        assertEquals(RESET_GAME, sokobanGameModel.getLastEvent());
     }
 
     private void compareGrids(int[][] grid) {

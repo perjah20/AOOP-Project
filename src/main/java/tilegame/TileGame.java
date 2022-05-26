@@ -11,7 +11,9 @@ package tilegame;
  * @see tilegame.TileGameModel
  * @see tilegame.TileGameGUI
  */
-public abstract class TileGame<T extends TileGameModel,S extends TileGameGUI<U,T>, U extends TileGameController<T>> {
+public abstract class TileGame<T extends TileGameModel,
+                                    S extends TileGameGUI<U,T>,
+                                        U extends TileGameController<T>> {
 
     /**
      * This constructor initiates a game with the supplied
