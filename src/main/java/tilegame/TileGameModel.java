@@ -74,7 +74,7 @@ public abstract class TileGameModel  {
      * @return A 2D-array containing the current game grid.
      */
     public int[][] getGameState() {
-        return gameGrid;
+        return makeCopyOf2DArray(gameGrid);
     }
 
     /**
@@ -119,6 +119,31 @@ public abstract class TileGameModel  {
      */
     public int getColumns() {
         return gameGrid[0].length;
+    }
+
+    /**
+     * This method creates a copy of a 2D-array with no reference to the original.
+     * @param arrayToMakeACopyOf Array to copy.
+     * @return A copy of the 2D-array
+     */
+    public int[][] makeCopyOf2DArray(int [][] arrayToMakeACopyOf) {
+        int[][] newArray = new int[arrayToMakeACopyOf.length][];
+        for(int i = 0; i < arrayToMakeACopyOf.length; i++)
+            newArray[i] = arrayToMakeACopyOf[i].clone();
+        return newArray;
+    }
+
+    /**
+     * This method creates a copy of a 3D-array with no reference to the original.
+     * @param arrayToMakeACopyOf Array to copy.
+     * @return A copy of the 3D-array
+     */
+    public int[][][] makeCopyOf3DArray(int [][][] arrayToMakeACopyOf) {
+        int[][][] newArray = new int[arrayToMakeACopyOf.length][][];
+        for (int i = 0; i < arrayToMakeACopyOf.length; i++) {
+            newArray[i] = makeCopyOf2DArray(arrayToMakeACopyOf[i]);
+        }
+        return newArray;
     }
 
     /**
