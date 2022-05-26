@@ -198,31 +198,6 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         this.updateGameGrid(makeCopyOf2DArray(save));
     }
 
-    /**
-     * This method creates a copy of a 2D-array with no reference to the original.
-     * @param arrayToMakeACopyOf Array to copy.
-     * @return A copy of the 2D-array
-     */
-    private int[][] makeCopyOf2DArray(int [][] arrayToMakeACopyOf) {
-        int[][] newArray = new int[arrayToMakeACopyOf.length][];
-        for(int i = 0; i < arrayToMakeACopyOf.length; i++)
-            newArray[i] = arrayToMakeACopyOf[i].clone();
-        return newArray;
-    }
-
-    /**
-     * This method creates a copy of a 3D-array with no reference to the original.
-     * @param arrayToMakeACopyOf Array to copy.
-     * @return A copy of the 3D-array
-     */
-    private int[][][] makeCopyOf3DArray(int [][][] arrayToMakeACopyOf) {
-        int[][][] newArray = new int[arrayToMakeACopyOf.length][][];
-        for (int i = 0; i < arrayToMakeACopyOf.length; i++) {
-            newArray[i] = makeCopyOf2DArray(arrayToMakeACopyOf[i]);
-        }
-        return newArray;
-    }
-
     public String toString() {
         StringBuilder string = new StringBuilder();
         for (int i = 0; i < this.getRows(); i++) {
