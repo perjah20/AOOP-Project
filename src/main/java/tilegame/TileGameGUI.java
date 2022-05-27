@@ -63,99 +63,43 @@ public abstract class TileGameGUI<T extends TileGameController<S>,
     }
 
     /**
-     * Creates a JPanel containing a JTextArea and a button container.
-     * @return JPanel containing a JTextArea and a button container.
+     * This method gets the north button of the GUI
+     * @return North JButton
      */
-    private JPanel createTextAndButtonContainer() {
-        JPanel textAndButtonContainer = new JPanel();
-        textAndButtonContainer.setLayout(new BorderLayout());
-        textAndButtonContainer.add(createButtonContainer(),BorderLayout.WEST);
-        textArea = new JTextArea("Sample Text");
-        textArea.setLineWrap(true);
-        textArea.setEditable(false);
-        addArrowkeyListeners(textArea);
-        textAndButtonContainer.add(textArea,BorderLayout.CENTER);
-        return textAndButtonContainer;
+    protected JButton getNorthButton() {
+        return buttons[NORTH];
     }
 
     /**
-     * Creates a JPanel containing 4 buttons with methods connected to them.
-     * @return A JPanel containing 4 buttons.
+     * This method gets the west button of the GUI
+     * @return West JButton
      */
-    private JPanel createButtonContainer() {
-        JPanel buttonContainer = new JPanel();
-        buttonContainer.setLayout(new BorderLayout());
-        String[] positions = {BorderLayout.NORTH, BorderLayout.WEST, BorderLayout.EAST, BorderLayout.SOUTH};
-        buttons = new JButton[4];
-        buttons[0] = new JButton("North");  buttons[0].addActionListener(e -> northButtonPressed());
-        buttons[1] = new JButton("West");   buttons[1].addActionListener(e -> westButtonPressed());
-        buttons[2] = new JButton("East");   buttons[2].addActionListener(e -> eastButtonPressed());
-        buttons[3] = new JButton("South");  buttons[3].addActionListener(e -> southButtonPressed());
-        for (int i = 0; i < 4; i++) {
-            buttonContainer.add(buttons[i], positions[i]);
-        }
-        return buttonContainer;
+    protected JButton getWestButton() {
+        return  buttons[WEST];
     }
 
     /**
-     * Adds Java KeyBindings to a component which will be
-     * executed if window is focused.
-     * @param component This is the component you want to add the key bindings to.
+     * This method gets the east button of the GUI
+     * @return East JButton
      */
-    private void addArrowkeyListeners(JComponent component) {
-        InputMap inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = component.getActionMap();
-        int[] keys = {KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT};
-        String[] actionMapKeys = {
-                "invokeNorthButtonPressed",
-                "invokeSouthButtonPressed",
-                "invokeWestButtonPressed",
-                "invokeEastButtonPressed"
-        };
-        Action[] actions = {
-                new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) { buttons[0].doClick();}
-                },
-                new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) { buttons[3].doClick(); }
-                },
-                new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) { buttons[1].doClick(); }
-                },
-                new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) { buttons[2].doClick(); }
-                }
-        };
-        for (int i = 0; i < 4; i++) {
-            inputMap.put(KeyStroke.getKeyStroke(keys[i],0,true),actionMapKeys[i]);
-            actionMap.put(actionMapKeys[i],actions[i]);
-        }
+    protected JButton getEastButton() {
+        return buttons[EAST];
     }
 
     /**
-     * Creates a game grid and populates it with JLabels for user to modify with text or icons.
-     * @param rows Amount of tiles in vertically (y-axis).
-     * @param columns Amount of tiles in horizontally (x-axis).
-     * @return A JPanel containing rows * columns JLabels.
+     * This method gets the south button of the GUI
+     * @return South JButton
      */
-    protected JPanel createGrid(int rows, int columns) {
-        if(gameGrid != null) this.remove(gameGrid);
-        gameGrid = new JPanel(new GridLayout(rows, columns));
-        tiles = new GameLabel[rows][columns];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                GameLabel tile = new GameLabel();
-                tile.setHorizontalAlignment(JLabel.CENTER);
-                tile.setOpaque(true);
-                tiles[i][j] = tile;
-                gameGrid.add(tile);
-            }
-        }
-        return gameGrid;
+    protected JButton getSouthButton() {
+        return buttons[SOUTH];
+    }
+
+    /**
+     * This method gets the text area
+     * @return JTextArea
+     */
+    protected JTextArea getTextArea() {
+        return textArea;
     }
 
     /**
@@ -189,6 +133,104 @@ public abstract class TileGameGUI<T extends TileGameController<S>,
     public int getColLength() { return tiles[0].length; }
 
     /**
+     * Creates a JPanel containing a JTextArea and a button container.
+     * @return JPanel containing a JTextArea and a button container.
+     */
+    private JPanel createTextAndButtonContainer() {
+        JPanel textAndButtonContainer = new JPanel();
+        textAndButtonContainer.setLayout(new BorderLayout());
+        textAndButtonContainer.add(createButtonContainer(),BorderLayout.WEST);
+        textArea = new JTextArea("Sample Text");
+        textArea.setLineWrap(true);
+        textArea.setEditable(false);
+        addArrowkeyListeners(textArea);
+        textAndButtonContainer.add(textArea,BorderLayout.CENTER);
+        return textAndButtonContainer;
+    }
+
+    /**
+     * Creates a JPanel containing 4 buttons with methods connected to them.
+     * @return A JPanel containing 4 buttons.
+     */
+    private JPanel createButtonContainer() {
+        JPanel buttonContainer = new JPanel();
+        buttonContainer.setLayout(new BorderLayout());
+        String[] positions = {BorderLayout.NORTH, BorderLayout.WEST, BorderLayout.EAST, BorderLayout.SOUTH};
+        buttons = new JButton[4];
+        buttons[NORTH] = new JButton("North");  buttons[NORTH].addActionListener(e -> northButtonPressed());
+        buttons[WEST] = new JButton("West");   buttons[WEST].addActionListener(e -> westButtonPressed());
+        buttons[EAST] = new JButton("East");   buttons[EAST].addActionListener(e -> eastButtonPressed());
+        buttons[SOUTH] = new JButton("South");  buttons[SOUTH].addActionListener(e -> southButtonPressed());
+        for (int i = 0; i < 4; i++) {
+            buttonContainer.add(buttons[i], positions[i]);
+        }
+        return buttonContainer;
+    }
+
+    /**
+     * Adds Java KeyBindings to a component which will be
+     * executed if window is focused.
+     * @param component This is the component you want to add the key bindings to.
+     */
+    private void addArrowkeyListeners(JComponent component) {
+        InputMap inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = component.getActionMap();
+        int[] keys = {KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT};
+        String[] actionMapKeys = {
+                "invokeNorthButtonPressed",
+                "invokeSouthButtonPressed",
+                "invokeWestButtonPressed",
+                "invokeEastButtonPressed"
+        };
+        Action[] actions = {
+                new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { buttons[NORTH].doClick();}
+                },
+                new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { buttons[SOUTH].doClick(); }
+                },
+                new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { buttons[WEST].doClick(); }
+                },
+                new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { buttons[EAST].doClick(); }
+                }
+        };
+        for (int i = 0; i < 4; i++) {
+            inputMap.put(KeyStroke.getKeyStroke(keys[i],0,true),actionMapKeys[i]);
+            actionMap.put(actionMapKeys[i],actions[i]);
+        }
+    }
+
+    /**
+     * Creates a game grid and populates it with JLabels for user to modify with text or icons.
+     * @param rows Amount of tiles in vertically (y-axis).
+     * @param columns Amount of tiles in horizontally (x-axis).
+     * @return A JPanel containing rows * columns JLabels.
+     */
+    protected JPanel createGrid(int rows, int columns) {
+        if(gameGrid != null) this.remove(gameGrid);
+        gameGrid = new JPanel(new GridLayout(rows, columns));
+        tiles = new GameLabel[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                GameLabel tile = new GameLabel();
+                tile.setHorizontalAlignment(JLabel.CENTER);
+                tile.setOpaque(true);
+                tiles[i][j] = tile;
+                gameGrid.add(tile);
+            }
+        }
+        return gameGrid;
+    }
+
+
+
+    /**
      *  Used to display text of choice.
      */
     private JTextArea textArea;
@@ -208,4 +250,6 @@ public abstract class TileGameGUI<T extends TileGameController<S>,
      * Used to communicate the game model.
      */
     private T tileGameController;
+
+    private final int NORTH = 0, WEST = 1, EAST = 2, SOUTH = 3;
 }
