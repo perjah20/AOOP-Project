@@ -9,6 +9,10 @@ import static game2048.GameModel2048.Events.*;
  * manages the data, logic and rules of the game.
  */
 public class GameModel2048 extends TileGameModel {
+    /**
+     * These are the directions in which you can move the character
+     */
+    public  enum Direction {LEFT,RIGHT,UP,DOWN}
 
     /**
      * Instantiates the 2048GameModel Object.
@@ -16,6 +20,24 @@ public class GameModel2048 extends TileGameModel {
     public GameModel2048() {
         this.updateGameGrid(new int[4][4]);
         resetGame();
+    }
+
+
+    /**
+     * This method will reset the game and generate 2 new tiles.
+     */
+    public void resetGame() {
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                setTileState(0,i,j);
+            }
+        }
+        emptyTiles = 0;
+        modified = true;
+        generateRandomNumber();
+        generateRandomNumber();
+        lastEvent = RESET_GAME;
+        updateObservers();
     }
 
     /**
@@ -61,6 +83,30 @@ public class GameModel2048 extends TileGameModel {
             generateRandomNumber();
             updateObservers();
         }
+    }
+
+    /**
+     * Gets the last occurred event.
+     * @return The last occurred event.
+     */
+    public Events getLastEvent() {
+        return lastEvent;
+    }
+
+    /**
+     * Gets the last moved direction.
+     * @return The last moved direction.
+     */
+    public Direction getLastDirection() {
+        return lastDirection;
+    }
+
+    /**
+     * Returns true of false whether the board has been modified or not.
+     * @return True if board has been modified, false if it has not been modified.
+     */
+    public boolean isModified() {
+        return modified;
     }
 
     /**
@@ -255,56 +301,10 @@ public class GameModel2048 extends TileGameModel {
         }
     }
 
-    /**
-     * This method will reset the game and generate 2 new tiles.
-     */
-    public void resetGame() {
-        for (int i = 0; i < getRows(); i++) {
-            for (int j = 0; j < getColumns(); j++) {
-                setTileState(0,i,j);
-            }
-        }
-        emptyTiles = 0;
-        modified = true;
-        generateRandomNumber();
-        generateRandomNumber();
-        lastEvent = RESET_GAME;
-        updateObservers();
-    }
-
-    /**
-     * Gets the last occurred event.
-     * @return The last occurred event.
-     */
-    public Events getLastEvent() {
-        return lastEvent;
-    }
-
-    /**
-     * Gets the last moved direction.
-     * @return The last moved direction.
-     */
-    public Direction getLastDirection() {
-        return lastDirection;
-    }
-
-    /**
-     * Returns true of false whether the board has been modified or not.
-     * @return True if board has been modified, false if it has not been modified.
-     */
-    public boolean isModified() {
-        return modified;
-    }
-
     private int emptyTiles;
     private boolean modified;
     private Events lastEvent;
     private Direction lastDirection;
-
-    /**
-     * These are the directions in which you can move the character
-     */
-    public  enum Direction {LEFT,RIGHT,UP,DOWN}
 
     /**
      * This is the events of the game, and they are used for keeping track of which event has occurred the game is in.

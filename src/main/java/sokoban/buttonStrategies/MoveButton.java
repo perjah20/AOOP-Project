@@ -10,8 +10,6 @@ import static sokoban.SokobanInfo.Directions;
  * in which direction the user want to move the player.
  */
 public class MoveButton implements ButtonStrategy<SokobanGameModel> {
-    private final Directions direction;
-
     /**
      * Creates a new button with a direction for which to move the player.
      * @param aDirection This is the direction to which to move the player
@@ -29,4 +27,6 @@ public class MoveButton implements ButtonStrategy<SokobanGameModel> {
     public void executeMethod(SokobanGameModel gameModel) {
         gameModel.moveCharacter(direction);
     }
+
+    private final Directions direction;
 }

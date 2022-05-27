@@ -104,12 +104,12 @@ public class GameGUI2048 extends TileGameGUI<GameController2048,GameModel2048> {
         JMenuBar menuBar = new JMenuBar();
         JButton button = new JButton("Reset Game");
         button.addActionListener(e->this.getTileGameController().
-                handleButtonPress(gameModel -> gameModel.resetGame()));
+                handleButtonPress(GameModel2048::resetGame));
         menuBar.add(button);
         return menuBar;
     }
 
-    HashMap<Integer,Color> tileColors = new HashMap<>();
+    private final HashMap<Integer,Color> tileColors = new HashMap<>();
 
     private final Color[] colors = {
             new Color(204,192,179), // 0

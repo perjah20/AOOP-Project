@@ -81,7 +81,7 @@ public abstract class TileGameModel  {
      * Adds a observer to observe the GameModel
      * @param gameObserver - Observer to observe the GameModel.
      */
-    public void addGameObserver(GameObserver gameObserver) {
+    public void addGameObserver(GameObserver<?> gameObserver) {
         gameObservers.add(gameObserver);
     }
 
@@ -92,19 +92,6 @@ public abstract class TileGameModel  {
         for (GameObserver gameObserver : gameObservers)
             gameObserver.updateGameObserver(this);
     }
-
-    /**
-     * Calculates which row a position corresponds to.
-     * @param position a tile position counting from 0 to rows*columns.
-     * @return A row
-     */
-    private int getRow(int position) { return position/getRows(); }
-    /**
-     * Calculates which column a position corresponds to.
-     * @param position a tile position counting from 0 to rows*columns.
-     * @return A column
-     */
-    private int getColumn(int position) { return position%getColumns(); }
 
     /**
      * Gets the number of rows in a matrix
@@ -145,6 +132,19 @@ public abstract class TileGameModel  {
         }
         return newArray;
     }
+
+    /**
+     * Calculates which row a position corresponds to.
+     * @param position a tile position counting from 0 to rows*columns.
+     * @return A row
+     */
+    private int getRow(int position) { return position/getRows(); }
+    /**
+     * Calculates which column a position corresponds to.
+     * @param position a tile position counting from 0 to rows*columns.
+     * @return A column
+     */
+    private int getColumn(int position) { return position%getColumns(); }
 
     /**
      * Our Game Grid for keeping track of game state.

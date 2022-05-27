@@ -133,38 +133,25 @@ public abstract class TileGameGUI<T extends TileGameController<S>,
     public int getColLength() { return tiles[0].length; }
 
     /**
-     * Creates a JPanel containing a JTextArea and a button container.
-     * @return JPanel containing a JTextArea and a button container.
+     * Creates a game grid and populates it with JLabels for user to modify with text or icons.
+     * @param rows Amount of tiles in vertically (y-axis).
+     * @param columns Amount of tiles in horizontally (x-axis).
+     * @return A JPanel containing rows * columns JLabels.
      */
-    private JPanel createTextAndButtonContainer() {
-        JPanel textAndButtonContainer = new JPanel();
-        textAndButtonContainer.setLayout(new BorderLayout());
-        textAndButtonContainer.add(createButtonContainer(),BorderLayout.WEST);
-        textArea = new JTextArea("Sample Text");
-        textArea.setLineWrap(true);
-        textArea.setEditable(false);
-        addArrowkeyListeners(textArea);
-        textAndButtonContainer.add(textArea,BorderLayout.CENTER);
-        return textAndButtonContainer;
-    }
-
-    /**
-     * Creates a JPanel containing 4 buttons with methods connected to them.
-     * @return A JPanel containing 4 buttons.
-     */
-    private JPanel createButtonContainer() {
-        JPanel buttonContainer = new JPanel();
-        buttonContainer.setLayout(new BorderLayout());
-        String[] positions = {BorderLayout.NORTH, BorderLayout.WEST, BorderLayout.EAST, BorderLayout.SOUTH};
-        buttons = new JButton[4];
-        buttons[NORTH] = new JButton("North");  buttons[NORTH].addActionListener(e -> northButtonPressed());
-        buttons[WEST] = new JButton("West");   buttons[WEST].addActionListener(e -> westButtonPressed());
-        buttons[EAST] = new JButton("East");   buttons[EAST].addActionListener(e -> eastButtonPressed());
-        buttons[SOUTH] = new JButton("South");  buttons[SOUTH].addActionListener(e -> southButtonPressed());
-        for (int i = 0; i < 4; i++) {
-            buttonContainer.add(buttons[i], positions[i]);
+    protected JPanel createGrid(int rows, int columns) {
+        if(gameGrid != null) this.remove(gameGrid);
+        gameGrid = new JPanel(new GridLayout(rows, columns));
+        tiles = new GameLabel[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                GameLabel tile = new GameLabel();
+                tile.setHorizontalAlignment(JLabel.CENTER);
+                tile.setOpaque(true);
+                tiles[i][j] = tile;
+                gameGrid.add(tile);
+            }
         }
-        return buttonContainer;
+        return gameGrid;
     }
 
     /**
@@ -207,27 +194,39 @@ public abstract class TileGameGUI<T extends TileGameController<S>,
     }
 
     /**
-     * Creates a game grid and populates it with JLabels for user to modify with text or icons.
-     * @param rows Amount of tiles in vertically (y-axis).
-     * @param columns Amount of tiles in horizontally (x-axis).
-     * @return A JPanel containing rows * columns JLabels.
+     * Creates a JPanel containing a JTextArea and a button container.
+     * @return JPanel containing a JTextArea and a button container.
      */
-    protected JPanel createGrid(int rows, int columns) {
-        if(gameGrid != null) this.remove(gameGrid);
-        gameGrid = new JPanel(new GridLayout(rows, columns));
-        tiles = new GameLabel[rows][columns];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                GameLabel tile = new GameLabel();
-                tile.setHorizontalAlignment(JLabel.CENTER);
-                tile.setOpaque(true);
-                tiles[i][j] = tile;
-                gameGrid.add(tile);
-            }
-        }
-        return gameGrid;
+    private JPanel createTextAndButtonContainer() {
+        JPanel textAndButtonContainer = new JPanel();
+        textAndButtonContainer.setLayout(new BorderLayout());
+        textAndButtonContainer.add(createButtonContainer(),BorderLayout.WEST);
+        textArea = new JTextArea("Sample Text");
+        textArea.setLineWrap(true);
+        textArea.setEditable(false);
+        addArrowkeyListeners(textArea);
+        textAndButtonContainer.add(textArea,BorderLayout.CENTER);
+        return textAndButtonContainer;
     }
 
+    /**
+     * Creates a JPanel containing 4 buttons with methods connected to them.
+     * @return A JPanel containing 4 buttons.
+     */
+    private JPanel createButtonContainer() {
+        JPanel buttonContainer = new JPanel();
+        buttonContainer.setLayout(new BorderLayout());
+        String[] positions = {BorderLayout.NORTH, BorderLayout.WEST, BorderLayout.EAST, BorderLayout.SOUTH};
+        buttons = new JButton[4];
+        buttons[NORTH] = new JButton("North");  buttons[NORTH].addActionListener(e -> northButtonPressed());
+        buttons[WEST] = new JButton("West");   buttons[WEST].addActionListener(e -> westButtonPressed());
+        buttons[EAST] = new JButton("East");   buttons[EAST].addActionListener(e -> eastButtonPressed());
+        buttons[SOUTH] = new JButton("South");  buttons[SOUTH].addActionListener(e -> southButtonPressed());
+        for (int i = 0; i < 4; i++) {
+            buttonContainer.add(buttons[i], positions[i]);
+        }
+        return buttonContainer;
+    }
 
 
     /**

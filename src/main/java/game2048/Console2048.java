@@ -7,7 +7,6 @@ import tilegame.GameObserver;
  * actual GameModel2048 values. It is primarily used for debugging.
  */
 public class Console2048 implements GameObserver<GameModel2048> {
-
     /**
      * Prints the last event, direction, if the board has been modified
      * and displays a model of the current game map in the console.
