@@ -23,12 +23,12 @@ public abstract class TileGame<T extends TileGameModel,
      * @param aTileGameController The controller to alter the Game Model.
      */
     public TileGame(T aTileGameModel, S aTileGameGUI, U aTileGameController ){
-        tileGameModel = aTileGameModel;
-        tileGameController = aTileGameController;
-        tileGameController.addGameModel(tileGameModel);
+        this.tileGameModel = aTileGameModel;
+        this.tileGameController = aTileGameController;
+        this.tileGameController.addGameModel(tileGameModel);
         this.tileGameGUI = aTileGameGUI;
-        tileGameGUI.setGameController(tileGameController);
-        tileGameModel.addGameObserver(tileGameGUI);
+        this.tileGameGUI.setGameController(tileGameController);
+        this.tileGameModel.addGameObserver(tileGameGUI);
     }
 
     /**
