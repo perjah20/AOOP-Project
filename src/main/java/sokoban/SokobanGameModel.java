@@ -65,7 +65,13 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         } else tileStack.push(nextLocation);
     }
 
-    // TODO Rasmus du får fixa.
+    /**
+     * Moves the character to the given direction and sets the tile that the player was
+     * just located at to its original tile.
+     * @param direction The direction where the player wants to move.
+     * @param Y Direction in Y axis, so which row player are trying to move to.
+     * @param X Direction in X axis, so which column the crate is trying to move to.
+     */
     private void moveCharacterDirection(Directions direction, int Y, int X){
         if (isValidMove(Y,X)) {
             lastEvent = MOVED_PLAYER;
@@ -81,7 +87,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
 
     /**
      * Locates where the player is, then tries to move the player in the given direction.
-     * @param direction the direction where the player wants to move.
+     * @param direction The direction where the player wants to move.
      */
     public void moveCharacter(Directions direction){
         lastEvent = TRIED_TO_MOVE;
@@ -99,7 +105,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
 
     /**
      * Moves the crate in the given direction by calling the method {@link #crateMover(int, int)} crateMover}.
-     * @param direction the direction where the crate is supposed to move.
+     * @param direction The direction where the crate is supposed to move.
      */
     private void moveCrate(Directions direction) {
         switch (direction) {
@@ -112,7 +118,12 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
         else lastEvent = MOVED_CRATE;
     }
 
-    // TODO Rasmus du får fixa
+    /**
+     * Determines what action to perform on the moved crate. For example changing the crate
+     * into a filled crate if it was pushed onto a dot.
+     * @param Y Direction in Y axis, so which row the crate is trying to move to.
+     * @param X Direction in X axis, so which column the crate is trying to move to.
+     */
     private void crateMover(int Y, int X){
 
         int crateNextLocation = getTileState(playerLocationY + Y + Y, playerLocationX + X + X);
@@ -210,7 +221,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
     }
 
     /**
-     * TODO rasmus du får fixa
+     * Used to store the tile that the player is currently standing on.
      */
     private Stack<Integer> tileStack;
     /**
@@ -222,7 +233,7 @@ public class SokobanGameModel extends TileGameModel implements Serializable {
      */
     private int currentLevel;
     /**
-     *  TODO rasmus du får fixa
+     *  Used to keep track if the latest move was a crate that was pushed to a dot.
      */
     private boolean filledCratePush;
     /**
