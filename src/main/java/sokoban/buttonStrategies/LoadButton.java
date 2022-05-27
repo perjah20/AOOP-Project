@@ -36,23 +36,4 @@ public class LoadButton implements ButtonStrategy<SokobanGameModel> {
             c.printStackTrace();
         }
     }
-/*
-    private void printInfo(SokobanGameModel sokobanGameModel) {
-        System.out.println(sokobanGameModel.getLastEvent());
-        //System.out.println(sokobanGameModel.getGameState());
-        System.out.println(sokobanGameModel.getColumns());
-        System.out.println(sokobanGameModel.getRows());
-        int[][] save = sokobanGameModel.getSave(sokobanGameModel);
-        System.out.println(save.length);
-        System.out.println(save[0].length);
-        for (int[] row :save) {
-            StringBuilder string = new StringBuilder("[");
-            for (int column :row) {
-                string.append(column).append(",");
-            }
-            System.out.println(string+"]");
-        }
-        System.out.println();
-    }
-    */
 }
